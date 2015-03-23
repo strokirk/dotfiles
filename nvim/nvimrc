@@ -1,0 +1,246 @@
+"SETTINGS:
+"MAPPINGS AND COMMANDS:
+"VimPlugins:
+
+" =================
+" "Notes about vim"
+" =================
+" run :options to see a complete (?) list of vim plugins
+"
+" TODO: Put notes and information in it's own, proper section / document.
+" TODO: Do something about swp files, they are a nuisance.
+" TODO: Remove the bell. can be done with set vb t_vb=
+
+" =========== "
+" S:SETTINGS: "
+" =========== "
+" {{{1
+" General
+filetype plugin on
+syntax enable       " Syntax highlighting is enabled (and overrideable)
+set autoread
+set nobackup        " Honestly, local file backup is not so hot...
+set noswapfile
+set mouse=a
+set history=1000
+
+"" EDITING
+set autoindent      " Keep indent from previous line
+set autoread        " Set to auto read from file when it is changed
+set backspace=indent,eol,start     " Enable backspacing over everything in insert mode
+set expandtab       " Make spaces not tabs! Tabs runs you out!
+set fo+=j           " Formatoptions: Combine comment lines intelligently with J
+set hidden
+set path+=**        " Improves the :find experience A LOT
+set smartindent
+set smarttab
+set sw=4 tabstop=4  " Python development teaches you that 4 = good for indention
+set wildmenu        " This is really funky
+set wildignore=*.pyc
+
+"" VISUAL
+" set rnu           " Relative line numbers, only in vim 7.3+
+set cpoptions+=n    " The "number" column used for wrapped text
+set laststatus=2    " Always enable the statusline
+set linebreak       " Wrap intelligently
+set listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮,nbsp:×,eol:¬
+set number          " Turn on line number
+set ruler           " Shows line & column number (not really necessary with my statusline)
+set scrolloff=5     " Always keep 7 lines above and below cursor
+set showcmd         " Shows the half-finished command when typed
+set showmatch       " Show matching brackets when cursor is over one of them
+set statusline=[%F]%h%r%m\ Buf-%n%=%c,%l/%L\ [%p%%]
+au Filetype qf setlocal nowrap " Quicklist shouldn't wrap by default
+
+"" SEARCH
+set hlsearch        " Highlight makes things easier
+set ignorecase
+set incsearch       " Incremental search is a necessity
+set smartcase
+
+"" GUI
+set background=dark
+silent! colorscheme desert
+if has("gui")
+    set vb t_vb=
+    set guifont=Droid\ Sans\ Mono\ 10,Meslo\ LG\ S:h9,Inconsolata:h11,Consolas:h9
+    set guifontwide=MS\ Gothic:h9
+    set guioptions-=L   " Remove left and right scrollbar from vertically split
+    set guioptions-=R   " windows. Those can cause problems on a docked gvim window
+endif
+
+" ======================== "
+" S:MAPPINGS AND COMMANDS: "
+" ======================== "
+"{{{1
+
+" Repeat 'default' mapping (Essential, instead of Enter Ex mode)
+nmap Q @q
+" Natural up/down movement over long lines
+nnoremap j gj
+nnoremap k gk
+" Save with C-s
+nnoremap <C-s> :update<CR>
+" Redraw and remove highlight
+nnoremap <silent> <C-l> :nohl<CR><C-l>
+" Quick window resizing (thx kaldrenon!)
+nnoremap ++ <C-w>+
+nnoremap -- <C-w>-
+" Follow tags more comfortably
+nnoremap go <C-]>
+" Select line characterwise (without whitespace)
+nnoremap vv ^vg_
+
+" Yank entire line / to end of line, without EOL
+nnoremap gy ^v$hy
+nnoremap Y yg_:echo "Yanked: ".@"<cr>
+
+" * and # for selected text, trying to keep the search literal (in case of
+" filenames, for example.)
+vnoremap * "ly/\V<c-r>=escape(@l, '/\')<cr><cr>
+vnoremap # "ly?\V<c-r>=escape(@l, '?\')<cr><cr>
+
+" Utilize Swedish Characters:
+let mapleader = 'å'
+nmap ö [
+nmap ä ]
+nmap öö [[
+nmap ää ]]
+
+" More Bracket Navigation: extend ], [
+nnoremap [q :cprev<cr>
+nnoremap ]q :cnext<cr>
+nnoremap [a :prev<cr>
+nnoremap ]a :next<cr>
+nnoremap [b :bprev<cr>
+nnoremap ]b :bnext<cr>
+nnoremap [t :tnext<cr>
+nnoremap ]t :tprev<cr>
+nnoremap <leader>d :bp \| bd #<cr>
+
+" Follow tags in help files with <Enter>
+nmap <F1> <esc>
+autocmd Filetype help nnoremap <buffer> <cr> <C-]>
+
+" Quicksave on F8
+nnoremap <F8> :update<cr>
+" Toggle Wrap on F12
+nnoremap <F12> :set wrap!<cr>
+" Execute file on F5 (in various ways)
+autocmd Filetype vim nnoremap <buffer> <F5> :source %<cr>
+autocmd Filetype python nnoremap <buffer> <F5> :!python %<CR>
+autocmd Filetype python nnoremap <buffer> <S-F5> :!python %
+
+
+" Easier System Clipboard Interaction:
+xnoremap <C-c> "*y
+xnoremap gy "*y
+noremap gy "*y
+noremap ,y "*y
+noremap ,p "*p
+noremap ,P "*P
+
+inoremap jj <Esc>
+" inoremap <Tab> <Esc>
+" nnoremap <Tab> <Esc>
+
+"" Text Replacement with <Ctrl-r>
+" By pressing <ctrl-r> in visual mode you will be prompted to enter text to replace with.
+" Press enter and then confirm each change you agree with 'y' or decline with 'n'.
+vnoremap <C-r> "ly:%s/<C-r>l//gc<left><left><left>
+
+" s:Commands:
+" Quick vimrc editing
+command! Vimrc tab drop $MYVIMRC
+" Change current working directory to the current file's directory
+command! WorkHere cd %:h
+" Trim all whitespace from end of lines
+command! Trim keepjump keeppattern %s/\s\+$//e
+autocmd BufWritePre * Trim
+
+" Frequent mispellings
+command! W w
+command! Wqall wqall
+command! WQall wqall
+command! Q q
+command! Qall qall
+
+" =========== "
+" VimPlugins: "
+" =========== "
+" {{{1
+
+call plug#begin('~/.nvim/plugged')
+" Essential
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-surround'
+" Good
+Plug 'airblade/vim-gitgutter'
+Plug 'mattn/emmet-vim'
+Plug 'rking/ag.vim'
+Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-fugitive'
+" New
+Plug 'tpope/vim-repeat'
+Plug 'Raimondi/delimitMate'
+Plug 'junegunn/seoul256.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'pangloss/vim-javascript',  { 'for': 'javascript' }
+Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'     }
+Plug 'plasticboy/vim-markdown',  { 'for': 'markdown'   }
+Plug 'wting/rust.vim',           { 'for': 'rust'       }
+" Plug 'majutsushi/tagbar'
+" Plug 'xolox/vim-easytags'
+" Plug 'fmoralesc/vim-pad'
+call plug#end()
+
+" s:Plugin Maps And Commands:
+nnoremap [g :GitGutterPrevHunk<cr>
+nnoremap ]g :GitGutterNextHunk<cr>
+nnoremap <F3> :SyntasticToggle<CR>
+nnoremap <F4> :NERDTreeToggle<CR>
+nnoremap <c-t> :NERDTreeToggle<cr>
+nnoremap g<c-t> :NERDTreeFind<cr>
+com! NTF NERDTreeFind
+cabbrev ntf NTF
+
+let NERDTreeIgnore=['\.pyc$']
+let g:syntastic_python_checkers=['pylint', 'pep8']
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+
+" ReallyGood VimPlugins:
+" + Pathogen - good old, trusty plugin manager by tpope
+" + NERDTree
+" + Surround.vim - should almost be included in default vim
+" Ctrlp - :find with fuzzy search
+" Emmet - Html expansion
+" agvim - nice source code searching
+" fugitive - for gblame
+" gitgutter - for tracking git changes while your code
+" vim-jedi - python autocompletion
+" Other:
+" Solarized - a colorscheme
+" snipmate, coffee.vim, airline, Tabularize
+
+" --2014-03-20: Installerade vim på Sachiel. Mycket trixande med att få
+"  Pathogen att fungera. Redigerade $HOME/_vimrc och vimrc i $VIM.
+
+"--Older notes
+" i_CTRL-A     " Insert previous insertion text.
+" i_^t, i_^d   " Insert or remove a shift-width
+" TagJumping: :po[p], :ta[g], :tags, <Ctrl-t>
+" Registers: :reg. Lists the information in all register
+" "0-9 contains the text from the current, last etc. unnamed register
+" "" and "0 is therefore the same
+" ctrl-6, :e #      Edit the "alternate file".
+" m[A-Z], dvs markera och en stor bokstav, gör hopp mellan filer, så man kan sätta bokmärken till andra filer, tex 'V för vimrc, 'T för todo, 'F för nuvarande arbetande fil osv osv
+"
+
+" OverMappings:
+" go
+" <c-l>
