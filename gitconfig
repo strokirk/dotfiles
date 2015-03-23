@@ -1,0 +1,29 @@
+[user]
+	email = dan.strokirk@gmail.com
+	name = Dan Strokirk
+[core]
+    editor = vim
+    pager = less -F -X
+[alias]
+    s = status
+    d = diff
+    ds = diff --staged
+    ap = add --patch
+    co = checkout
+    cp = checkout --patch
+    up = reset HEAD --patch
+
+    unstage = reset HEAD
+    aliases = "!git config --list | grep '^alias' | sort | sed 's/^alias.//'"
+    tags = tag -l
+    branch-name = rev-parse --abbrev-ref HEAD
+    changed = diff --name-only
+
+    pwd = status -sb
+    sha = log -1 --format='%H'
+    lgb = log master..HEAD
+    lgg = log --graph --pretty=oneline --abbrev-commit
+    ll = log --pretty=format:\"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]\" --decorate --numstat
+    lol = log --oneline --graph --decorate --all
+    lp = log --patch-with-stat
+    ls = log --pretty=format:\"%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn]\" --decorate
