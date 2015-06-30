@@ -1,16 +1,4 @@
-" SETTINGS:
-" MAPPINGS AND COMMANDS:
-" PLUGINS:
-
-" ===============
-" "General notes"
-" ===============
-" run :options to see a complete (?) list of vim plugins
-"
-" TODO: Put notes and information in it's own, proper section / document.
-" TODO: Do something about swp files, they are a nuisance.
-" TODO: Remove the bell. can be done with set vb t_vb=
-
+" vim: foldmethod=marker
 " =========== "
 " S:SETTINGS: "
 " =========== "
@@ -80,12 +68,12 @@ if has("gui")
     set guioptions-=R   " windows. Those can cause problems on a docked gvim window
 endif
 
-"" BACKUP
+" }}}
 
 " ======================== "
 " S:MAPPINGS AND COMMANDS: "
 " ======================== "
-"{{{
+" {{{
 
 " Repeat 'default' mapping (Essential, instead of Enter Ex mode)
 nmap Q @q
@@ -178,24 +166,12 @@ command! WQall wqall
 command! Q q
 command! Qall qall
 
-" ========= "
-" S:PLUGINS "
-" ========= "
+" }}}
 
-" ReallyGood VimPlugins:
-" + Pathogen - good old, trusty plugin manager by tpope
-" + NERDTree
-" + Surround.vim - should almost be included in default vim
-" Ctrlp - :find with fuzzy search
-" Emmet - Html expansion
-" agvim - nice source code searching
-" fugitive - for gblame
-" gitgutter - for tracking git changes while your code
-" vim-jedi - python autocompletion
-" Other:
-" Solarized - a colorscheme
-" snipmate, coffee.vim, airline, Tabularize
-
+" ========== "
+" S:PLUGINS: "
+" ========== "
+" {{{
 
 " Tim Pope's Pathogen plugin
 call pathogen#infect()
@@ -225,3 +201,28 @@ function! LoadPluginMappings()
     let g:headlights_use_plugin_menu = 1
     let g:headlights_show_functions = 1
 endfunction
+
+" }}}
+
+" ===============
+" "General notes"
+" ===============
+" run :options to see a complete (?) list of vim plugins
+"
+" TODO: Put notes and information in it's own, proper section / document.
+" TODO: Do something about swp files, they are a nuisance.
+" TODO: Remove the bell. can be done with set vb t_vb=
+
+" ReallyGood VimPlugins:
+" + Pathogen - good old, trusty plugin manager by tpope
+" + NERDTree
+" + Surround.vim - should almost be included in default vim
+" Ctrlp - :find with fuzzy search
+" Emmet - Html expansion
+" agvim - nice source code searching
+" fugitive - for gblame
+" gitgutter - for tracking git changes while your code
+" vim-jedi - python autocompletion
+" Other:
+" Solarized - a colorscheme
+" snipmate, coffee.vim, airline, Tabularize
