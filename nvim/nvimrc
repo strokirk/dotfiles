@@ -178,6 +178,7 @@ Plug 'tpope/vim-surround'
 Plug 'airblade/vim-gitgutter'
 Plug 'mattn/emmet-vim'
 Plug 'rking/ag.vim'
+Plug 'benekastah/neomake'
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
 " New
