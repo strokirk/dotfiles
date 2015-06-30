@@ -182,6 +182,7 @@ Plug 'pangloss/vim-javascript',  { 'for': 'javascript' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'     }
 Plug 'plasticboy/vim-markdown',  { 'for': 'markdown'   }
 Plug 'wting/rust.vim',           { 'for': 'rust'       }
+Plug 'vim-scripts/fountain.vim', { 'for': 'fountain'   }
 " Visual
 Plug 'junegunn/seoul256.vim'
 call plug#end()
@@ -189,7 +190,6 @@ call plug#end()
 " s:Plugin Maps And Commands:
 nnoremap [g :GitGutterPrevHunk<cr>
 nnoremap ]g :GitGutterNextHunk<cr>
-nnoremap <F3> :SyntasticToggle<CR>
 nnoremap <F4> :NERDTreeToggle<CR>
 nnoremap <c-t> :NERDTreeToggle<cr>
 nnoremap g<c-t> :NERDTreeFind<cr>
@@ -197,13 +197,11 @@ com! NTF NERDTreeFind
 cabbrev ntf NTF
 
 let NERDTreeIgnore=['\.pyc$']
-let g:syntastic_python_checkers=['pylint', 'pep8']
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 
+" Fountain (plugin)
+au BufEnter *.fountain setf fountain
 
 " }}}
 
