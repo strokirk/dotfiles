@@ -40,7 +40,7 @@ setopt interactivecomments
 # Environment (some by oh-my-zsh)
 #
 export LANG='en_US.UTF-8'
-export EDITOR='vim'
+export EDITOR='nvim'
 
 #
 # Aliases (some by Oh-my-zsh)
@@ -57,16 +57,20 @@ alias ll='ls -alF --time-style=long-iso'
 alias help="run-help" # help is called run-help in zsh
 alias svim="sudo vim"
 alias v="vim"
-alias rc="vim ~/.zshrc"
+alias rc='$EDITOR ~/.zshrc'
 
-alias gap="git ap"
+alias gap="git add --patch"
+alias gc="git checkout"
+alias gd="git diff"
+alias gds="git diff --staged"
 alias gec="git ec"
 alias gs="git status"
-alias gc="git checkout"
+alias gcm="git commit -m"
+alias gp="git pull"
 
 # Utilize some Swedish characters for a more comfortable shell
 bindkey -s ¨ /
 bindkey -s £ '$()'
 
-# FZFa by junegunn
+# FZF by junegunn
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
