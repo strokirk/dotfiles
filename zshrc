@@ -61,12 +61,15 @@ alias rc='$EDITOR ~/.zshrc'
 
 alias gap="git add --patch"
 alias gc="git checkout"
+alias gcm="git commit -m"
+alias gcp="git checkout --patch"
 alias gd="git diff"
 alias gds="git diff --staged"
 alias gec="git ec"
-alias gs="git status"
-alias gcm="git commit -m"
 alias gp="git pull"
+alias gs="git status"
+alias gup="git reset --patch HEAD"
+alias gw="git show"
 
 # Utilize some Swedish characters for a more comfortable shell
 bindkey -s ¨ /
