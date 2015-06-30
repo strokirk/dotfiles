@@ -1,15 +1,4 @@
-"SETTINGS:
-"MAPPINGS AND COMMANDS:
-"VimPlugins:
-
-" =================
-" "Notes about vim"
-" =================
-" run :options to see a complete (?) list of vim plugins
-"
-" TODO: Put notes and information in it's own, proper section / document.
-" TODO: Do something about swp files, they are a nuisance.
-" TODO: Remove the bell. can be done with set vb t_vb=
+" vim: foldmethod=marker
 
 " =========== "
 " S:SETTINGS: "
@@ -68,11 +57,12 @@ if has("gui")
     set guioptions-=L   " Remove left and right scrollbar from vertically split
     set guioptions-=R   " windows. Those can cause problems on a docked gvim window
 endif
+" }}}
 
 " ======================== "
 " S:MAPPINGS AND COMMANDS: "
 " ======================== "
-"{{{1
+" {{{1
 
 " Repeat 'default' mapping (Essential, instead of Enter Ex mode)
 nmap Q @q
@@ -164,6 +154,7 @@ command! Wqall wqall
 command! WQall wqall
 command! Q q
 command! Qall qall
+" }}}
 
 " =========== "
 " VimPlugins: "
@@ -216,6 +207,17 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 
+" }}}
+
+" =================
+" "Notes about vim"
+" =================
+" {{{1
+" run :options to see a complete (?) list of vim options
+"
+" TODO: Put notes and information in it's own, proper section / document.
+" TODO: Do something about swp files, they are a nuisance.
+" TODO: Remove the bell. can be done with set vb t_vb=
 " ReallyGood VimPlugins:
 " + Pathogen - good old, trusty plugin manager by tpope
 " + NERDTree
@@ -247,3 +249,4 @@ set statusline+=%*
 " OverMappings:
 " go
 " <c-l>
+" }}}
