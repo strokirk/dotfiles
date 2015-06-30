@@ -181,11 +181,13 @@ Plug 'rking/ag.vim'
 Plug 'benekastah/neomake'
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
-" New
 Plug 'tpope/vim-repeat'
+Plug 'majutsushi/tagbar'
+" New
 Plug 'Raimondi/delimitMate'
 Plug 'junegunn/seoul256.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+" Syntax
 Plug 'pangloss/vim-javascript',  { 'for': 'javascript' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'     }
 Plug 'plasticboy/vim-markdown',  { 'for': 'markdown'   }
