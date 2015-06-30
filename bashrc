@@ -1,3 +1,5 @@
+# vim: foldmethod=marker
+# DEFAULT OPTIONS {{{
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -98,15 +100,20 @@ fi
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+     . /etc/bash_completion
+  fi
 fi
+# }}}
 
-## MINA INSTÄLLNINGAR
-# Allt ovan kommer från KTH.
+## MINA INSTÄLLNINGAR {{{
+# Allt ovan är automatiskt
 alias big="du --exclude=.OldFiles -c --max-depth=2 | sort -n"
 
-# Accidental overwrites are scary 
+# Accidental overwrites are scary
 alias rm="rm -i"
 alias cp="cp -i"
 alias mv="mv -i"
@@ -125,5 +132,8 @@ TOP="\[\e]2;[\u] \W\a\]"
 export PS1="${TOP}${RED}\u@\h \w:$ ${NC}"
 
 # A notetaking function.
-note () { echo -e "$1\n" >> ~/notes.txt; } 
+note () { echo -e "$1\n" >> ~/notes.txt; }
 rm -f ~/.config/google-chrome/Singleton*
+# }}}
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
