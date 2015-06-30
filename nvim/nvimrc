@@ -40,7 +40,7 @@ set wildignore=*.pyc
 
 "" VISUAL
 " set rnu           " Relative line numbers, only in vim 7.3+
-set cpoptions+=n    " The "number" column used for wrapped text
+set cpoptions-=n    " The "number" column should not be used for wrapping text
 set laststatus=2    " Always enable the statusline
 set linebreak       " Wrap intelligently
 set listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮,nbsp:×,eol:¬
