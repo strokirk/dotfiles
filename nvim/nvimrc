@@ -176,16 +176,14 @@ Plug 'tpope/vim-repeat'
 Plug 'majutsushi/tagbar'
 " New
 Plug 'Raimondi/delimitMate'
-Plug 'junegunn/seoul256.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 " Syntax
 Plug 'pangloss/vim-javascript',  { 'for': 'javascript' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'     }
 Plug 'plasticboy/vim-markdown',  { 'for': 'markdown'   }
 Plug 'wting/rust.vim',           { 'for': 'rust'       }
-" Plug 'majutsushi/tagbar'
-" Plug 'xolox/vim-easytags'
-" Plug 'fmoralesc/vim-pad'
+" Visual
+Plug 'junegunn/seoul256.vim'
 call plug#end()
 
 " s:Plugin Maps And Commands:
