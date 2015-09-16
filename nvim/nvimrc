@@ -166,13 +166,12 @@ call plug#begin('~/.nvim/plugged')
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
 " Good
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
 Plug 'airblade/vim-gitgutter'
 Plug 'mattn/emmet-vim'
 Plug 'rking/ag.vim'
 Plug 'benekastah/neomake'
-Plug 'scrooloose/syntastic'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-repeat'
 Plug 'majutsushi/tagbar'
 " New
 Plug 'Raimondi/delimitMate'
@@ -190,11 +189,8 @@ call plug#end()
 " s:Plugin Maps And Commands:
 nnoremap [g :GitGutterPrevHunk<cr>
 nnoremap ]g :GitGutterNextHunk<cr>
-nnoremap <F4> :NERDTreeToggle<CR>
+nnoremap <F3> :NERDTreeFind<CR>
 nnoremap <c-t> :NERDTreeToggle<cr>
-nnoremap g<c-t> :NERDTreeFind<cr>
-com! NTF NERDTreeFind
-cabbrev ntf NTF
 
 let NERDTreeIgnore=['\.pyc$']
 let g:user_emmet_install_global = 0
