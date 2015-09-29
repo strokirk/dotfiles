@@ -1,9 +1,6 @@
 " vim: foldmethod=marker
 
-" =========== "
-" S:SETTINGS: "
-" =========== "
-" {{{1
+" S:SETTINGS: " {{{1
 " General
 filetype plugin on
 syntax enable       " Syntax highlighting is enabled (and overrideable)
@@ -59,10 +56,7 @@ if has("gui")
 endif
 " }}}
 
-" ======================== "
-" S:MAPPINGS AND COMMANDS: "
-" ======================== "
-" {{{1
+" S:MAPPINGS AND COMMANDS: " {{{1
 
 " Repeat 'default' mapping (Essential, instead of Enter Ex mode)
 nmap Q @q
@@ -156,10 +150,7 @@ command! Q q
 command! Qall qall
 " }}}
 
-" =========== "
-" VimPlugins: "
-" =========== "
-" {{{1
+" VimPlugins: " {{{1
 
 call plug#begin('~/.nvim/plugged')
 " Essential
@@ -199,46 +190,5 @@ autocmd FileType html,css EmmetInstall
 " Fountain (plugin)
 au BufEnter *.fountain setf fountain
 
-" }}}
 
-" =================
-" "Notes about vim"
-" =================
-" {{{1
-" run :options to see a complete (?) list of vim options
-"
-" TODO: Put notes and information in it's own, proper section / document.
-" TODO: Do something about swp files, they are a nuisance.
-" TODO: Remove the bell. can be done with set vb t_vb=
-" ReallyGood VimPlugins:
-" + Pathogen - good old, trusty plugin manager by tpope
-" + NERDTree
-" + Surround.vim - should almost be included in default vim
-" Ctrlp - :find with fuzzy search
-" Emmet - Html expansion
-" agvim - nice source code searching
-" fugitive - for gblame
-" gitgutter - for tracking git changes while your code
-" vim-jedi - python autocompletion
-" Other:
-" Solarized - a colorscheme
-" snipmate, coffee.vim, airline, Tabularize
-
-" --2014-03-20: Installerade vim på Sachiel. Mycket trixande med att få
-"  Pathogen att fungera. Redigerade $HOME/_vimrc och vimrc i $VIM.
-
-"--Older notes
-" i_CTRL-A     " Insert previous insertion text.
-" i_^t, i_^d   " Insert or remove a shift-width
-" TagJumping: :po[p], :ta[g], :tags, <Ctrl-t>
-" Registers: :reg. Lists the information in all register
-" "0-9 contains the text from the current, last etc. unnamed register
-" "" and "0 is therefore the same
-" ctrl-6, :e #      Edit the "alternate file".
-" m[A-Z], dvs markera och en stor bokstav, gör hopp mellan filer, så man kan sätta bokmärken till andra filer, tex 'V för vimrc, 'T för todo, 'F för nuvarande arbetande fil osv osv
-"
-
-" OverMappings:
-" go
-" <c-l>
 " }}}
