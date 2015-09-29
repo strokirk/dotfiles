@@ -1,5 +1,3 @@
-" vim: foldmethod=marker
-
 " S:SETTINGS: " {{{1
 " General
 filetype plugin on
@@ -25,7 +23,7 @@ set wildmenu        " This is really funky
 set wildignore=*.pyc
 
 "" VISUAL
-" set rnu           " Relative line numbers, only in vim 7.3+
+" set rnu           " Relative line numbers
 set cpoptions-=n    " The "number" column should not be used for wrapping text
 set laststatus=2    " Always enable the statusline
 set linebreak       " Wrap intelligently
@@ -76,8 +74,7 @@ nnoremap go <C-]>
 nnoremap vv ^vg_
 
 " Yank entire line / to end of line, without EOL
-nnoremap gy ^v$hy
-nnoremap Y yg_:echo "Yanked: ".@"<cr>
+nnoremap Y y$
 
 " * and # for selected text, trying to keep the search literal (in case of
 " filenames, for example.)
@@ -108,8 +105,9 @@ autocmd Filetype help nnoremap <buffer> <cr> <C-]>
 
 " Quicksave on F8
 nnoremap <F8> :update<cr>
-" Toggle Wrap on F12
+" Toggle Wrap and List with F12
 nnoremap <F12> :set wrap!<cr>
+nnoremap <S-F12> :set list!<cr>
 " Execute file on F5 (in various ways)
 autocmd Filetype vim nnoremap <buffer> <F5> :source %<cr>
 autocmd Filetype python nnoremap <buffer> <F5> :!python %<CR>
@@ -124,9 +122,13 @@ noremap ,y "*y
 noremap ,p "*p
 noremap ,P "*P
 
-inoremap jj <Esc>
-" inoremap <Tab> <Esc>
-" nnoremap <Tab> <Esc>
+" Make search more accessible
+nnoremap s /
+" Break insert undo-chain before deleting whole line
+inoremap <C-U> <C-G>u<C-U>
+" Keep flags when repeating last substitute command.
+nnoremap & :&&<CR>
+xnoremap & :&&<CR>
 
 "" Text Replacement with <Ctrl-r>
 " By pressing <ctrl-r> in visual mode you will be prompted to enter text to replace with.
@@ -173,13 +175,18 @@ Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'     }
 Plug 'plasticboy/vim-markdown',  { 'for': 'markdown'   }
 Plug 'wting/rust.vim',           { 'for': 'rust'       }
 Plug 'vim-scripts/fountain.vim', { 'for': 'fountain'   }
+Plug 'https://github.com/tpope/vim-git'
 " Visual
 Plug 'junegunn/seoul256.vim'
 call plug#end()
 
+colorscheme desert
+
 " s:Plugin Maps And Commands:
 nnoremap [g :GitGutterPrevHunk<cr>
 nnoremap ]g :GitGutterNextHunk<cr>
+
+" Nerdtree (plugin)
 nnoremap <F3> :NERDTreeFind<CR>
 nnoremap <c-t> :NERDTreeToggle<cr>
 
@@ -192,3 +199,4 @@ au BufEnter *.fountain setf fountain
 
 
 " }}}
+" vim: foldmethod=marker
