@@ -122,6 +122,10 @@ noremap ,y "*y
 noremap ,p "*p
 noremap ,P "*P
 
+" Nice default-paste shortcut: þ (AltGr-p)
+noremap  þ "0p
+inoremap þ "0p
+
 " Make search more accessible
 nnoremap s /
 " Break insert undo-chain before deleting whole line
