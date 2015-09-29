@@ -168,7 +168,11 @@ Plug 'benekastah/neomake'
 Plug 'majutsushi/tagbar'
 " New
 Plug 'Raimondi/delimitMate'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf.vim'
+Plug 'fmoralesc/vim-pad'
 " Syntax
 Plug 'pangloss/vim-javascript',  { 'for': 'javascript' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'     }
