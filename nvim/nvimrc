@@ -27,6 +27,7 @@ set wildignore=*.pyc
 set cpoptions-=n    " The "number" column should not be used for wrapping text
 set laststatus=2    " Always enable the statusline
 set linebreak       " Wrap intelligently
+" Some slightly more interesting listchars
 set listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮,nbsp:×,eol:¬
 set number          " Turn on line number
 set ruler           " Shows line & column number (not really necessary with my statusline)
@@ -123,8 +124,10 @@ noremap ,p "*p
 noremap ,P "*P
 
 " Nice default-paste shortcut: þ (AltGr-p)
-noremap  þ "0p
-inoremap þ "0p
+nnoremap þ "0p
+xnoremap þ "0p
+cnoremap þ <c-r>0
+inoremap þ <c-r>0
 
 " Make search more accessible
 nnoremap s /
@@ -159,6 +162,7 @@ command! Qall qall
 " VimPlugins: " {{{1
 
 call plug#begin('~/.nvim/plugged')
+" Plug 'xolox/vim-easytags'
 " Essential
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
@@ -185,7 +189,10 @@ Plug 'wting/rust.vim',           { 'for': 'rust'       }
 Plug 'vim-scripts/fountain.vim', { 'for': 'fountain'   }
 Plug 'https://github.com/tpope/vim-git'
 " Visual
-Plug 'junegunn/seoul256.vim'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-colorscheme-switcher'
+Plug 'tomasr/molokai'
+
 call plug#end()
 
 colorscheme desert
@@ -205,6 +212,8 @@ autocmd FileType html,css EmmetInstall
 " Fountain (plugin)
 au BufEnter *.fountain setf fountain
 
+let g:colorscheme_switcher_define_mappings = 0
+nnoremap <silent> <F2> :NextColorScheme<CR>
 
 " }}}
 " vim: foldmethod=marker
