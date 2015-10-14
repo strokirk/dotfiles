@@ -12,6 +12,7 @@
     co = checkout
     cp = checkout --patch
     up = reset HEAD --patch
+    cc = commit -v
 
     unstage = reset HEAD
     aliases = "!git config --list | grep '^alias' | sort | sed 's/^alias.//'"
