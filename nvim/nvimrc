@@ -54,7 +54,6 @@ if has("gui")
     set guioptions-=R   " windows. Those can cause problems on a docked gvim window
 endif
 " }}}
-
 " S:MAPPINGS AND COMMANDS: " {{{1
 
 " Repeat 'default' mapping (Essential, instead of Enter Ex mode)
@@ -114,7 +113,6 @@ autocmd Filetype vim nnoremap <buffer> <F5> :source %<cr>
 autocmd Filetype python nnoremap <buffer> <F5> :!python %<CR>
 autocmd Filetype python nnoremap <buffer> <S-F5> :!python %
 
-
 " Easier System Clipboard Interaction:
 xnoremap <C-c> "*y
 xnoremap gy "*y
@@ -158,9 +156,8 @@ command! WQall wqall
 command! Q q
 command! Qall qall
 " }}}
-
-" VimPlugins: " {{{1
-
+"
+" s:Vim Plugins: " {{{1
 call plug#begin('~/.nvim/plugged')
 " Plug 'xolox/vim-easytags'
 " Essential
@@ -181,6 +178,7 @@ Plug 'honza/vim-snippets'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
 Plug 'fmoralesc/vim-pad'
+Plug 'tpop/vim-commentary'
 " Syntax
 Plug 'pangloss/vim-javascript',  { 'for': 'javascript' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'     }
