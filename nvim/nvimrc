@@ -178,7 +178,7 @@ Plug 'honza/vim-snippets'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
 Plug 'fmoralesc/vim-pad'
-Plug 'tpop/vim-commentary'
+Plug 'tpope/vim-commentary'
 " Syntax
 Plug 'pangloss/vim-javascript',  { 'for': 'javascript' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'     }
@@ -190,6 +190,7 @@ Plug 'https://github.com/tpope/vim-git'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-colorscheme-switcher'
 Plug 'tomasr/molokai'
+Plug 'bling/vim-airline'
 
 call plug#end()
 
