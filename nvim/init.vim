@@ -171,14 +171,15 @@ Plug 'mattn/emmet-vim'
 Plug 'rking/ag.vim'
 Plug 'benekastah/neomake'
 Plug 'majutsushi/tagbar'
+Plug 'SirVer/ultisnips'
+Plug 'tpope/vim-commentary'
+Plug 'fmoralesc/vim-pad'
 " New
 Plug 'Raimondi/delimitMate'
-Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
-Plug 'fmoralesc/vim-pad'
-Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-characterize'
 " Syntax
 Plug 'pangloss/vim-javascript',  { 'for': 'javascript' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'     }
