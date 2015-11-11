@@ -1,3 +1,5 @@
+[advice]
+    statusHints = false # Slightly less verbose status output
 [user]
 	email = dan.strokirk@gmail.com
 	name = Dan Strokirk
@@ -13,6 +15,7 @@
     cp = checkout --patch
     up = reset HEAD --patch
     cc = commit -v
+    cm = commit -v -m
 
     unstage = reset HEAD
     aliases = "!git config --list | grep '^alias' | sort | sed 's/^alias.//'"
