@@ -159,39 +159,45 @@ command! Qall qall
 "
 " s:Vim Plugins: " {{{1
 call plug#begin('~/.nvim/plugged')
-" Plug 'xolox/vim-easytags'
-" Essential
+" Essential:
+Plug 'airblade/vim-gitgutter'
+Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
-" Good
+" Excellent:
+Plug 'benekastah/neomake'
+Plug 'davidhalter/jedi-vim'
+Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
-Plug 'airblade/vim-gitgutter'
-Plug 'mattn/emmet-vim'
-Plug 'rking/ag.vim'
-Plug 'benekastah/neomake'
-Plug 'majutsushi/tagbar'
+" Good:
 Plug 'SirVer/ultisnips'
-Plug 'tpope/vim-commentary'
 Plug 'fmoralesc/vim-pad'
-" New
+Plug 'majutsushi/tagbar'
+Plug 'tpope/vim-commentary'
+" New Or Evaluating:
+Plug 'AndrewRadev/sideways.vim'
+Plug 'FooSoft/vim-argwrap'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'PeterRincker/vim-argumentative'
 Plug 'Raimondi/delimitMate'
 Plug 'honza/vim-snippets'
+Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-characterize'
-" Syntax
+" Syntax:
 Plug 'pangloss/vim-javascript',  { 'for': 'javascript' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'     }
 Plug 'plasticboy/vim-markdown',  { 'for': 'markdown'   }
 Plug 'wting/rust.vim',           { 'for': 'rust'       }
 Plug 'vim-scripts/fountain.vim', { 'for': 'fountain'   }
-Plug 'https://github.com/tpope/vim-git'
-" Visual
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-colorscheme-switcher'
-Plug 'tomasr/molokai'
+Plug 'tpope/vim-git'
+" Visual:
 Plug 'bling/vim-airline'
+Plug 'tomasr/molokai'
+Plug 'xolox/vim-colorscheme-switcher'
+Plug 'xolox/vim-misc'
 
 call plug#end()
 
