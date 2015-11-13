@@ -171,18 +171,18 @@ Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 " Good:
+Plug 'PeterRincker/vim-argumentative'
 Plug 'SirVer/ultisnips'
 Plug 'fmoralesc/vim-pad'
+Plug 'jiangmiao/auto-pairs'
 Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-commentary'
 " New Or Evaluating:
 Plug 'AndrewRadev/sideways.vim'
 Plug 'FooSoft/vim-argwrap'
 Plug 'Lokaltog/vim-easymotion'
-Plug 'PeterRincker/vim-argumentative'
 Plug 'Raimondi/delimitMate'
 Plug 'honza/vim-snippets'
-Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-characterize'
@@ -196,6 +196,7 @@ Plug 'tpope/vim-git'
 " Visual:
 Plug 'bling/vim-airline'
 Plug 'tomasr/molokai'
+Plug 'tmhedberg/SimpylFold'
 Plug 'xolox/vim-colorscheme-switcher'
 Plug 'xolox/vim-misc'
 
