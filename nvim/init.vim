@@ -168,12 +168,14 @@ Plug 'airblade/vim-gitgutter'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
+
 " Excellent:
 Plug 'benekastah/neomake'
 Plug 'davidhalter/jedi-vim'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
+
 " Good:
 Plug 'PeterRincker/vim-argumentative'
 Plug 'SirVer/ultisnips'
@@ -181,6 +183,7 @@ Plug 'fmoralesc/vim-pad'
 Plug 'jiangmiao/auto-pairs'
 Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-commentary'
+
 " New Or Evaluating:
 Plug 'AndrewRadev/sideways.vim'
 Plug 'FooSoft/vim-argwrap'
@@ -191,22 +194,24 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-characterize'
 " Syntax:
-Plug 'pangloss/vim-javascript',  { 'for': 'javascript' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'     }
+Plug 'pangloss/vim-javascript',  { 'for': 'javascript' }
 Plug 'plasticboy/vim-markdown',  { 'for': 'markdown'   }
-Plug 'wting/rust.vim',           { 'for': 'rust'       }
 Plug 'vim-scripts/fountain.vim', { 'for': 'fountain'   }
+Plug 'wting/rust.vim',           { 'for': 'rust'       }
 Plug 'tpope/vim-git'
+Plug 'tmux-plugins/vim-tmux'
+
 " Visual:
 Plug 'bling/vim-airline'
-Plug 'tomasr/molokai'
 Plug 'tmhedberg/SimpylFold'
+Plug 'tomasr/molokai'
 Plug 'xolox/vim-colorscheme-switcher'
 Plug 'xolox/vim-misc'
 
 call plug#end()
 
-colorscheme desert
+colorscheme molokai
 
 " s:Plugin Maps And Commands:
 nnoremap [g :GitGutterPrevHunk<cr>
