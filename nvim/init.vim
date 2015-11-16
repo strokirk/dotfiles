@@ -88,6 +88,10 @@ nmap ä ]
 nmap öö [[
 nmap ää ]]
 
+imap ¨ /
+nmap ¨ /
+cmap ¨ /
+
 " More Bracket Navigation: extend ], [
 nnoremap [q :cprev<cr>
 nnoremap ]q :cnext<cr>
