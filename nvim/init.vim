@@ -190,7 +190,7 @@ Plug 'tpope/vim-repeat'
 
 " Good:
 Plug 'PeterRincker/vim-argumentative'
-Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'fmoralesc/vim-pad'
 Plug 'jiangmiao/auto-pairs'
 Plug 'majutsushi/tagbar'
@@ -201,7 +201,6 @@ Plug 'AndrewRadev/sideways.vim'
 Plug 'FooSoft/vim-argwrap'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'Raimondi/delimitMate'
-Plug 'honza/vim-snippets'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-characterize'
