@@ -63,21 +63,68 @@ alias svim="sudo vim"
 alias v="vim"
 alias rc='$EDITOR ~/.zshrc'
 
-alias gap="git add --patch"
 alias gc="git checkout"
 alias gcm="git commit -m"
-alias gcp="git checkout --patch"
-alias gd="git diff"
-alias gds="git diff --staged"
 alias gec="git ec"
 alias gp="git pull"
+
 alias gs="git status"
-alias gup="git reset --patch HEAD"
 alias gw="git show"
+alias gd="git diff"
+alias gds="git diff --staged"
+
+alias gap="git add --patch"
+alias gcp="git checkout --patch"
+alias gup="git reset --patch HEAD"
+
+alias gb=git-list-branches
+alias gcb=git-change-branch
 
 # Utilize some Swedish characters for a more comfortable shell
 bindkey -s ¨ /
 bindkey -s £ '$()'
+bindkey -s ª '${EDITOR} -q <(!!)'
+
+function git-list-branches() {
+  RED=$(tput setaf 1);
+  RESET=$(tput sgr0);
+  for branch in $(git branch | sed s/^..//); do
+    time_ago=$(git log -1 --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $branch --);
+    # Add a red star to mark branches that are tracking something upstream
+    tracks_upstream=$(if [ "$(git rev-parse $branch@{upstream} 2>/dev/null)" ]; then printf "$RED★$RESET"; fi);
+    printf "%-53s - %-1s %s\n" "$time_ago" "${tracks_upstream:- }" "$branch";
+  done | sort;
+}
+
+function git-change-branch() {
+    git show-ref --quiet --verify -- "refs/heads/$1"
+    if [ $? -eq 0 ]; then
+        git checkout "$1"
+    else
+        git checkout -b "$1"
+    fi
+}
+
+function git-delete-merged() {
+  git branch --merged | sed '/^*\|master/d' | xargs git branch -d 2>/dev/null
+}
+
+# fbr - checkout git branch with tmux
+function fbr() {
+  local branches branch
+  branches=$(git branch -vv) &&
+  branch=$(echo "$branches" | fzf +m) &&
+  git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+}
+
+function manflag() {
+  if [ $# -eq 2 ]; then
+    # sed: delete all lines except lines between the searched flag and next empty line, then delete empty lines
+    man $1 2>/dev/null | sed '/^ *'"$2"'/,/^$/ !d; /^$/d';
+  else
+    echo "Usage: manflag <package> <flag>";
+  fi;
+}
 
 # FZF by junegunn
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
