@@ -209,15 +209,13 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-commentary'
 
-" New Or Evaluating:
-Plug 'AndrewRadev/sideways.vim'
-Plug 'FooSoft/vim-argwrap'
-Plug 'Lokaltog/vim-easymotion'
-Plug 'Raimondi/delimitMate'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-characterize'
+" Visual:
+Plug 'bling/vim-airline'
+Plug 'tmhedberg/SimpylFold'
+Plug 'tomasr/molokai'
+Plug 'xolox/vim-colorscheme-switcher'
+Plug 'xolox/vim-misc'
+
 " Syntax:
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'     }
 Plug 'pangloss/vim-javascript',  { 'for': 'javascript' }
@@ -227,16 +225,17 @@ Plug 'wting/rust.vim',           { 'for': 'rust'       }
 Plug 'tpope/vim-git'
 Plug 'tmux-plugins/vim-tmux'
 
-" Visual:
-Plug 'bling/vim-airline'
-Plug 'tmhedberg/SimpylFold'
-Plug 'tomasr/molokai'
-Plug 'xolox/vim-colorscheme-switcher'
-Plug 'xolox/vim-misc'
+" New Or Evaluating:
+Plug 'AndrewRadev/sideways.vim'
+Plug 'FooSoft/vim-argwrap'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'Raimondi/delimitMate'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-characterize'
 
 call plug#end()
-
-colorscheme molokai
 
 " s:Plugin Maps And Commands:
 nnoremap [g :GitGutterPrevHunk<cr>
