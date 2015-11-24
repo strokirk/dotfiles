@@ -242,9 +242,28 @@ colorscheme molokai
 nnoremap [g :GitGutterPrevHunk<cr>
 nnoremap ]g :GitGutterNextHunk<cr>
 
-" Nerdtree (plugin)
+" Ag (plugin)
+let g:ag_prg="ag --column"
+nnoremap ª :Ag! "\b<c-r>=expand("<cword>")<cr>\b"
+cabbrev ag Ag
+
+" NERDTree (plugin)
+nnoremap <C-T> :NERDTreeToggle<CR>
 nnoremap <F3> :NERDTreeFind<CR>
-nnoremap <c-t> :NERDTreeToggle<cr>
+command! NTF NERDTreeFind
+cabbrev ntf NTF
+let NERDTreeIgnore=['\.cover$', '\.pyc$', '\~$', '__pycache__']
+
+" Fugitive (plugin)
+nnoremap <F4> :Gblame<cr>
+
+" Vim-pad (plugin)
+nnoremap <F9> :Pad ls<cr>
+
+" CtrlP (plugin)
+if executable('ag')
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
 
 let NERDTreeIgnore=['\.pyc$']
 let g:user_emmet_install_global = 0
