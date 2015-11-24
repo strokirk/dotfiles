@@ -86,8 +86,8 @@ nnoremap <silent> <C-l> :nohl<CR><C-l>
 " Follow tags more comfortably
 nnoremap go <C-]>
 
-" Yank entire line / to end of line, without EOL
-nnoremap Y y$
+" Yank entire line / to end of line, without EOL, like D
+nnoremap Y yg_:echo "Yanked: ".@"<cr>
 
 " * and # for selected text, trying to keep the search literal (in case of
 " filenames, for example.)
@@ -255,6 +255,10 @@ au BufEnter *.fountain setf fountain
 
 let g:colorscheme_switcher_define_mappings = 0
 nnoremap <silent> <F2> :NextColorScheme<CR>
+
+" Use desert as default colorscheme, molokai if installed
+silent! colorscheme desert
+silent! colorscheme molokai
 
 " }}}
 " vim: foldmethod=marker
