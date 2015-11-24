@@ -57,21 +57,33 @@ endif
 " S:MAPPINGS AND COMMANDS: " {{{1
 
 " Repeat 'default' mapping (Essential, instead of Enter Ex mode)
-nmap Q @q
-" Natural up/down movement over long lines
-nnoremap j gj
-nnoremap k gk
+nnoremap Q @q
+
+" Quick window resizing. Thanks kaldrenon!
+" Double-tapping feels a bit quicker than a chord.
+nnoremap ++ <C-w>+
+nnoremap -- <C-w>-
+
+" Move down a screen line if the actual line is wrapped.
+noremap j gj
+noremap k gk
+
+" Select line characterwise (without whitespace)
+nnoremap vv ^vg_
+
+" Select the entire file
+nnoremap VF VggoG
+
+" I never use normal _, but g_ is often more useful than $
+nnoremap _ g_
+
 " Save with C-s
 nnoremap <C-s> :update<CR>
 " Redraw and remove highlight
 nnoremap <silent> <C-l> :nohl<CR><C-l>
-" Quick window resizing (thx kaldrenon!)
-nnoremap ++ <C-w>+
-nnoremap -- <C-w>-
+
 " Follow tags more comfortably
 nnoremap go <C-]>
-" Select line characterwise (without whitespace)
-nnoremap vv ^vg_
 
 " Yank entire line / to end of line, without EOL
 nnoremap Y y$
