@@ -23,30 +23,45 @@ set sw=4 tabstop=4  " Python development teaches you that 4 = good for indention
 set wildmenu        " This is really funky
 set wildignore=*.pyc
 
-"" VISUAL
-" set rnu           " Relative line numbers
-set cpoptions-=n    " The "number" column should not be used for wrapping text
-set laststatus=2    " Always enable the statusline
-set linebreak       " Wrap intelligently
-" Some slightly more interesting listchars
-set listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮,nbsp:×,eol:¬
-set number          " Turn on line number
-set ruler           " Shows line & column number (not really necessary with my statusline)
+"" VisualOptions: {{{
+set background=dark
+silent! colorscheme desert
+set laststatus=2    " Always enable statusline
+set number          " Turn n line number
+set ruler           " Shows line & column number
 set scrolloff=5     " Always keep 7 lines above and below cursor
 set showcmd         " Shows the half-finished command when typed
 set showmatch       " Show matching brackets when cursor is over one of them
-set statusline=[%F]%h%r%m\ Buf-%n%=%c,%l/%L\ [%p%%]
-au Filetype qf setlocal nowrap " Quicklist shouldn't wrap by default
+" set rnu           " Relative line numbers
 
-"" SEARCH
-set hlsearch        " Highlight makes things easier
-set ignorecase
-set incsearch       " Incremental search is a necessity
 set smartcase
+set ignorecase
+
+" These are set by default in NeoVim, so are technically no-ops in a .nvimrc " {{{
+set hlsearch        " Highlight makes things easier to find
+set incsearch       " Incremental search is a necessity
+set autoread        " Automatically load external changes to files
+set backspace=indent,eol,start
+set wildmenu        " Pop-up-menu based command-line completion
+set autoindent
+" In many terminal emulators the mouse works just fine, thus enable it.
+if has('mouse')
+    set mouse=a
+endif
+" }}}
+
+"" Line Wrapping:
+set cpoptions+=n            " The 'number' column used for wrapped text
+set linebreak               " Makes vim try to wrap lines at non-word characters
+set showbreak=+++           " Text to put before wrapped text
+set wrap
+" Some slightly more interesting listchars
+set listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮,nbsp:×,eol:¬
+au Filetype qf setlocal nowrap " Quicklist shouldn't wrap by default
+set statusline=[%F]%h%r%m\ Buf-%n%=%c,%l/%L\ [%p%%]
+" }}}
 
 "" GUI
-set background=dark
-silent! colorscheme desert
 if has("gui")
     set vb t_vb=
     set guifont=Droid\ Sans\ Mono\ 10,Meslo\ LG\ S:h9,Inconsolata:h11,Consolas:h9
