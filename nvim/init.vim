@@ -1,11 +1,12 @@
 " S:SETTINGS: " {{{1
 " General
-filetype plugin on
+filetype plugin indent on
 syntax enable       " Syntax highlighting is enabled (and overrideable)
 set autoread
-set nobackup        " Honestly, local file backup is not so hot...
-set noswapfile
 set mouse=a
+" Vim-based backup is more trouble than it's worth
+set nobackup nowb noswapfile
+" More history
 set history=1000
 
 "" EDITING
@@ -155,6 +156,18 @@ xnoremap & :&&<CR>
 " By pressing <ctrl-r> in visual mode you will be prompted to enter text to replace with.
 " Press enter and then confirm each change you agree with 'y' or decline with 'n'.
 vnoremap <C-r> "ly:%s/<C-r>l//gc<left><left><left>
+
+" Quick :copen. Abbreviation avoids mistyping it as :copy
+" Techically :cw might be faster, but I often tend to use copen when I shouldn't
+cabbrev cop copen
+
+" Other common misspellings
+cabbrev Q q
+cabbrev W w
+cabbrev Wq wq
+cabbrev Qall qall
+cabbrev Wall wall
+cabbrev Wqall wqall
 
 " s:Commands:
 " Quick vimrc editing
