@@ -33,6 +33,10 @@ export PATH="$PATH:/opt/rock/bin/"
 #
 # Options
 #
+setopt append_history
+setopt histignoredups	 # Don't write successive identical lines to history
+setopt hist_no_store     # Don't write calls to `history` to history file
+setopt hist_ignore_all_dups # Don't write any duplicate commands to history
 # Enable interactive comments (# on the command line)
 setopt interactivecomments
 
