@@ -1,27 +1,44 @@
-" S:SETTINGS: " {{{1
-" General
+" "VIMRC SETTINGS" ##
+" Version: 2015.11 @private
+"
+" SECTIONS
+" GeneralOptions:
+" VisualOptions:
+" MappingsAndCommands:
+" VimPlugins:
+
+"" GeneralOptions: {{{
 filetype plugin indent on
 syntax enable       " Syntax highlighting is enabled (and overrideable)
-set autoread
-set mouse=a
-" Vim-based backup is more trouble than it's worth
-set nobackup nowb noswapfile
-" More history
-set history=1000
 
-"" EDITING
+" Whitespace options is mainly based on Python/Django
+set expandtab       " Make spaces not tabs! Tabs runs you out!
+set sw=4 tabstop=4  " Python development teaches you that 4 = good for indention
+set textwidth=120
+
+set ttimeoutlen=-1           " Fixes input issues when nvim is run in tmux
+set hidden                   " Allow unsaved buffers to be backgrounded
+set path=**                  " Makes :find work better. Thanks romainl!
+set nobackup nowb noswapfile " Vim-based backup is more trouble than it's worth
+set history=1000             " More history
+set wildmenu                 " This is really funky
+set wildignore=*.pyc,*~,*.mo
+
 set autoindent      " Keep indent from previous line
 set autoread        " Set to auto read from file when it is changed
-set backspace=indent,eol,start     " Enable backspacing over everything in insert mode
-set expandtab       " Make spaces not tabs! Tabs runs you out!
 set fo+=j           " Formatoptions: Combine comment lines intelligently with J
-set hidden
-set path+=**        " Improves the :find experience A LOT
+set backspace=indent,eol,start     " Enable backspacing over everything in insert mode
 set smartindent
 set smarttab
-set sw=4 tabstop=4  " Python development teaches you that 4 = good for indention
-set wildmenu        " This is really funky
-set wildignore=*.pyc
+set autoread
+set mouse=a
+
+" Enable Vim to read it's own quickfix format
+set errorformat+=%f\|%l\ col\ %c\|%m
+
+" Spelling: in git commit messages
+autocmd BufRead  COMMIT_EDITMSG setlocal spell
+" }}}
 
 "" VisualOptions: {{{
 set background=dark
@@ -61,16 +78,10 @@ au Filetype qf setlocal nowrap " Quicklist shouldn't wrap by default
 set statusline=[%F]%h%r%m\ Buf-%n%=%c,%l/%L\ [%p%%]
 " }}}
 
-"" GUI
-if has("gui")
-    set vb t_vb=
-    set guifont=Droid\ Sans\ Mono\ 10,Meslo\ LG\ S:h9,Inconsolata:h11,Consolas:h9
-    set guifontwide=MS\ Gothic:h9
-    set guioptions-=L   " Remove left and right scrollbar from vertically split
-    set guioptions-=R   " windows. Those can cause problems on a docked gvim window
-endif
-" }}}
-" S:MAPPINGS AND COMMANDS: " {{{1
+"" MappingsAndCommands: {{{
+
+" Not sure what mapleader to choose... 's'? '§'? '\' is the default.
+let mapleader = 'å'
 
 " Repeat 'default' mapping (Essential, instead of Enter Ex mode)
 nnoremap Q @q
@@ -93,26 +104,40 @@ nnoremap VF VggoG
 " I never use normal _, but g_ is often more useful than $
 nnoremap _ g_
 
-" Save with C-s
-nnoremap <C-s> :update<CR>
-" Redraw and remove highlight
-nnoremap <silent> <C-l> :nohl<CR><C-l>
+" Bracket Navigation: Quickfix, Buffers, Arguments, Tags
+nnoremap [q :cprev<cr>
+nnoremap ]q :cnext<cr>
+nnoremap [l :lprev<cr>
+nnoremap ]l :lnext<cr>
+nnoremap [b :bprev<cr>
+nnoremap ]b :bnext<cr>
+nnoremap [a :prev<cr>
+nnoremap ]a :next<cr>
+nnoremap [t :pop<cr>
+nnoremap ]t :tag<cr>
 
-" Follow tags more comfortably
-nnoremap go <C-]>
+" I don't really use [count]go (go to byte #), tags are more useful to me
+nnoremap go g<c-]>
+xnoremap go g<c-]>
 
 " Yank entire line / to end of line, without EOL, like D
 nnoremap Y yg_:echo "Yanked: ".@"<cr>
 
-" * and # for selected text, trying to keep the search literal (in case of
-" filenames, for example.)
-vnoremap * "ly/\V<c-r>=escape(@l, '/\')<cr><cr>
-vnoremap # "ly?\V<c-r>=escape(@l, '?\')<cr><cr>
+" Easier access to search
+nnoremap s /
+xnoremap s /
+
+" This is a great shortcut for fast redrawing and resetting highlight.
+nnoremap <silent> <C-l> :<C-u>nohlsearch<cr><C-l>
 
 " Utilize Swedish Characters:
-let mapleader = 'å'
+
+" For comfort, remap Swedish keys to oft-used AltGr characters.
+" (Technically these are placed at å and ¨ on American keyboards.)
 nmap ö [
+nmap Ö {
 nmap ä ]
+nmap Ä }
 nmap öö [[
 nmap ää ]]
 
@@ -120,47 +145,54 @@ imap ¨ /
 nmap ¨ /
 cmap ¨ /
 
-" More Bracket Navigation: extend ], [
-nnoremap [q :cprev<cr>
-nnoremap ]q :cnext<cr>
-nnoremap [a :prev<cr>
-nnoremap ]a :next<cr>
-nnoremap [b :bprev<cr>
-nnoremap ]b :bnext<cr>
-nnoremap [t :tnext<cr>
-nnoremap ]t :tprev<cr>
-nnoremap <leader>d :bp \| bd #<cr>
+" Quick access to temporary mappings
+nnoremap § :nmap §
 
-" Follow tags in help files with <Enter>
+" Follow tags in helpfiles with <CR> or <F1>
 nmap <F1> <esc>
-autocmd Filetype help nnoremap <buffer> <cr> <C-]>
+autocmd Filetype help nnoremap <buffer> <cr> <c-]>
+autocmd Filetype help nnoremap <buffer> <F1> <c-]>
 
-" Quicksave on F8
-nnoremap <F8> :update<cr>
-" Toggle Wrap and List with F12
-nnoremap <F12> :set wrap!<cr>
-nnoremap <S-F12> :set list!<cr>
 " Execute file on F5 (in various ways)
 autocmd Filetype vim nnoremap <buffer> <F5> :source %<cr>
 autocmd Filetype python nnoremap <buffer> <F5> :!python %<CR>
 autocmd Filetype python nnoremap <buffer> <S-F5> :!python %
+" Quicksave
+nnoremap <F8> :w<cr>
+" Use <F12> and <S-F12> to toggle wrapping and listing
+nnoremap <F12> :set wrap!<cr>
+nnoremap <F24> :set list!<cr>
+" <F11> to set colorcolumn based on Github maxwidth
+nnoremap <F11> :set colorcolumn=111<cr>
+
+" Search non-magically with * and # in visual mode
+" Useful for text containing special characters, e.g. filenames or line-endings
+function! NullToDollar(str)
+    return substitute(substitute(a:str, '\%x00$', '\\$', ''), '\%x00', '\\$\\n', 'g')
+endfunction
+xnoremap * "ly/\V<c-r>=NullToDollar(escape(@l, '/\'))<cr><cr>
+xnoremap # "ly?\V<c-r>=NullToDollar(escape(@l, '/\'))<cr><cr>
 
 " Easier System Clipboard Interaction:
-xnoremap <C-c> "*y
-xnoremap gy "*y
-noremap gy "*y
-noremap ,y "*y
-noremap ,p "*p
-noremap ,P "*P
+nnoremap ,p "+p
+nnoremap ,P "+P
+xnoremap ,p "+p
+xnoremap ,P "+P
+xnoremap åy "+y
+xnoremap gy "+y
+xnoremap ,y "+y
 
-" Nice default-paste shortcut: þ (AltGr-p)
-nnoremap þ "0p
-xnoremap þ "0p
+" QuickPaste: Nice default-paste shortcut: þ (AltGr-p)
+cnoremap ¸þ <c-r>+
 cnoremap þ <c-r>0
+inoremap ¸þ <c-r>+
 inoremap þ <c-r>0
+nnoremap ¸þ "+p
+nnoremap þ "0p
+noremap ¸þ "+p
+noremap þ "0p
+xnoremap þ "0p
 
-" Make search more accessible
-nnoremap s /
 " Break insert undo-chain before deleting whole line
 inoremap <C-U> <C-G>u<C-U>
 " Keep flags when repeating last substitute command.
@@ -171,6 +203,10 @@ xnoremap & :&&<CR>
 " By pressing <ctrl-r> in visual mode you will be prompted to enter text to replace with.
 " Press enter and then confirm each change you agree with 'y' or decline with 'n'.
 vnoremap <C-r> "ly:%s/<C-r>l//gc<left><left><left>
+
+" Unload current buffer and go to previous. (Thanks Mud)
+" Useful for keeping the window open, which :bd<cr> doesn't.
+nnoremap <leader>d :bp <bar> bd #<cr>
 
 " Quick :copen. Abbreviation avoids mistyping it as :copy
 " Techically :cw might be faster, but I often tend to use copen when I shouldn't
@@ -185,24 +221,31 @@ cabbrev Wall wall
 cabbrev Wqall wqall
 
 " s:Commands:
-" Quick vimrc editing
+" Quick .vimrc editing
 command! Vimrc tab drop $MYVIMRC
 " Change current working directory to the current file's directory
 command! WorkHere cd %:h
-" Trim all whitespace from end of lines
-command! Trim keepjump keeppattern %s/\s\+$//e
+" Make current buffer a "Scratch" buffer
+command! Temporary setlocal buftype=nofile bufhidden=hide noswapfile
+" Copy current filename
+command! CopyFilename let @"=@% | let @+=@% let @*=@%
+
+" Trim: trim all whitespace from end of lines
+command! Trim exe "norm! ml" | keeppatterns %s/\s\+$//e | norm! `l
 autocmd BufWritePre * Trim
 
-" Frequent mispellings
-command! W w
-command! Wqall wqall
-command! WQall wqall
-command! Q q
-command! Qall qall
+au Filetype python setl equalprg=yapf\ --style={column_limit:120}
+au Filetype python command! -buffer -range=% Isort :<line1>,<line2>! isort -
+au Filetype python nnoremap <buffer> \b Oimport ipdb; ipdb.set_trace()<esc>
+au Filetype sql,mysql set formatprg=sqlformat\ -r\ -
+au Filetype vim setlocal foldmethod=marker
+
 " }}}
-"
-" s:Vim Plugins: " {{{1
-call plug#begin('~/.nvim/plugged')
+
+"" VimPlugins: {{{
+
+" Plugin List: {{{2
+call plug#begin()
 " Essential:
 Plug 'airblade/vim-gitgutter'
 Plug 'rking/ag.vim'
@@ -251,10 +294,19 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-characterize'
 
 call plug#end()
+" 2}}}
 
-" s:Plugin Maps And Commands:
+" Plugin Options: {{{2
+
+" GitGutter (plugin)
 nnoremap [g :GitGutterPrevHunk<cr>
 nnoremap ]g :GitGutterNextHunk<cr>
+command! GGR GitGutterRevertHunk
+cabbrev ggr GGR
+
+" Emmet (Plugin)
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
 
 " Ag (plugin)
 let g:ag_prg="ag --column"
