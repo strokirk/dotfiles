@@ -21,7 +21,7 @@
     aliases = "!git config --list | grep '^alias' | sort | sed 's/^alias.//'"
     tags = tag -l
     branch-name = rev-parse --abbrev-ref HEAD
-    changed = diff --name-only
+    changed = "!(git diff --name-only --staged --diff-filter=AM ; git diff --name-only --diff-filter=AM;) | sort -u"
 
     pwd = status -sb
     sha = log -1 --format='%H'
