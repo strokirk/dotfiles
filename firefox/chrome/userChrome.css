@@ -1,0 +1,8 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+/* Dropmarker for folder bookmarks */
+.bookmark-item[container] > .toolbarbutton-menu-dropmarker {
+    display: none !important;
+}
+menu.bookmark-item > .menu-iconic-left {
+  visibility: visible;
+}
