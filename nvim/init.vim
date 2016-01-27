@@ -228,7 +228,7 @@ command! WorkHere cd %:h
 " Make current buffer a "Scratch" buffer
 command! Temporary setlocal buftype=nofile bufhidden=hide noswapfile
 " Copy current filename
-command! CopyFilename let @"=@% | let @+=@% let @*=@%
+command! CopyFilename let @"=@% | let @+=@% | let @*=@%
 
 " Trim: trim all whitespace from end of lines
 command! Trim exe "norm! ml" | keeppatterns %s/\s\+$//e | norm! `l
