@@ -174,8 +174,8 @@ command! Qall qall
 " {{{
 
 " Tim Pope's Pathogen plugin
-call pathogen#infect()
 if exists("*pathogen#infect")
+call pathogen#infect()
 endif
 
 let g:solarized_hitrail=1    " Highlight trailing whitespace
