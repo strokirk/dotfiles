@@ -23,6 +23,7 @@
     branch-name = rev-parse --abbrev-ref HEAD
     changed = "!(git diff --name-only --staged --diff-filter=AM ; git diff --name-only --diff-filter=AM;) | sort -u"
     publish = "!git push --set-upstream origin $(git branch-name)"
+    edit-changed = "!$EDITOR $(git changed)"
 
     pwd = status -sb
     sha = log -1 --format='%H'
