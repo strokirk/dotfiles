@@ -313,6 +313,7 @@ autocmd FileType html,css EmmetInstall
 let g:ag_prg="ag --column"
 nnoremap ª :Ag! "\b<c-r>=expand("<cword>")<cr>\b"
 cabbrev ag Ag
+command! -nargs=1 Usage Ag! "\b<args>\b"
 
 " NERDTree (plugin)
 nnoremap <C-T> :NERDTreeToggle<CR>
