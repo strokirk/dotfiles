@@ -92,6 +92,10 @@ nnoremap -- <C-w>-
 nnoremap go <C-]>
 " Select line characterwise (without whitespace)
 nnoremap vv ^vg_
+" Select the entire file
+nnoremap VF VggoG
+" I never use normal _, but g_ is often more useful than $
+nnoremap _ g_
 
 " Yank entire line / to end of line, without EOL
 nnoremap gy ^v$hy
@@ -108,6 +112,9 @@ nmap ö [
 nmap ä ]
 nmap öö [[
 nmap ää ]]
+imap ¨ /
+nmap ¨ /
+cmap ¨ /
 
 " More Bracket Navigation: extend ], [
 nnoremap [q :cprev<cr>
@@ -120,18 +127,21 @@ nnoremap [t :tnext<cr>
 nnoremap ]t :tprev<cr>
 nnoremap <leader>d :bp \| bd #<cr>
 
-" Follow tags in help files with <Enter>
+" Follow tags in helpfiles with <CR> or <F1>
 nmap <F1> <esc>
-autocmd Filetype help nnoremap <buffer> <cr> <C-]>
-
-" Quicksave on F8
-nnoremap <F8> :update<cr>
-" Toggle Wrap on F12
-nnoremap <F12> :set wrap!<cr>
+autocmd Filetype help nnoremap <buffer> <cr> <c-]>
+autocmd Filetype help nnoremap <buffer> <F1> <c-]>
 " Execute file on F5 (in various ways)
 autocmd Filetype vim nnoremap <buffer> <F5> :source %<cr>
 autocmd Filetype python nnoremap <buffer> <F5> :!python %<CR>
 autocmd Filetype python nnoremap <buffer> <S-F5> :!python %
+" Quicksave
+nnoremap <F8> :w<cr>
+" Use <F12> and <S-F12> to toggle wrapping and listing
+nnoremap <F12> :set wrap!<cr>
+nnoremap <F24> :set list!<cr>
+" <F11> to set colorcolumn based on Github maxwidth
+nnoremap <F11> :set colorcolumn=111<cr>
 
 
 " Easier System Clipboard Interaction:
@@ -151,21 +161,43 @@ inoremap jj <Esc>
 " Press enter and then confirm each change you agree with 'y' or decline with 'n'.
 vnoremap <C-r> "ly:%s/<C-r>l//gc<left><left><left>
 
+" Unload current buffer and go to previous. (Thanks Mud)
+" Useful for keeping the window open, which :bd<cr> doesn't.
+nnoremap <leader>d :bp <bar> bd #<cr>
+
+" Quick :copen. Abbreviation avoids mistyping it as :copy
+" Techically :cw might be faster, but I often tend to use copen when I shouldn't
+cabbrev cop copen
+
+" Other common misspellings
+cabbrev Q q
+cabbrev W w
+cabbrev Wq wq
+cabbrev Qall qall
+cabbrev Wall wall
+cabbrev Wqall wqall
+
+" Search non-magically with * and # in visual mode
+" Useful for text containing special characters, e.g. filenames or line-endings
+function! NullToDollar(str)
+    return substitute(substitute(a:str, '\%x00$', '\\$', ''), '\%x00', '\\$\\n', 'g')
+endfunction
+xnoremap * "ly/\V<c-r>=NullToDollar(escape(@l, '/\'))<cr><cr>
+xnoremap # "ly?\V<c-r>=NullToDollar(escape(@l, '/\'))<cr><cr>
+
 " s:Commands:
-" Quick vimrc editing
+" Quick .vimrc editing
 command! Vimrc tab drop $MYVIMRC
 " Change current working directory to the current file's directory
 command! WorkHere cd %:h
-" Trim all whitespace from end of lines
-command! Trim keepjump keeppattern %s/\s\+$//e
-autocmd BufWritePre * Trim
+" Make current buffer a "Scratch" buffer
+command! Temporary setlocal buftype=nofile bufhidden=hide noswapfile
+" Copy current filename
+command! CopyFilename let @"=@% | let @+=@% | let @*=@%
 
-" Frequent mispellings
-command! W w
-command! Wqall wqall
-command! WQall wqall
-command! Q q
-command! Qall qall
+" Trim: trim all whitespace from end of lines
+command! Trim exe "norm! ml" | keeppatterns %s/\s\+$//e | norm! `l
+autocmd BufWritePre * Trim
 
 " }}}
 
