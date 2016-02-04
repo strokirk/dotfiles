@@ -32,6 +32,7 @@ set smartindent
 set smarttab
 set autoread
 set mouse=a
+set tags=./tags;,tags,./.git/tags
 
 " Enable Vim to read it's own quickfix format
 set errorformat+=%f\|%l\ col\ %c\|%m

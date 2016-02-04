@@ -28,6 +28,7 @@ set sw=4 tabstop=4       " Python development teaches you that 4 = good for inde
 set wildmenu             " This is really funky
 set wildignore=*.pyc
 set fileencodings=ucs-bom,utf-8,sjis,default,latin1
+set tags=./tags;,tags,./.git/tags
 
 "" VISUAL
 " set rnu           " Relative line numbers, only in vim 7.3+
