@@ -78,6 +78,8 @@ alias gds="git diff --staged"
 alias gap="git add --patch"
 alias gcp="git checkout --patch"
 alias gup="git reset --patch HEAD"
+alias gec='$EDITOR $(git changed)'
+alias gbf='$EDITOR $(git branch-files)'
 
 alias gb=git-list-branches
 alias gcb=git-change-branch
