@@ -64,6 +64,12 @@ alias svim="sudo vim"
 alias v="vim"
 alias rc='$EDITOR ~/.zshrc'
 
+# Utilize some Swedish characters for a more comfortable shell
+bindkey -s ¨ /
+bindkey -s £ '$(!!)'
+bindkey -s ª '${EDITOR} -q <(!!)'
+
+# Git aliases {{{
 alias gc="git checkout"
 alias gcm="git commit -m"
 alias gp="git pull"
@@ -84,11 +90,6 @@ alias gbf='$EDITOR $(git branch-files)'
 
 alias gb=git-list-branches
 alias gcb=git-change-branch
-
-# Utilize some Swedish characters for a more comfortable shell
-bindkey -s ¨ /
-bindkey -s £ '$()'
-bindkey -s ª '${EDITOR} -q <(!!)'
 
 function git-list-branches() {
   RED=$(tput setaf 1);
@@ -114,13 +115,14 @@ function git-delete-merged() {
   git branch --merged | sed '/^*\|master/d' | xargs git branch -d 2>/dev/null
 }
 
-# fbr - checkout git branch with tmux
+# fbr - checkout git branch with fzf
 function fbr() {
   local branches branch
   branches=$(git branch -vv) &&
   branch=$(echo "$branches" | fzf +m) &&
   git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
 }
+# end git }}}
 
 function manflag() {
   if [ $# -eq 2 ]; then
