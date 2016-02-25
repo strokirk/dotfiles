@@ -184,15 +184,10 @@ xnoremap gy "+y
 xnoremap ,y "+y
 
 " QuickPaste: Nice default-paste shortcut: þ (AltGr-p)
-cnoremap ¸þ <c-r>+
-cnoremap þ <c-r>0
-inoremap ¸þ <c-r>+
-inoremap þ <c-r>0
-nnoremap ¸þ "+p
-nnoremap þ "0p
-noremap ¸þ "+p
-noremap þ "0p
-xnoremap þ "0p
+noremap  þ "0p
+noremap! þ <c-r>0
+noremap  ,þ "+p
+noremap! ,þ <c-r>+
 
 " Break insert undo-chain before deleting whole line
 inoremap <C-U> <C-G>u<C-U>
@@ -319,6 +314,7 @@ autocmd FileType html,css EmmetInstall
 " Ag (plugin)
 let g:ag_prg="ag --column"
 nnoremap ª :Ag! "\b<c-r>=expand("<cword>")<cr>\b"
+xnoremap ª "ly:Ag! "\b<c-r>l\b"
 cabbrev ag Ag
 command! -nargs=1 Usage Ag! "\b<args>\b"
 
