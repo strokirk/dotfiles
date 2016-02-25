@@ -1,0 +1,41 @@
+#!/bin/sh
+# Copied mostly from .git/hooks/pre-commit.sample
+# Should be placed in .git/hooks/pre-commit inside project dir
+
+if git rev-parse --verify HEAD >/dev/null 2>&1
+then
+	against=HEAD
+else
+	# Initial commit: diff against an empty tree object
+	against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
+fi
+
+error_msg() {
+  RED=$(tput setaf 1)
+  RESET=$(tput sgr0)
+  warning=$1
+  files=$2
+  echo "${RED}WARNING! Aborting commit."
+  echo "If everything is good to commit, force commit with 'git commit -n'"
+  echo
+  echo "${warning}${RESET}"
+  echo "${files}"
+}
+
+# Redirect output to stderr.
+exec 1>&2
+
+files=$(git diff-index --cached $against -S'XXX' --name-only --)
+if [ "${files}" ]
+then
+  error_msg "There are warning comments ('XXX') in following files:" "${files}"
+  exit 1
+fi
+
+# If there are whitespace errors, print the offending file names and fail.
+files=$(git diff-index --cached $against --check --)
+if [ "${files}" ]
+then
+  error_msg "There are whitespace warnings in the following files:" "${files}"
+  exit 1
+fi
