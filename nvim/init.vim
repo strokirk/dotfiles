@@ -81,8 +81,8 @@ set statusline=[%F]%h%r%m\ Buf-%n%=%c,%l/%L\ [%p%%]
 
 "" MappingsAndCommands: {{{
 
-" Not sure what mapleader to choose... 's'? '§'? '\' is the default.
-let mapleader = 'å'
+" Not sure what <leader> to choose... 's'? '§'? '\' is the default.
+let mapleader = ' '
 
 " Repeat 'default' mapping (Essential, instead of Enter Ex mode)
 nnoremap Q @q
