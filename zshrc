@@ -47,22 +47,25 @@ setopt interactivecomments
 export LANG='en_US.UTF-8'
 export EDITOR='nvim'
 
+export GREP_OPTIONS='--color=auto'
+
 #
 # Aliases (some by Oh-my-zsh)
 #
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias grep='grep --color=auto'
 alias ls='ls --color=auto'
 alias l='ls -CF --group-directories-first'
 alias la='ls -A'
 alias ll='ls -alF --time-style=long-iso'
+if [ $(uname) = 'Darwin' ]; then
+    unalias ls l la ll
+fi
 
 alias help="run-help" # help is called run-help in zsh
 alias svim="sudo vim"
 alias v="vim"
 alias rc='$EDITOR ~/.zshrc'
+alias dot='cd ~/.dotfiles'
 
 # Utilize some Swedish characters for a more comfortable shell
 bindkey -s ¨ /
@@ -81,6 +84,7 @@ alias gs="git status"
 alias gw="git show"
 alias gd="git diff"
 alias gds="git diff --staged"
+alias glgm="git log --decorate origin/master...HEAD"
 
 alias gap="git add --patch"
 alias gcp="git checkout --patch"
