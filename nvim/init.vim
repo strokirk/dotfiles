@@ -240,7 +240,11 @@ autocmd BufWritePre * Trim
 
 au Filetype python setl equalprg=yapf\ --style={column_limit:120}
 au Filetype python command! -buffer -range=% Isort :<line1>,<line2>! isort -
-au Filetype python nnoremap <buffer> \b Oimport ipdb; ipdb.set_trace()<esc>
+au Filetype python command! -buffer PrintWrap normal! Iprint(<esc>A<c-v>)<esc>
+au Filetype python command! -buffer Breakpoint call append(line('.')-1, repeat(' ', indent(prevnonblank(line('.')))).'import ipdb; ipdb.set_trace()  # XXX BREAKPOINT')
+au Filetype python nnoremap <buffer> <leader>b :Breakpoint<cr>
+au Filetype python nnoremap <buffer> <leader>p :PrintWrap<cr>
+au Filetype python nnoremap <buffer> <leader>s :Isort<cr>
 au Filetype sql,mysql set formatprg=sqlformat\ -r\ -
 au Filetype vim setlocal foldmethod=marker
 
