@@ -209,6 +209,9 @@ vnoremap <C-r> "ly:%s/<C-r>l//gc<left><left><left>
 " Useful for keeping the window open, which :bd<cr> doesn't.
 nnoremap <leader>d :bp <bar> bd #<cr>
 
+" Neovim Term
+tnoremap <Esc> <C-\><C-n>
+
 " Quick :copen. Abbreviation avoids mistyping it as :copy
 " Techically :cw might be faster, but I often tend to use copen when I shouldn't
 cabbrev cop copen
