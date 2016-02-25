@@ -7,16 +7,6 @@
     editor = vim
     pager = less -F -X
 [alias]
-    s = status
-    d = diff
-    ds = diff --staged
-    ap = add --patch
-    co = checkout
-    cp = checkout --patch
-    up = reset HEAD --patch
-    cc = commit -v
-    cm = commit -v -m
-
     aliases = "!git config --list | grep '^alias' | sort | sed 's/^alias.//'"
     axe = log -p -S
     branch-files = diff origin/master...HEAD --diff-filter=AM --name-only
@@ -27,6 +17,16 @@
     sync = fetch origin master:master
     tags = tag -l
     unstage = reset HEAD
+
+    s = status
+    d = diff
+    ds = diff --staged
+    ap = add --patch
+    co = checkout
+    cp = checkout --patch
+    up = reset HEAD --patch
+    cc = commit -v
+    cm = commit -v -m
 
     pwd = status -sb
     sha = log -1 --format='%H'
