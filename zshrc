@@ -77,8 +77,8 @@ alias gc="git checkout"
 alias gcm="git commit -m"
 alias gp="git pull"
 
-alias gec="$EDITOR $(git changed)"
-alias gbf="$EDITOR $(git branch-files)"
+alias gec='$EDITOR $(git changed)'
+alias gbf='$EDITOR $(git branch-files)'
 
 alias gs="git status"
 alias gw="git show"
