@@ -310,7 +310,7 @@ cabbrev ggr GGR
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
 
-" Ag (plugin)
+" Ag (plugin) (use AltGr to quickly search)
 let g:ag_prg="ag --column"
 nnoremap ª :Ag! "\b<c-r>=expand("<cword>")<cr>\b"
 xnoremap ª "ly:Ag! "\b<c-r>l\b"
