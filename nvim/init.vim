@@ -285,6 +285,7 @@ Plug 'vim-scripts/fountain.vim', { 'for': 'fountain'   }
 Plug 'wting/rust.vim',           { 'for': 'rust'       }
 Plug 'tpope/vim-git'
 Plug 'tmux-plugins/vim-tmux'
+Plug 'chakrit/upstart.vim'
 
 " New Or Evaluating:
 Plug 'AndrewRadev/sideways.vim'
