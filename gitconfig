@@ -8,7 +8,7 @@
     pager = less -F -X
 [alias]
     aliases = "!git config --list | grep '^alias' | sort | sed 's/^alias.//'"
-    axe = log -p -S
+    axe = log -p -G
     branch-files = diff origin/master...HEAD --diff-filter=AM --name-only
     branch-name = rev-parse --abbrev-ref HEAD
     changed = "!(git diff --name-only --staged --diff-filter=AM ; git diff --name-only --diff-filter=AM;) | sort -u"
