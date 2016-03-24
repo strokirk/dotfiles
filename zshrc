@@ -44,7 +44,7 @@ setopt interactivecomments
 export LANG='en_US.UTF-8'
 export EDITOR='nvim'
 
-export GREP_OPTIONS='--color=auto'
+# export GREP_OPTIONS='--color=auto'
 
 export DOTFILES_DIR="$HOME/.dotfiles"
 export DROPBOX_CODE_DIR="$HOME/Dropbox/Code"
