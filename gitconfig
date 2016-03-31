@@ -17,6 +17,7 @@
     sync = fetch origin master:master
     tags = tag -l
     unstage = reset HEAD
+    upstream = rev-parse --abbrev-ref --symbolic-full-name '@{u}'
 
     s = status
     d = diff
