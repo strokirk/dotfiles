@@ -18,7 +18,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-plugins=(git sudo wd)
+plugins=(git brew fabric)
 
 source $ZSH/oh-my-zsh.sh
 
