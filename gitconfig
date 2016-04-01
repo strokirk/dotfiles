@@ -6,6 +6,8 @@
 [core]
     editor = vim
     pager = less -F -X
+[push]
+	default = upstream
 [alias]
     aliases = "!git config --list | grep '^alias' | sort | sed 's/^alias.//'"
     axe = log -p -G
