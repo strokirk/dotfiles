@@ -28,7 +28,7 @@ set autoindent      " Keep indent from previous line
 set autoread        " Set to auto read from file when it is changed
 set fo+=j           " Formatoptions: Combine comment lines intelligently with J
 set backspace=indent,eol,start     " Enable backspacing over everything in insert mode
-set smartindent
+set nosmartindent   " Python comments (#) can't handle smartindent
 set smarttab
 set autoread
 set mouse=a

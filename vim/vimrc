@@ -22,7 +22,7 @@ set enc=utf-8            " ascii is for loser
 set formatoptions+=j     " Formatoptions: Combine comment lines intelligently with J
 set hidden
 set path+=**             " Improves the :find experience A LOT
-set smartindent
+set nosmartindent        " Python comments (#) can't handle smartindent
 set smarttab
 set sw=4 tabstop=4       " Python development teaches you that 4 = good for indention
 set wildmenu             " This is really funky
