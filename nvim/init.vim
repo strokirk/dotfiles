@@ -188,6 +188,8 @@ noremap  þ "0p
 noremap! þ <c-r>0
 noremap  ,þ "+p
 noremap! ,þ <c-r>+
+map  π þ
+map! π þ
 
 " Break insert undo-chain before deleting whole line
 inoremap <C-U> <C-G>u<C-U>
