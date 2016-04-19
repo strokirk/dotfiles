@@ -309,31 +309,31 @@ nnoremap ]g :GitGutterNextHunk<cr>
 command! GGR GitGutterRevertHunk
 cabbrev ggr GGR
 
-" Emmet (Plugin)
+" Emmet: (Plugin)
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
 
-" Ag (plugin) (use AltGr to quickly search)
+" Ag: (plugin) (use AltGr to quickly search)
 let g:ag_prg="ag --column"
 nnoremap ª :Ag! "\b<c-r>=expand("<cword>")<cr>\b"
 xnoremap ª "ly:Ag! "\b<c-r>l\b"
 cabbrev ag Ag
 command! -nargs=1 Usage Ag! "\b<args>\b"
 
-" NERDTree (plugin)
+" NERDTree: (plugin)
 nnoremap <C-T> :NERDTreeToggle<CR>
 nnoremap <F3> :NERDTreeFind<CR>
 command! NTF NERDTreeFind
 cabbrev ntf NTF
 let NERDTreeIgnore=['\.cover$', '\.pyc$', '\~$', '__pycache__']
 
-" Fugitive (plugin)
+" Fugitive: (plugin)
 nnoremap <F4> :Gblame<cr>
 
-" Vim-pad (plugin)
+" VimPad: (plugin)
 nnoremap <F9> :Pad ls<cr>
 
-" CtrlP (plugin)
+" CtrlP: (plugin)
 if executable('ag')
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
