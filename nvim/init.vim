@@ -204,7 +204,8 @@ vnoremap <C-r> "ly:%s/<C-r>l//gc<left><left><left>
 
 " Unload current buffer and go to previous. (Thanks Mud)
 " Useful for keeping the window open, which :bd<cr> doesn't.
-nnoremap <leader>d :bp <bar> bd #<cr>
+command! CloseBuffer bp <bar> bd #
+nnoremap <leader>d :CloseBuffer<cr>
 
 " Neovim Term
 tnoremap <Esc> <C-\><C-n>
