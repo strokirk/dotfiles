@@ -297,6 +297,7 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'Raimondi/delimitMate'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-characterize'
+Plug 'mhinz/vim-startify'
 
 call plug#end()
 " 2}}}
@@ -332,6 +333,8 @@ nnoremap <F4> :Gblame<cr>
 
 " VimPad: (plugin)
 nnoremap <F9> :Pad ls<cr>
+let g:pad#position = {"list": "bottom", "pads": "right"}
+let g:pad#window_width = 80
 
 " CtrlP: (plugin)
 if executable('ag')
@@ -342,8 +345,12 @@ let NERDTreeIgnore=['\.pyc$']
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
 
-" Fountain (plugin)
+" Fountain: (plugin)
 au BufEnter *.fountain setf fountain
+
+" Startify: (plugin)
+let g:startify_change_to_dir = 0
+let g:startify_change_to_vcs_root = 0
 
 let g:colorscheme_switcher_define_mappings = 0
 nnoremap <silent> <F2> :NextColorScheme<CR>
