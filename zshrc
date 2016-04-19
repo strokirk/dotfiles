@@ -59,6 +59,9 @@ alias la='ls -A'
 alias ll='ls -alF --time-style=long-iso'
 if [ $(uname) = 'Darwin' ]; then
     unalias ls l la ll
+    if [ -f $(which gls) ]; then
+        alias ls='gls -hlpG --group-directories-first --color=auto --time-style=long-iso'
+    fi
 fi
 
 alias help="run-help" # help is called run-help in zsh
@@ -71,6 +74,9 @@ alias dot='cd ~/.dotfiles'
 bindkey -s ¨ /
 bindkey -s £ '$(!!)'
 bindkey -s ª '${EDITOR} -q <(!!)'
+
+bindkey ^O forward-word
+bindkey ^P backward-word
 
 # Git aliases {{{
 alias gc="git checkout"
@@ -119,6 +125,14 @@ function git-delete-merged() {
   git branch --merged | sed '/^*\|master/d' | xargs git branch -d 2>/dev/null
 }
 
+function git-commits-per-branch() {
+  [ -z "$1" ] && return 1
+  echo "# author:$1"
+  for b in $(git branch | sed 's/[* ]*//; /^master$/d');
+    do echo $(git log --author=$1 --oneline master..$b | wc -l) "\t" "$b";
+  done
+}
+
 # fbr - checkout git branch with fzf
 function fbr() {
   local branches branch
@@ -137,5 +151,9 @@ function manflag() {
   fi;
 }
 
+export FZF_DEFAULT_OPTS="--bind ctrl-x:toggle-sort"
+
 # FZF by junegunn
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.nix-profile/etc/profile.d/nix.sh ] && source /Users/dan/.nix-profile/etc/profile.d/nix.sh
+[ -f /usr/local/bin/virtualenvwrapper.sh ] && source /usr/local/bin/virtualenvwrapper.sh
