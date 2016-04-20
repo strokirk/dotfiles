@@ -246,6 +246,7 @@ au Filetype python nnoremap <buffer> <leader>s :Isort<cr>
 au Filetype sql,mysql set formatprg=sqlformat\ -r\ -
 au Filetype vim setlocal foldmethod=marker
 
+au BufWritePost * Neomake
 " }}}
 
 "" VimPlugins: {{{
