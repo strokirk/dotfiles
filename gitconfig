@@ -4,7 +4,6 @@
 	email = dan.strokirk@gmail.com
 	name = Dan Strokirk
 [core]
-    editor = vim
     pager = less -F -X
 [push]
 	default = upstream
