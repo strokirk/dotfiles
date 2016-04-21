@@ -1,5 +1,5 @@
 " "VIMRC SETTINGS" ##
-" Version: 2015.11 @private
+" Version: 2016.04
 "
 " SECTIONS
 " GeneralOptions:
@@ -10,10 +10,12 @@
 "" GeneralOptions: {{{
 filetype plugin indent on
 syntax enable       " Syntax highlighting is enabled (and overrideable)
+set encoding=utf-8
+scriptencoding utf-8
 
 " Whitespace options is mainly based on Python/Django
-set expandtab       " Make spaces not tabs! Tabs runs you out!
-set sw=4 tabstop=4  " Python development teaches you that 4 = good for indention
+set expandtab                " Make spaces not tabs! Tabs runs you out!
+set shiftwidth=4 tabstop=4   " Python development teaches you that 4 = good for indention
 set textwidth=120
 
 set ttimeoutlen=-1           " Fixes input issues when nvim is run in tmux
@@ -26,7 +28,7 @@ set wildignore=*.pyc,*~,*.mo
 
 set autoindent      " Keep indent from previous line
 set autoread        " Set to auto read from file when it is changed
-set fo+=j           " Formatoptions: Combine comment lines intelligently with J
+set formatoptions+=j               " Formatoptions: Combine comment lines intelligently with J
 set backspace=indent,eol,start     " Enable backspacing over everything in insert mode
 set nosmartindent   " Python comments (#) can't handle smartindent
 set smarttab
@@ -82,7 +84,7 @@ set statusline=[%F]%h%r%m\ Buf-%n%=%c,%l/%L\ [%p%%]
 "" MappingsAndCommands: {{{
 
 " Not sure what <leader> to choose... 's'? '§'? '\' is the default.
-let mapleader = ' '
+let g:mapleader = ' '
 
 " Repeat 'default' mapping (Essential, instead of Enter Ex mode)
 nnoremap Q @q
@@ -316,25 +318,26 @@ let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
 
 " Ag: (plugin) (use AltGr to quickly search)
-let g:ag_prg="ag --column"
+let g:ag_prg='ag --column'
 nnoremap ª :Ag! "\b<c-r>=expand("<cword>")<cr>\b"
 xnoremap ª "ly:Ag! "\b<c-r>l\b"
 cabbrev ag Ag
-command! -nargs=1 Usage Ag! "\b<args>\b"
+command! -nargs=1 Usage Ag! '\b<args>\b'
 
 " NERDTree: (plugin)
 nnoremap <C-T> :NERDTreeToggle<CR>
 nnoremap <F3> :NERDTreeFind<CR>
 command! NTF NERDTreeFind
 cabbrev ntf NTF
-let NERDTreeIgnore=['\.cover$', '\.pyc$', '\~$', '__pycache__']
+let g:NERDTreeIgnore=['\.cover$', '\.pyc$', '\~$', '__pycache__', 'node_modules']
 
 " Fugitive: (plugin)
 nnoremap <F4> :Gblame<cr>
 
 " VimPad: (plugin)
 nnoremap <F9> :Pad ls<cr>
-let g:pad#position = {"list": "bottom", "pads": "right"}
+let g:pad#dir = '~/Documents/pad/'
+let g:pad#position = {'list': 'bottom', 'pads': 'right'}
 let g:pad#window_width = 80
 
 " CtrlP: (plugin)
@@ -342,7 +345,6 @@ if executable('ag')
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 
-let NERDTreeIgnore=['\.pyc$']
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
 
