@@ -49,6 +49,9 @@ export EDITOR='nvim'
 
 export GREP_OPTIONS='--color=auto'
 
+export DOTFILES_DIR="$HOME/.dotfiles"
+export DROPBOX_CODE_DIR="$HOME/Dropbox/Code"
+
 #
 # Aliases (some by Oh-my-zsh)
 #
@@ -63,12 +66,15 @@ if [ $(uname) = 'Darwin' ]; then
         alias ls='gls -hlpG --group-directories-first --color=auto --time-style=long-iso'
     fi
 fi
+alias pgrep='pgrep -lf' # sane default for pgrep, long list and match against argument name
 
 alias help="run-help" # help is called run-help in zsh
 alias svim="sudo vim"
 alias v="vim"
 alias rc='$EDITOR ~/.zshrc'
-alias dot='cd ~/.dotfiles'
+alias reload='source ~/.zshrc'
+alias dot='cd $DOTFILES_DIR'
+alias code='cd $DROPBOX_CODE_DIR'
 
 # Utilize some Swedish characters for a more comfortable shell
 bindkey -s ¨ /
