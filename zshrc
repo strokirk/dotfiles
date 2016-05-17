@@ -108,6 +108,8 @@ alias gbf='$EDITOR $(git branch-files)'
 alias gb=git-list-branches
 alias gcb=git-change-branch
 
+#  Custom Functions {{{ #
+#  Git Functions {{{ #
 function git-verbose-commit() {
   if [ $# -eq 0 ]; then
       git commit --verbose --edit -m "$@";
@@ -155,7 +157,7 @@ function fbr() {
   branch=$(echo "$branches" | fzf +m) &&
   git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
 }
-# end git }}}
+#  }}} Git Functions #
 
 function manflag() {
   if [ $# -eq 2 ]; then
@@ -165,6 +167,7 @@ function manflag() {
     echo "Usage: manflag <package> <flag>";
   fi;
 }
+#  }}} Custom Functions #
 
 export FZF_DEFAULT_OPTS="--bind ctrl-x:toggle-sort"
 
