@@ -86,7 +86,8 @@ bindkey ^P backward-word
 
 # Git aliases {{{
 alias gc="git checkout"
-alias gcm="git commit -m"
+alias gcm="git commit -ev -m"
+alias gcom="git-verbose-commit"
 alias gp="git pull"
 
 alias gec='$EDITOR $(git changed)'
@@ -106,6 +107,14 @@ alias gbf='$EDITOR $(git branch-files)'
 
 alias gb=git-list-branches
 alias gcb=git-change-branch
+
+function git-verbose-commit() {
+  if [ $# -eq 0 ]; then
+      git commit --verbose --edit -m "$@";
+  else
+      git commit --verbose;
+  fi;
+}
 
 function git-list-branches() {
   RED=$(tput setaf 1);
