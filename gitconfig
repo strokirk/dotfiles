@@ -8,7 +8,6 @@
 [push]
 	default = upstream
 [alias]
-    aliases = "!git config --list | grep '^alias' | sort | sed 's/^alias.//'"
     axe = log -p -G
     branch-files = diff origin/master...HEAD --diff-filter=AM --name-only
     branch-name = rev-parse --abbrev-ref HEAD
@@ -16,9 +15,13 @@
     edit-changed = "!$EDITOR $(git changed)"
     publish = "!git push --set-upstream origin $(git branch-name)"
     sync = fetch origin master:master
-    tags = tag -l
     unstage = reset HEAD
     upstream = rev-parse --abbrev-ref --symbolic-full-name "@{upstream}"
+
+    # List aliases
+    aliases = "!git config --list | grep '^alias' | sort | sed 's/^alias.//'"
+    branches = branch -v
+    tags = tag -l
 
     s = status
     d = diff
