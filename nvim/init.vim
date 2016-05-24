@@ -148,6 +148,8 @@ imap ¨ /
 nmap ¨ /
 cmap ¨ /
 
+nnoremap <leader>gf :tabf <cfile><cr>
+
 " Quick access to temporary mappings
 nnoremap § :nmap §
 

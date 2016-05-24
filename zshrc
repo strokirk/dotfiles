@@ -72,6 +72,7 @@ alias help="run-help" # help is called run-help in zsh
 alias svim="sudo vim"
 alias v="vim"
 alias rc='$EDITOR ~/.zshrc'
+alias hist='$EDITOR $HISTFILE'
 alias reload='source ~/.zshrc'
 alias dot='cd $DOTFILES_DIR'
 alias code='cd $DROPBOX_CODE_DIR'
@@ -89,6 +90,7 @@ alias gc="git checkout"
 alias gcm="git commit -ev -m"
 alias gcom="git-verbose-commit"
 alias gp="git pull"
+alias grbm="git rebase --interactive master"
 
 alias gec='$EDITOR $(git changed)'
 alias gbf='$EDITOR $(git branch-files)'
@@ -98,6 +100,7 @@ alias gw="git show"
 alias gd="git diff"
 alias gds="git diff --staged"
 alias glgm="git log --decorate origin/master...HEAD"
+alias glgmp="glgm -p"
 
 alias gap="git add --patch"
 alias gcp="git checkout --patch"
@@ -105,16 +108,19 @@ alias gup="git reset --patch HEAD"
 alias gec='$EDITOR $(git changed)'
 alias gbf='$EDITOR $(git branch-files)'
 
-alias gb=git-list-branches
+alias gb='$DOTFILES_DIR/git-list-branches'
 alias gcb=git-change-branch
+
+alias git-prune-merged="git checkout master && git pull --prune && git-delete-merged"
+alias gpm="git-prune-merged"
 
 #  Custom Functions {{{ #
 #  Git Functions {{{ #
 function git-verbose-commit() {
   if [ $# -eq 0 ]; then
-      git commit --verbose --edit -m "$@";
-  else
       git commit --verbose;
+  else
+      git commit --verbose --edit -m "$@";
   fi;
 }
 
@@ -173,5 +179,9 @@ export FZF_DEFAULT_OPTS="--bind ctrl-x:toggle-sort"
 
 # FZF by junegunn
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Nix package manager
 [ -f ~/.nix-profile/etc/profile.d/nix.sh ] && source /Users/dan/.nix-profile/etc/profile.d/nix.sh
+# Virtualenvwrapper
 [ -f /usr/local/bin/virtualenvwrapper.sh ] && source /usr/local/bin/virtualenvwrapper.sh
+# Local settings that should not be committed
+[ -f $DOTFILES_DIR/local_zshrc ] && source $DOTFILES_DIR/local_zshrc
