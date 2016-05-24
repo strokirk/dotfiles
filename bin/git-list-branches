@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+RED=$(tput setaf 1);
+RESET=$(tput sgr0);
+
+branches=($(git for-each-ref 'refs/heads/**' --shell --format='%(refname:short) %(upstream)'));
+for (( i = 0; i < ${#branches[@]}; i+=2 )); do
+    branch=$(echo "${branches[i]}" | tr -d "'")
+    upstream=$(echo "${branches[i+1]}" | tr -d "'")
+    tracking=$(git config "branch.${branch}.merge" || true)
+    time_ago=$(git log -1 --pretty=format:"%Cgreen%ci %C(bold blue)%cr%Creset" "$branch" --);
+    # Add a red star to mark branches that are tracking something upstream
+    upstream=$(git rev-parse "$branch@{upstream}" 2>/dev/null -- || true);
+    tracks_upstream=$(if [ "${upstream}" ]; then printf "%s★%s" "$RED" "$RESET"; fi);
+    warn=$(if [ "$tracking" ]; then echo "⚠"; fi)
+    if [ -z "$tracks_upstream" ]; then
+        tracks_upstream=$(if [ "$warn" ]; then echo "$warn"; fi)
+    fi
+    printf "[%s]\t+ %s %s\n" "$time_ago" "${tracks_upstream:- }" "$branch";
+done | sort | column -t -s $'\t';

@@ -108,7 +108,7 @@ alias gup="git reset --patch HEAD"
 alias gec='$EDITOR $(git changed)'
 alias gbf='$EDITOR $(git branch-files)'
 
-alias gb='$DOTFILES_DIR/git-list-branches'
+alias gb='$DOTFILES_DIR/bin/git-list-branches'
 alias gcb=git-change-branch
 
 alias git-prune-merged="git checkout master && git pull --prune && git-delete-merged"
@@ -122,17 +122,6 @@ function git-verbose-commit() {
   else
       git commit --verbose --edit -m "$@";
   fi;
-}
-
-function git-list-branches() {
-  RED=$(tput setaf 1);
-  RESET=$(tput sgr0);
-  for branch in $(git branch | sed s/^..//); do
-    time_ago=$(git log -1 --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $branch --);
-    # Add a red star to mark branches that are tracking something upstream
-    tracks_upstream=$(if [ "$(git rev-parse $branch@{upstream} 2>/dev/null)" ]; then printf "$RED★$RESET"; fi);
-    printf "%-53s - %-1s %s\n" "$time_ago" "${tracks_upstream:- }" "$branch";
-  done | sort;
 }
 
 function git-change-branch() {
