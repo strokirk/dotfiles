@@ -8,7 +8,7 @@
 [push]
 	default = upstream
 [alias]
-    amend = commit --amend
+    amend = commit --amend --verbose
     axe = log -p -G
     branch-files = diff origin/master...HEAD --diff-filter=AM --name-only
     branch-name = rev-parse --abbrev-ref HEAD
