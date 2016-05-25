@@ -101,7 +101,7 @@ alias gd="git diff"
 alias gds="git diff --staged"
 alias gl="git lil"
 alias glm="git log --decorate origin/master...HEAD"
-alias glmp="glgm -p"
+alias glmp="glm -p"
 
 alias gap="git add --patch"
 alias gcp="git checkout --patch"
