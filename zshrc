@@ -51,21 +51,21 @@ export GREP_OPTIONS='--color=auto'
 
 export DOTFILES_DIR="$HOME/.dotfiles"
 export DROPBOX_CODE_DIR="$HOME/Dropbox/Code"
+export LOCAL_CODE_DIR="$HOME/dev"
 
-#
-# Aliases (some by Oh-my-zsh)
-#
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-alias ls='ls --color=auto'
-alias l='ls -CF --group-directories-first'
-alias la='ls -A'
-alias ll='ls -alF --time-style=long-iso'
+#  Aliases {{{ #
 if [ $(uname) = 'Darwin' ]; then
     unalias ls l la ll
     if [ -f $(which gls) ]; then
         alias ls='gls -hlpG --group-directories-first --color=auto --time-style=long-iso'
     fi
+else
+    alias ls='ls --color=auto'
+    alias l='ls -CF --group-directories-first'
+    alias la='ls -A'
+    alias ll='ls -alF --time-style=long-iso'
 fi
+
 alias pgrep='pgrep -lf' # sane default for pgrep, long list and match against argument name
 
 alias help="run-help" # help is called run-help in zsh
@@ -85,7 +85,7 @@ bindkey -s ª '${EDITOR} -q <(!!)'
 bindkey ^O forward-word
 bindkey ^P backward-word
 
-# Git aliases {{{
+#  Git aliases {{{ #
 alias gc="git checkout"
 alias gcm="git commit -ev -m"
 alias gcom="git-verbose-commit"
@@ -96,11 +96,12 @@ alias gec='$EDITOR $(git changed)'
 alias gbf='$EDITOR $(git branch-files)'
 
 alias gs="git status"
-alias gw="git show"
+alias gw="git show --decorate"
 alias gd="git diff"
 alias gds="git diff --staged"
-alias glgm="git log --decorate origin/master...HEAD"
-alias glgmp="glgm -p"
+alias gl="git lil"
+alias glm="git log --decorate origin/master...HEAD"
+alias glmp="glgm -p"
 
 alias gap="git add --patch"
 alias gcp="git checkout --patch"
@@ -113,8 +114,13 @@ alias gcb=git-change-branch
 
 alias git-prune-merged="git checkout master && git pull --prune && git-delete-merged"
 alias gpm="git-prune-merged"
+alias grf="git-rfr"
+#  }}} Git aliases #
+#
+#  }}} Aliases #
 
 #  Custom Functions {{{ #
+
 #  Git Functions {{{ #
 function git-verbose-commit() {
   if [ $# -eq 0 ]; then
@@ -125,6 +131,7 @@ function git-verbose-commit() {
 }
 
 function git-change-branch() {
+    [ -z "$1" ] && return 1
     git show-ref --quiet --verify -- "refs/heads/$1"
     if [ $? -eq 0 ]; then
         git checkout "$1"
@@ -145,6 +152,12 @@ function git-commits-per-branch() {
   done
 }
 
+function git-rfr() {
+  [ $(command -v ghi 2>&1) ] || return 1
+  [ $# -ne 1 ] && exit 1
+  ghi label $1 -a "Ready for Review";
+}
+
 # fbr - checkout git branch with fzf
 function fbr() {
   local branches branch
@@ -162,6 +175,15 @@ function manflag() {
     echo "Usage: manflag <package> <flag>";
   fi;
 }
+
+function alert() {
+    # Pops a desktop notification with an icon based on the exit status. (from Ubuntu default bashrc)
+    [ $(command -v notify-send 2>&1) ] || return 1
+    lvl=$([ $? = 0 ] && echo terminal || echo error)
+    msg = $(history | tail -n1 | sed -e 's/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//')
+    notify-send --urgency=low -i "${lvl}" "${msg}"
+}
+
 #  }}} Custom Functions #
 
 export FZF_DEFAULT_OPTS="--bind ctrl-x:toggle-sort"
