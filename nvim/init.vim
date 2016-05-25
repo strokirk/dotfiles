@@ -37,6 +37,10 @@ set tags=./tags;,tags,./.git/tags
 
 " Enable Vim to read it's own quickfix format
 set errorformat+=%f\|%l\ col\ %c\|%m
+set errorformat+=%f:%l\ %m
+
+" CSS selector names are usually in snake-case
+set iskeyword+=-
 
 " Spelling: in git commit messages
 autocmd BufRead  COMMIT_EDITMSG setlocal spell
@@ -123,6 +127,9 @@ nnoremap ]t :tag<cr>
 nnoremap go g<c-]>
 xnoremap go g<c-]>
 
+nnoremap <leader>go <c-w>g<c-]><c-w>T
+nnoremap <leader>gf <c-w>gf
+
 " Yank entire line / to end of line, without EOL, like D
 nnoremap Y yg_:echo "Yanked: ".@"<cr>
 
@@ -131,7 +138,7 @@ nnoremap s /
 xnoremap s /
 
 " This is a great shortcut for fast redrawing and resetting highlight.
-nnoremap <silent> <C-l> :<C-u>nohlsearch<cr><C-l>
+nnoremap <silent> <C-l> :<C-u>nohlsearch<bar>diffupdate<cr><C-l>
 
 " Utilize Swedish Characters:
 
@@ -143,12 +150,12 @@ nmap ä ]
 nmap Ä }
 nmap öö [[
 nmap ää ]]
+nmap ]] ]q
+nmap [[ [q
 
 imap ¨ /
 nmap ¨ /
 cmap ¨ /
-
-nnoremap <leader>gf :tabf <cfile><cr>
 
 " Quick access to temporary mappings
 nnoremap § :nmap §
@@ -186,6 +193,11 @@ xnoremap ,P "+P
 xnoremap åy "+y
 xnoremap gy "+y
 xnoremap ,y "+y
+xnoremap <leader>y "+y
+xnoremap <leader>p "+p
+xnoremap <leader>P "+P
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
 
 " QuickPaste: Nice default-paste shortcut: þ (AltGr-p)
 noremap  þ "0p
@@ -240,7 +252,7 @@ command! CopyFilename let @"=@% | let @+=@% | let @*=@%
 command! Trim exe "norm! ml" | keeppatterns %s/\s\+$//e | norm! `l
 autocmd BufWritePre * Trim
 
-au Filetype python setl equalprg=yapf\ --style={column_limit:120}
+au Filetype python setl equalprg=autopep8\ -
 au Filetype python command! -buffer -range=% Isort :<line1>,<line2>! isort -
 au Filetype python command! -buffer PrintWrap normal! Iprint(<esc>A<c-v>)<esc>
 au Filetype python command! -buffer Breakpoint call append(line('.')-1, repeat(' ', indent(prevnonblank(line('.')))).'import ipdb; ipdb.set_trace()  # XXX BREAKPOINT')
@@ -250,7 +262,6 @@ au Filetype python nnoremap <buffer> <leader>s :Isort<cr>
 au Filetype sql,mysql set formatprg=sqlformat\ -r\ -
 au Filetype vim setlocal foldmethod=marker
 
-au BufWritePost * Neomake
 " }}}
 
 "" VimPlugins: {{{
@@ -294,6 +305,7 @@ Plug 'wting/rust.vim',           { 'for': 'rust'       }
 Plug 'tpope/vim-git'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'chakrit/upstart.vim'
+Plug 'vim-scripts/nginx.vim'
 
 " New Or Evaluating:
 Plug 'AndrewRadev/sideways.vim'
@@ -314,6 +326,10 @@ nnoremap [g :GitGutterPrevHunk<cr>
 nnoremap ]g :GitGutterNextHunk<cr>
 command! GGR GitGutterRevertHunk
 cabbrev ggr GGR
+
+" Neomake (plugin)
+au BufWritePost * Neomake
+let g:neomake_javascript_enabled_makers = ['eslint']
 
 " Emmet: (Plugin)
 let g:user_emmet_install_global = 0
@@ -338,7 +354,7 @@ nnoremap <F4> :Gblame<cr>
 
 " VimPad: (plugin)
 nnoremap <F9> :Pad ls<cr>
-let g:pad#dir = '~/Documents/pad/'
+let g:pad#dir = '~/Dropbox/Documents/pad/'
 let g:pad#position = {'list': 'bottom', 'pads': 'right'}
 let g:pad#window_width = 80
 
