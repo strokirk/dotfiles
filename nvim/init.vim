@@ -10,7 +10,6 @@
 "" GeneralOptions: {{{
 filetype plugin indent on
 syntax enable       " Syntax highlighting is enabled (and overrideable)
-set encoding=utf-8
 scriptencoding utf-8
 
 " Whitespace options is mainly based on Python/Django
@@ -53,6 +52,7 @@ set scrolloff=5     " Always keep 7 lines above and below cursor
 set showcmd         " Shows the half-finished command when typed
 set showmatch       " Show matching brackets when cursor is over one of them
 " set rnu           " Relative line numbers
+set foldlevel=999
 
 set smartcase
 set ignorecase
