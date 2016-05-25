@@ -126,7 +126,7 @@ function git-verbose-commit() {
   if [ $# -eq 0 ]; then
       git commit --verbose;
   else
-      git commit --verbose --edit -m "$@";
+      git commit --verbose --edit -m "$*";
   fi;
 }
 
