@@ -306,6 +306,7 @@ Plug 'tpope/vim-git'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'chakrit/upstart.vim'
 Plug 'vim-scripts/nginx.vim'
+Plug 'Glench/Vim-Jinja2-Syntax'
 
 " New Or Evaluating:
 Plug 'AndrewRadev/sideways.vim'
