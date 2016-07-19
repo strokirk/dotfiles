@@ -23,10 +23,6 @@ plugins=(git brew fabric)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-export PATH="$PATH:$HOME/.local/bin/"
-export PATH="$PATH:/opt/rock/bin/"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # ssh
@@ -53,6 +49,10 @@ export GREP_OPTIONS='--color=auto'
 export DOTFILES_DIR="$HOME/.dotfiles"
 export DROPBOX_CODE_DIR="$HOME/Dropbox/Code"
 export LOCAL_CODE_DIR="$HOME/dev"
+
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+export PATH="$PATH:$HOME/.local/bin/"
+export PATH="$PATH:/opt/rock/bin/"
 
 #  Aliases {{{ #
 if [ $(uname) = 'Darwin' ]; then
