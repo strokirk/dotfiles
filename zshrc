@@ -82,6 +82,8 @@ alias code='cd $DROPBOX_CODE_DIR'
 bindkey -s ¨ /
 bindkey -s £ '$(!!)'
 bindkey -s ª '${EDITOR} -q <(!!)'
+bindkey -s ﬁ '| less'
+bindkey -s ß '| grep'
 
 bindkey ^O forward-word
 bindkey ^P backward-word
