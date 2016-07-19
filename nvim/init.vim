@@ -111,6 +111,10 @@ nnoremap VF VggoG
 " I never use normal _, but g_ is often more useful than $
 nnoremap _ g_
 
+" I never use HML, so easier line navigation is nice
+nnoremap L g_
+nnoremap H ^
+
 " Bracket Navigation: Quickfix, Buffers, Arguments, Tags
 nnoremap [q :cprev<cr>
 nnoremap ]q :cnext<cr>
@@ -226,6 +230,9 @@ nnoremap <leader>d :CloseBuffer<cr>
 " Neovim Term
 tnoremap <Esc> <C-\><C-n>
 
+" Quick :sort
+xnoremap <leader>s :sort<cr>
+
 " Quick :copen. Abbreviation avoids mistyping it as :copy
 " Techically :cw might be faster, but I often tend to use copen when I shouldn't
 cabbrev cop copen
@@ -261,6 +268,8 @@ au Filetype python nnoremap <buffer> <leader>p :PrintWrap<cr>
 au Filetype python nnoremap <buffer> <leader>s :Isort<cr>
 au Filetype sql,mysql set formatprg=sqlformat\ -r\ -
 au Filetype vim setlocal foldmethod=marker
+au Filetype scss setl equalprg=sass-convert\ --stdin\ -F\ scss\ -T\ scss
+au Filetype python setl equalprg=autopep8\ -\ --max-line-length\ 119\ -a
 
 " }}}
 
