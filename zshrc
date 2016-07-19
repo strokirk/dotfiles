@@ -185,6 +185,12 @@ function alert() {
     notify-send --urgency=low -i "${lvl}" "${msg}"
 }
 
+function next() {
+    if [ $(uname) = 'Darwin' ]; then
+        osascript -e 'tell application "spotify"' -e 'next track' -e 'end tell'
+    fi
+}
+
 #  }}} Custom Functions #
 
 export FZF_DEFAULT_OPTS="--bind ctrl-x:toggle-sort"
