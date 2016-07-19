@@ -297,6 +297,7 @@ Plug 'fmoralesc/vim-pad'
 Plug 'jiangmiao/auto-pairs'
 Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-commentary'
+Plug 'ctrlpvim/ctrlp.vim'
 
 " Visual:
 Plug 'bling/vim-airline'
@@ -305,26 +306,27 @@ Plug 'tomasr/molokai'
 Plug 'xolox/vim-colorscheme-switcher'
 Plug 'xolox/vim-misc'
 
-" Syntax:
+" Syntax And Filetype:
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'     }
 Plug 'pangloss/vim-javascript',  { 'for': 'javascript' }
 Plug 'plasticboy/vim-markdown',  { 'for': 'markdown'   }
 Plug 'vim-scripts/fountain.vim', { 'for': 'fountain'   }
-Plug 'wting/rust.vim',           { 'for': 'rust'       }
+Plug 'rust-lang/rust.vim',       { 'for': 'rust'       }
 Plug 'tpope/vim-git'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'chakrit/upstart.vim'
 Plug 'vim-scripts/nginx.vim'
 Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'editorconfig/editorconfig-vim'
 
 " New Or Evaluating:
+" Manages tag finding for ctrl-p (use gz)
+Plug 'jeetsukumaran/vim-gazetteer'
 Plug 'AndrewRadev/sideways.vim'
 Plug 'FooSoft/vim-argwrap'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'Raimondi/delimitMate'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-characterize'
-Plug 'mhinz/vim-startify'
 
 call plug#end()
 " 2}}}
