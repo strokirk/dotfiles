@@ -25,6 +25,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+export PATH="$PATH:$HOME/.local/bin/"
 export PATH="$PATH:/opt/rock/bin/"
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -188,11 +189,13 @@ function alert() {
 
 export FZF_DEFAULT_OPTS="--bind ctrl-x:toggle-sort"
 
+function source_if_exists() { [ -f "$1" ] && source "$1" }
+
 # FZF by junegunn
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source_if_exists "$HOME/.fzf.zsh"
 # Nix package manager
-[ -f ~/.nix-profile/etc/profile.d/nix.sh ] && source /Users/dan/.nix-profile/etc/profile.d/nix.sh
+source_if_exists "$HOME/.nix-profile/etc/profile.d/nix.sh"
 # Virtualenvwrapper
-[ -f /usr/local/bin/virtualenvwrapper.sh ] && source /usr/local/bin/virtualenvwrapper.sh
+source_if_exists "/usr/local/bin/virtualenvwrapper.sh"
 # Local settings that should not be committed
-[ -f $DOTFILES_DIR/local_zshrc ] && source $DOTFILES_DIR/local_zshrc
+source_if_exists "$DOTFILES_DIR/local_zshrc"
