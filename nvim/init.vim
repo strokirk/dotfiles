@@ -303,6 +303,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'bling/vim-airline'
 Plug 'tmhedberg/SimpylFold'
 Plug 'tomasr/molokai'
+Plug 'tpope/vim-characterize'
 Plug 'xolox/vim-colorscheme-switcher'
 Plug 'xolox/vim-misc'
 
@@ -326,7 +327,6 @@ Plug 'AndrewRadev/sideways.vim'
 Plug 'FooSoft/vim-argwrap'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'Raimondi/delimitMate'
-Plug 'tpope/vim-characterize'
 
 call plug#end()
 " 2}}}
