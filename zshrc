@@ -180,17 +180,33 @@ function manflag() {
 }
 
 function alert() {
+    function _get_prev_command() { echo $(history | tail -n1 | sed -e 's/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//') }
     # Pops a desktop notification with an icon based on the exit status. (from Ubuntu default bashrc)
-    [ $(command -v notify-send 2>&1) ] || return 1
-    lvl=$([ $? = 0 ] && echo terminal || echo error)
-    msg = $(history | tail -n1 | sed -e 's/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//')
-    notify-send --urgency=low -i "${lvl}" "${msg}"
+    err=$?
+    if [ $(uname) = 'Darwin' ]; then
+        title=$([ err = 0 ] && echo "Finished successfully" || echo "Finished with error")
+        msg=$(_get_prev_command)
+        if [ $(command -v terminal-notifier) ]; then
+            terminal-notifier -title "${title}" -message "${msg}" -sound Basso
+        else
+            osascript -e 'display notification "'"${msg}"'" with title "'"${title}"'"'
+        fi
+    else
+        [ $(command -v notify-send 2>&1) ] || return 1
+        lvl=$([ err = 0 ] && echo terminal || echo error)
+        msg=$(_get_prev_command)
+        notify-send --urgency=low -i "${lvl}" "${msg}"
+    fi
 }
 
 function next() {
     if [ $(uname) = 'Darwin' ]; then
         osascript -e 'tell application "spotify"' -e 'next track' -e 'end tell'
     fi
+}
+
+function run() {
+    ./$1 "${@:2}"
 }
 
 #  }}} Custom Functions #
