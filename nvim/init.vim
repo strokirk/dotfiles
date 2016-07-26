@@ -326,6 +326,7 @@ Plug 'jeetsukumaran/vim-gazetteer'
 Plug 'AndrewRadev/sideways.vim'
 Plug 'FooSoft/vim-argwrap'
 Plug 'Lokaltog/vim-easymotion'
+Plug 'tpope/vim-eunuch'
 Plug 'Raimondi/delimitMate'
 
 call plug#end()
