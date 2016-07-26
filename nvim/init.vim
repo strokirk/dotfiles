@@ -363,6 +363,8 @@ let g:NERDTreeIgnore=['\.cover$', '\.pyc$', '\~$', '__pycache__', 'node_modules'
 
 " Fugitive: (plugin)
 nnoremap <F4> :Gblame<cr>
+nnoremap <leader>ga :Gdiff<cr>
+nnoremap <leader>gg :Gcommit -v<cr>
 
 " VimPad: (plugin)
 nnoremap <F9> :Pad ls<cr>
