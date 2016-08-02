@@ -259,7 +259,6 @@ command! CopyFilename let @"=@% | let @+=@% | let @*=@%
 command! Trim exe "norm! ml" | keeppatterns %s/\s\+$//e | norm! `l
 autocmd BufWritePre * Trim
 
-au Filetype python setl equalprg=autopep8\ -
 au Filetype python command! -buffer -range=% Isort :<line1>,<line2>! isort -
 au Filetype python command! -buffer PrintWrap normal! Iprint(<esc>A<c-v>)<esc>
 au Filetype python command! -buffer Breakpoint call append(line('.')-1, repeat(' ', indent(prevnonblank(line('.')))).'import ipdb; ipdb.set_trace()  # XXX BREAKPOINT')
@@ -270,6 +269,7 @@ au Filetype sql,mysql set formatprg=sqlformat\ -r\ -
 au Filetype vim setlocal foldmethod=marker
 au Filetype scss setl equalprg=sass-convert\ --stdin\ -F\ scss\ -T\ scss
 au Filetype python setl equalprg=autopep8\ -\ --max-line-length\ 119\ -a
+au Filetype javascript setl equalprg=js-beautify\ -i\ -s\ 2\ -w\ 130
 
 " }}}
 

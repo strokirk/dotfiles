@@ -15,9 +15,12 @@
     branch-files = diff origin/master...HEAD --diff-filter=AM --name-only
     branch-name = rev-parse --abbrev-ref HEAD
     changed = "!(git diff --name-only --staged --diff-filter=AM ; git diff --name-only --diff-filter=AM;) | sort -u"
+    done = "!git fetch && git rebase origin/master"
     edit-changed = "!$EDITOR $(git changed)"
     publish = "!git push --set-upstream origin $(git branch-name)"
+    reset-upstream = "!git reset --hard $(git upstream)"
     sync = fetch origin master:master
+    undo = reset --soft HEAD^
     unstage = reset HEAD
     upstream = rev-parse --abbrev-ref --symbolic-full-name "@{upstream}"
 
@@ -35,6 +38,7 @@
     up = reset HEAD --patch
     cc = commit -v
     cm = commit -v -m
+    rim = "!git fetch && git rebase -i origin/master"
 
     pwd = status -sb
     sha = log -1 --format='%H'
