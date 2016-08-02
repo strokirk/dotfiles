@@ -1,0 +1,7 @@
+# vim:set et sw=4 ts=4 tw=120 ft=gitconfig:
+[credential]
+	helper = osxkeychain
+[github]
+	user = strokirk
+[ghi]
+	token = !security find-internet-password -a strokirk -s github.com -l 'ghi token' -w

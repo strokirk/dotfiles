@@ -1,3 +1,5 @@
+[include]
+    path = gitconfig.local
 [advice]
     statusHints = false # Slightly less verbose status output
 [user]
