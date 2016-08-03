@@ -3,5 +3,6 @@ nvim/autoload/plug.vim.old
 *vim/.netrwhist
 *vim/bundle/
 *vim/plugged/
+*vim/spell/
 local_zshrc
 .DS_Store
