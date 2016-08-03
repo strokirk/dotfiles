@@ -271,6 +271,24 @@ au Filetype scss setl equalprg=sass-convert\ --stdin\ -F\ scss\ -T\ scss
 au Filetype python setl equalprg=autopep8\ -\ --max-line-length\ 119\ -a
 au Filetype javascript setl equalprg=js-beautify\ -i\ -s\ 2\ -w\ 130
 
+" Pipe Vim Command Output To Tab: {{{ "
+" From the vim wikia
+function! TabMessage(cmd)
+  redir => l:message
+  silent execute a:cmd
+  redir END
+  if empty(l:message)
+    echoerr 'no output'
+  else
+    " use "new" instead of "tabnew" below if you prefer split windows instead of tabs
+    tabnew
+    setlocal buftype=nofile bufhidden=wipe noswapfile nobuflisted nomodified
+    silent put=message
+  endif
+endfunction
+command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args>)
+" }}} Pipe Vim Command Output To Tab: "
+
 " }}}
 
 "" VimPlugins: {{{
