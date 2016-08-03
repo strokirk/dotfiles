@@ -51,8 +51,7 @@ export DROPBOX_CODE_DIR="$HOME/Dropbox/Code"
 export LOCAL_CODE_DIR="$HOME/dev"
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-export PATH="$PATH:$HOME/.local/bin/"
-export PATH="$PATH:/opt/rock/bin/"
+export PATH="$PATH:$HOME/.local/bin"
 
 #  Aliases {{{ #
 if [ $(uname) = 'Darwin' ]; then
@@ -118,6 +117,7 @@ alias gcb=git-change-branch
 alias git-prune-merged="git checkout master && git pull --prune && git-delete-merged"
 alias gpm="git-prune-merged"
 alias grf="git-rfr"
+alias grup='git reset --hard $(git upstream)'
 #  }}} Git aliases #
 #
 #  }}} Aliases #
@@ -216,10 +216,10 @@ export FZF_DEFAULT_OPTS="--bind ctrl-x:toggle-sort"
 function source_if_exists() { [ -f "$1" ] && source "$1" }
 
 # FZF by junegunn
-source_if_exists "$HOME/.fzf.zsh"
+source_if_exists $HOME/.fzf.zsh
 # Nix package manager
-source_if_exists "$HOME/.nix-profile/etc/profile.d/nix.sh"
+source_if_exists $HOME/.nix-profile/etc/profile.d/nix.sh
 # Virtualenvwrapper
-source_if_exists "/usr/local/bin/virtualenvwrapper.sh"
+source_if_exists /usr/local/bin/virtualenvwrapper.sh
 # Local settings that should not be committed
-source_if_exists "$DOTFILES_DIR/local_zshrc"
+source_if_exists $DOTFILES_DIR/local_zshrc
