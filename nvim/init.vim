@@ -310,6 +310,7 @@ Plug 'tpope/vim-surround'
 Plug 'benekastah/neomake'
 Plug 'davidhalter/jedi-vim'
 Plug 'mattn/emmet-vim'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 
@@ -319,7 +320,6 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'majutsushi/tagbar'
-Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 
 " Visual:
