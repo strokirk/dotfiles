@@ -48,10 +48,16 @@ export GREP_OPTIONS='--color=auto'
 
 export DOTFILES_DIR="$HOME/.dotfiles"
 export DROPBOX_CODE_DIR="$HOME/Dropbox/Code"
+export DROPBOX_NOTES_DIR="$HOME/Dropbox/Documents"
 export LOCAL_CODE_DIR="$HOME/dev"
+export GOPATH="$LOCAL_CODE_DIR/go"
+export GOBIN="$GOPATH/bin"
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
 export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.gem/ruby/2.0.0/bin/"
+export PATH="$PATH:$GOBIN"
 
 #  Aliases {{{ #
 if [ $(uname) = 'Darwin' ]; then
@@ -76,6 +82,8 @@ alias hist='$EDITOR $HISTFILE'
 alias reload='source ~/.zshrc'
 alias dot='cd $DOTFILES_DIR'
 alias code='cd $DROPBOX_CODE_DIR'
+
+alias notes='$EDITOR $DROPBOX_NOTES_DIR'
 
 # Utilize some Swedish characters for a more comfortable shell
 bindkey -s ¨ /

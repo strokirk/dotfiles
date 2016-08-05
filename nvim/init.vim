@@ -1,5 +1,4 @@
 " "VIMRC SETTINGS" ##
-" Version: 2016.04
 "
 " SECTIONS
 " GeneralOptions:
@@ -233,6 +232,7 @@ tnoremap <Esc> <C-\><C-n>
 " Quick :sort
 xnoremap <leader>s :sort<cr>
 
+" Abbreviations: {{{ "
 " Quick :copen. Abbreviation avoids mistyping it as :copy
 " Techically :cw might be faster, but I often tend to use copen when I shouldn't
 cabbrev cop copen
@@ -244,8 +244,9 @@ cabbrev Wq wq
 cabbrev Qall qall
 cabbrev Wall wall
 cabbrev Wqall wqall
+" }}} Abbreviations "
 
-" s:Commands:
+" Commands: {{{
 " Quick .vimrc editing
 command! Vimrc tab drop $MYVIMRC
 " Change current working directory to the current file's directory
@@ -258,7 +259,9 @@ command! CopyFilename let @"=@% | let @+=@% | let @*=@%
 " Trim: trim all whitespace from end of lines
 command! Trim exe "norm! ml" | keeppatterns %s/\s\+$//e | norm! `l
 autocmd BufWritePre * Trim
+" }}}
 
+" Autocommands: {{{ "
 au Filetype python command! -buffer -range=% Isort :<line1>,<line2>! isort -
 au Filetype python command! -buffer PrintWrap normal! Iprint(<esc>A<c-v>)<esc>
 au Filetype python command! -buffer Breakpoint call append(line('.')-1, repeat(' ', indent(prevnonblank(line('.')))).'import ipdb; ipdb.set_trace()  # XXX BREAKPOINT')
@@ -271,7 +274,9 @@ au Filetype scss setl equalprg=sass-convert\ --stdin\ -F\ scss\ -T\ scss
 au Filetype python setl equalprg=autopep8\ -\ --max-line-length\ 119\ -a
 au Filetype javascript setl equalprg=js-beautify\ -i\ -s\ 2\ -w\ 130
 
-" Pipe Vim Command Output To Tab: {{{ "
+" }}} Autocommands "
+
+" s:Pipe Vim Command Output To Tab: {{{ "
 " From the vim wikia
 function! TabMessage(cmd)
   redir => l:message
@@ -311,41 +316,48 @@ Plug 'tpope/vim-repeat'
 " Good:
 Plug 'PeterRincker/vim-argumentative'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-Plug 'fmoralesc/vim-pad'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-commentary'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tpope/vim-eunuch'
 
 " Visual:
 Plug 'bling/vim-airline'
 Plug 'tmhedberg/SimpylFold'
 Plug 'tomasr/molokai'
 Plug 'tpope/vim-characterize'
-Plug 'xolox/vim-colorscheme-switcher'
 Plug 'xolox/vim-misc'
 
 " Syntax And Filetype:
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'     }
 Plug 'pangloss/vim-javascript',  { 'for': 'javascript' }
 Plug 'plasticboy/vim-markdown',  { 'for': 'markdown'   }
-Plug 'vim-scripts/fountain.vim', { 'for': 'fountain'   }
 Plug 'rust-lang/rust.vim',       { 'for': 'rust'       }
-Plug 'tpope/vim-git'
-Plug 'tmux-plugins/vim-tmux'
-Plug 'chakrit/upstart.vim'
-Plug 'vim-scripts/nginx.vim'
+Plug 'stephpy/vim-yaml',         { 'for': 'yaml' }
+Plug 'vim-scripts/fountain.vim', { 'for': 'fountain'   }
 Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'chakrit/upstart.vim'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'fatih/vim-hclfmt'
+Plug 'tmux-plugins/vim-tmux'
+Plug 'tpope/vim-git'
+Plug 'vim-scripts/nginx.vim'
+
+" Notetaking:
+Plug 'fmoralesc/vim-pad'       | " Nice and simple. Mostly a navigation tool.
+Plug 'jceb/vim-orgmode'        | " Basically Emacs org-mode for vim
+Plug 'vimoutliner/vimoutliner' | " Uses a custom syntax vaguely similar to org-mode
+Plug 'xolox/vim-notes'         | " Uses a custom syntax
+Plug 'mrtazz/simplenote.vim'
 
 " New Or Evaluating:
-" Manages tag finding for ctrl-p (use gz)
-Plug 'jeetsukumaran/vim-gazetteer'
+Plug 'jeetsukumaran/vim-gazetteer' | " Manages tag finding for ctrl-p (use gz)
 Plug 'AndrewRadev/sideways.vim'
 Plug 'FooSoft/vim-argwrap'
 Plug 'Lokaltog/vim-easymotion'
-Plug 'tpope/vim-eunuch'
 Plug 'Raimondi/delimitMate'
+Plug 'michaeljsmith/vim-indent-object'
 
 call plug#end()
 " 2}}}
@@ -369,7 +381,7 @@ autocmd FileType html,css EmmetInstall
 " Ag: (plugin) (use AltGr to quickly search)
 let g:ag_prg='ag --column'
 nnoremap ª :Ag! "\b<c-r>=expand("<cword>")<cr>\b"
-xnoremap ª "ly:Ag! "\b<c-r>l\b"
+xnoremap ª "ly:Ag! "<c-r>l"
 cabbrev ag Ag
 command! -nargs=1 Usage Ag! '\b<args>\b'
 
@@ -405,9 +417,6 @@ au BufEnter *.fountain setf fountain
 " Startify: (plugin)
 let g:startify_change_to_dir = 0
 let g:startify_change_to_vcs_root = 0
-
-let g:colorscheme_switcher_define_mappings = 0
-nnoremap <silent> <F2> :NextColorScheme<CR>
 
 " Use desert as default colorscheme, molokai if installed
 silent! colorscheme desert
