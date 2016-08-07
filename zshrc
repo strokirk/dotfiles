@@ -77,6 +77,7 @@ alias pgrep='pgrep -lf' # sane default for pgrep, long list and match against ar
 alias help="run-help" # help is called run-help in zsh
 alias svim="sudo vim"
 alias v="vim"
+alias n="nvim"
 alias rc='$EDITOR ~/.zshrc'
 alias hist='$EDITOR $HISTFILE'
 alias reload='source ~/.zshrc'
