@@ -252,7 +252,8 @@ command! Vimrc tab drop $MYVIMRC
 " Change current working directory to the current file's directory
 command! WorkHere cd %:h
 " Make current buffer a "Scratch" buffer
-command! Temporary setlocal buftype=nofile bufhidden=hide noswapfile
+command! -bar Temporary setlocal buftype=nofile bufhidden=hide nobuflisted noswapfile
+command! -bar Scratch botright new *scratch*|Temporary|res 8|setl winfixheight
 " Copy current filename
 command! CopyFilename let @"=@% | let @+=@% | let @*=@%
 
@@ -293,6 +294,14 @@ function! TabMessage(cmd)
 endfunction
 command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args>)
 " }}} Pipe Vim Command Output To Tab: "
+
+function! s:ScratchRead(cmd, ...)
+    if bufwinnr('*scratch*') | bw *scratch* | endif
+    Scratch | set previewwindow
+    exe '0read !'.a:cmd
+    execute "normal \<c-w>p"
+endfunction
+command! -nargs=+ ScratchRead call s:ScratchRead("<args>")
 
 " }}}
 
