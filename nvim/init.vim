@@ -140,6 +140,9 @@ nnoremap Y yg_:echo "Yanked: ".@"<cr>
 nnoremap s /
 xnoremap s /
 
+" Make vim command mode more like readine
+cnoremap <c-a>  <home>
+
 " This is a great shortcut for fast redrawing and resetting highlight.
 nnoremap <silent> <C-l> :<C-u>nohlsearch<bar>diffupdate<cr><C-l>
 
