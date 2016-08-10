@@ -235,3 +235,4 @@ source_if_exists $HOME/.nix-profile/etc/profile.d/nix.sh
 source_if_exists /usr/local/bin/virtualenvwrapper.sh
 # Local settings that should not be committed
 source_if_exists $DOTFILES_DIR/local_zshrc
+source_if_exists $DOTFILES_DIR/zshrc.local
