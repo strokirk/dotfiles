@@ -93,8 +93,11 @@ bindkey -s ª '${EDITOR} -q <(!!)'
 bindkey -s ﬁ '| less'
 bindkey -s ß '| grep'
 
-bindkey ^O forward-word
-bindkey ^P backward-word
+bindkey ^O backward-word
+bindkey ^P forward-word
+
+bindkey ^W backward-kill-word
+bindkey ^F kill-word
 
 #  Git aliases {{{ #
 alias gc="git checkout"
