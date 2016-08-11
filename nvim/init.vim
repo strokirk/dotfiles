@@ -343,7 +343,7 @@ Plug 'xolox/vim-misc'
 
 " Syntax And Filetype:
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'     }
-Plug 'pangloss/vim-javascript',  { 'for': 'javascript' }
+Plug 'pangloss/vim-javascript'   | Plug 'mxw/vim-jsx'
 Plug 'plasticboy/vim-markdown',  { 'for': 'markdown'   }
 Plug 'rust-lang/rust.vim',       { 'for': 'rust'       }
 Plug 'stephpy/vim-yaml',         { 'for': 'yaml' }
