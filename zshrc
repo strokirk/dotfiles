@@ -84,7 +84,7 @@ alias reload='source ~/.zshrc'
 alias dot='cd $DOTFILES_DIR'
 alias code='cd $DROPBOX_CODE_DIR'
 
-alias notes='$EDITOR $DROPBOX_NOTES_DIR'
+alias notes='(cd $DROPBOX_NOTES_DIR && $EDITOR .)'
 
 # Utilize some Swedish characters for a more comfortable shell
 bindkey -s ¨ /
