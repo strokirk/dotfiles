@@ -417,6 +417,10 @@ let g:pad#dir = '~/Dropbox/Documents/pad/'
 let g:pad#position = {'list': 'bottom', 'pads': 'right'}
 let g:pad#window_width = 80
 
+" Notes: (plugin)
+let g:notes_directories = ['~/Dropbox/Documents/notes/']
+let g:notes_title_sync = 'no'
+
 " CtrlP: (plugin)
 if executable('ag')
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
