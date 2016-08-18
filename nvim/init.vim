@@ -240,9 +240,11 @@ xnoremap <leader>s :sort<cr>
 " Techically :cw might be faster, but I often tend to use copen when I shouldn't
 cabbrev cop copen
 
-" Other common misspellings
+" Just let me, darnit!
+nnoremap ZQ :qa!
 cabbrev Q q
 cabbrev W w
+cabbrev Qa qall
 cabbrev Wq wq
 cabbrev Qall qall
 cabbrev Wall wall
