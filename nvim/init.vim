@@ -349,8 +349,8 @@ Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'     }
 Plug 'pangloss/vim-javascript'   | Plug 'mxw/vim-jsx'
 Plug 'plasticboy/vim-markdown',  { 'for': 'markdown'   }
 Plug 'rust-lang/rust.vim',       { 'for': 'rust'       }
-Plug 'stephpy/vim-yaml',         { 'for': 'yaml' }
 Plug 'vim-scripts/fountain.vim', { 'for': 'fountain'   }
+Plug 'lambdatoast/elm.vim',      { 'for': 'elm' }
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'chakrit/upstart.vim'
 Plug 'editorconfig/editorconfig-vim'
