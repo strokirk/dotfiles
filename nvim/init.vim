@@ -112,7 +112,9 @@ nnoremap _ g_
 
 " I never use HML, so easier line navigation is nice
 nnoremap L g_
+xnoremap L g_
 nnoremap H ^
+xnoremap H ^
 
 " Bracket Navigation: Quickfix, Buffers, Arguments, Tags
 nnoremap [q :cprev<cr>
@@ -242,7 +244,7 @@ xnoremap <leader>s :sort<cr>
 cabbrev cop copen
 
 " Just let me, darnit!
-nnoremap ZQ :qa!
+nnoremap ZQ :qa!<cr>
 cabbrev Q q
 cabbrev W w
 cabbrev Qa qall
@@ -269,6 +271,11 @@ autocmd BufWritePre * Trim
 " }}}
 
 " Autocommands: {{{ "
+au Filetype python nnoremap <buffer> gp yiwoprint("<c-r>0: ", <c-r>0)  # XXX<esc>
+au Filetype python xnoremap <buffer> gp yoprint("<c-r>0: ", <c-r>0)  # XXX<esc>
+au Filetype javascript nnoremap <buffer> gp yiwoconsole.log("<c-r>0: ", <c-r>0)  // XXX<esc>
+au Filetype javascript xnoremap <buffer> gp yoconsole.log("<c-r>0: ", <c-r>0)  // XXX<esc>
+
 au Filetype python command! -buffer -range=% Isort :<line1>,<line2>! isort -
 au Filetype python command! -buffer PrintWrap normal! Iprint(<esc>A<c-v>)<esc>
 au Filetype python command! -buffer Breakpoint call append(line('.')-1, repeat(' ', indent(prevnonblank(line('.')))).'import ipdb; ipdb.set_trace()  # XXX BREAKPOINT')
@@ -280,6 +287,7 @@ au Filetype vim setlocal foldmethod=marker
 au Filetype scss setl equalprg=sass-convert\ --stdin\ -F\ scss\ -T\ scss
 au Filetype python setl equalprg=autopep8\ -\ --max-line-length\ 119\ -a\ --ignore\ E309
 au Filetype javascript setl equalprg=js-beautify\ -i\ -s\ 2\ -w\ 130
+au Filetype javascript setl foldmethod=syntax
 
 " }}} Autocommands "
 
@@ -380,19 +388,25 @@ call plug#end()
 
 " Plugin Options: {{{2
 
-" GitGutter (plugin)
+" GitGutter: (plugin)
 nnoremap [g :GitGutterPrevHunk<cr>
 nnoremap ]g :GitGutterNextHunk<cr>
 command! GGR GitGutterRevertHunk
 cabbrev ggr GGR
 
-" Neomake (plugin)
+" Neomake: (plugin)
 au BufWritePost * Neomake
 let g:neomake_javascript_enabled_makers = ['eslint']
 
 " Emmet: (Plugin)
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
+
+" Tagbar: (Plugin)
+nnoremap <F2> :TagbarToggle<cr>
+
+" Jedi: (Plugin)
+let g:jedi#goto_command = '' | " This competes with my <leader>d mapping
 
 " Ag: (plugin) (use AltGr to quickly search)
 let g:ag_prg='ag --column'
@@ -427,9 +441,6 @@ let g:notes_title_sync = 'no'
 if executable('ag')
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
-
-let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
 
 " Fountain: (plugin)
 au BufEnter *.fountain setf fountain
