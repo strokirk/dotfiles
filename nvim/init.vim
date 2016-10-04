@@ -54,7 +54,6 @@ set ruler           " Shows line & column number
 set scrolloff=5     " Always keep 7 lines above and below cursor
 set showcmd         " Shows the half-finished command when typed
 set showmatch       " Show matching brackets when cursor is over one of them
-" set rnu           " Relative line numbers
 set foldlevel=999
 
 set smartcase
