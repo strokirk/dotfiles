@@ -357,6 +357,7 @@ Plug 'fatih/vim-hclfmt'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-git'
 Plug 'vim-scripts/nginx.vim'
+Plug 'lambdatoast/elm.vim'
 
 " Notetaking:
 Plug 'fmoralesc/vim-pad'       | " Nice and simple. Mostly a navigation tool.
