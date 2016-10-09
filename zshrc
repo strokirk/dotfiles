@@ -217,6 +217,11 @@ function next() {
         osascript -e 'tell application "spotify"' -e 'next track' -e 'end tell'
     fi
 }
+function prev() {
+    if [ $(uname) = 'Darwin' ]; then
+        osascript -e 'tell application "spotify"' -e 'previous track' -e 'end tell'
+    fi
+}
 
 function run() {
     ./$1 "${@:2}"
