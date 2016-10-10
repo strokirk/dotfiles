@@ -213,6 +213,10 @@ function alert() {
     fi
 }
 
+if [ $(uname) = 'Linux' ]; then
+    alias open=xdg-open
+fi
+
 function next() {
     if [ $(uname) = 'Darwin' ]; then
         osascript -e 'tell application "spotify"' -e 'next track' -e 'end tell'
