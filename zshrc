@@ -45,6 +45,7 @@ export LANG='en_US.UTF-8'
 export EDITOR='nvim'
 
 # export GREP_OPTIONS='--color=auto'
+# export PIP_REQUIRE_VIRTUALENV=true
 
 export DOTFILES_DIR="$HOME/.dotfiles"
 export DROPBOX_CODE_DIR="$HOME/Dropbox/Code"
