@@ -285,9 +285,8 @@ au Filetype sql,mysql set formatprg=sqlformat\ -r\ -
 au Filetype vim setlocal foldmethod=marker
 au Filetype scss setl equalprg=sass-convert\ --stdin\ -F\ scss\ -T\ scss
 au Filetype python setl equalprg=autopep8\ -\ --max-line-length\ 119\ -a\ --ignore\ E309
-au Filetype javascript setl equalprg=js-beautify\ -i\ -s\ 2\ -w\ 130
+au Filetype javascript setl equalprg=js-beautify\ -i\ -s\ 2\ -w\ 130\ -X
 au Filetype javascript setl foldmethod=syntax
-
 " }}} Autocommands "
 
 " s:Pipe Vim Command Output To Tab: {{{ "
@@ -366,6 +365,7 @@ Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-git'
 Plug 'vim-scripts/nginx.vim'
 Plug 'lambdatoast/elm.vim'
+Plug 'elixir-lang/vim-elixir'
 
 " Notetaking:
 Plug 'fmoralesc/vim-pad'       | " Nice and simple. Mostly a navigation tool.
@@ -436,13 +436,14 @@ let g:pad#window_width = 80
 let g:notes_directories = ['~/Dropbox/Documents/notes/']
 let g:notes_title_sync = 'no'
 
+let g:jsx_ext_required = 0
+
 " CtrlP: (plugin)
 if executable('ag')
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
-
-" Fountain: (plugin)
-au BufEnter *.fountain setf fountain
+let g:ctrlp_extensions = ['tag']
+let g:ctrlp_types = ['fil', 'mru', 'buf']
 
 " Startify: (plugin)
 let g:startify_change_to_dir = 0
