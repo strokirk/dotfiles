@@ -7,8 +7,8 @@
 set -e
 
 current_branch=$(git rev-parse --abbrev-ref HEAD)
-to_branch=master
 from_branch=${1-${current_branch}}
+to_branch=${2-master}
 
 if [ "${to_branch}" = "${from_branch}" ]; then
     echo "Already on branch ${to_branch}, aborting merge."
@@ -16,11 +16,11 @@ if [ "${to_branch}" = "${from_branch}" ]; then
 fi
 
 # Rebase old branch
-git checkout "${from_branch}" && git pull --rebase origin master
+git checkout "${from_branch}" && git pull --rebase origin "${to_branch}"
 git push -f
 
 # Update master
-git checkout ${to_branch} && git pull --rebase
+git checkout "${to_branch}" && git pull --rebase
 git merge --no-ff --no-edit "${from_branch}" && git push
 
 # Delete old branch
