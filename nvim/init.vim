@@ -6,6 +6,13 @@
 " MappingsAndCommands:
 " VimPlugins:
 
+" TODO: MkNonExDir
+" TODO: Mapping för Expand selection
+" TODO: Mapping för Select under cursor
+" TODO: Mapping %% för hela filen?
+" TODO: Mapping för viW och viW
+" TODO: Mapping för CtrlP i taggläge?
+
 "" GeneralOptions: {{{
 filetype plugin indent on
 syntax enable       " Syntax highlighting is enabled (and overrideable)
