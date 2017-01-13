@@ -375,8 +375,6 @@ Plug 'lambdatoast/elm.vim'
 Plug 'elixir-lang/vim-elixir'
 
 " Notetaking:
-Plug 'fmoralesc/vim-pad'       | " Nice and simple. Mostly a navigation tool.
-Plug 'jceb/vim-orgmode'        | " Basically Emacs org-mode for vim
 Plug 'vimoutliner/vimoutliner' | " Uses a custom syntax vaguely similar to org-mode
 Plug 'xolox/vim-notes'         | " Uses a custom syntax
 Plug 'mrtazz/simplenote.vim'
