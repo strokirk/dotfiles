@@ -54,16 +54,20 @@ export DROPBOX_NOTES_DIR="$HOME/Dropbox/Documents"
 export LOCAL_CODE_DIR="$HOME/dev"
 export GOPATH="$LOCAL_CODE_DIR/go"
 export GOBIN="$GOPATH/bin"
+export NPM_PACKAGES="$HOME/.npm-packages"
+export NODE_PATH="$NPM_PACKAGES/lib/node_modules${NODE_PATH:+:$NODE_PATH}"
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/.gem/ruby/2.0.0/bin/"
 export PATH="$PATH:$GOBIN"
+export PATH="$PATH:$HOME/.yarn/bin"
+export PATH="$PATH:$NPM_PACKAGES/bin"
 
 #  Aliases {{{ #
 if [ $(uname) = 'Darwin' ]; then
-    unalias ls l la ll
+    unalias ls l la ll 2>/dev/null
     if [ -f $(which gls) ]; then
         alias ls='gls -hlpG --group-directories-first --color=auto --time-style=long-iso'
     fi
@@ -80,6 +84,8 @@ alias help="run-help" # help is called run-help in zsh
 alias svim="sudo vim"
 alias v="vim"
 alias n="nvim"
+alias ni="nvim"
+alias nit="nvim -t"
 alias rc='$EDITOR ~/.zshrc'
 alias hist='$EDITOR $HISTFILE'
 alias reload='source ~/.zshrc'
@@ -91,6 +97,7 @@ alias notes='(cd $DROPBOX_NOTES_DIR && $EDITOR .)'
 
 # Utilize some Swedish characters for a more comfortable shell
 bindkey -s ¨ /
+bindkey -s § '|'
 bindkey -s £ '$(!!)'
 bindkey -s ª '${EDITOR} -q <(!!)'
 bindkey -s ﬁ '| less'
@@ -123,13 +130,11 @@ alias glmp="glm -p"
 alias gap="git add --patch"
 alias gcp="git checkout --patch"
 alias gup="git reset --patch HEAD"
-alias gec='$EDITOR $(git changed)'
-alias gbf='$EDITOR $(git branch-files)'
 
-alias gb='$DOTFILES_DIR/bin/git-list-branches'
-alias gcb=git-change-branch
+alias gb='git-list-branches'
+alias gcb='git-change-branch'
 
-alias git-prune-merged="git checkout master && git pull --prune && git-delete-merged"
+alias git-prune-merged='git checkout master && git pull --prune; git-delete-merged; git-delete-missing'
 alias gpm="git-prune-merged"
 alias grf="git-rfr"
 alias grup='git reset --hard $(git upstream)'
@@ -246,5 +251,4 @@ source_if_exists $HOME/.nix-profile/etc/profile.d/nix.sh
 # Virtualenvwrapper
 source_if_exists /usr/local/bin/virtualenvwrapper.sh
 # Local settings that should not be committed
-source_if_exists $DOTFILES_DIR/local_zshrc
 source_if_exists $DOTFILES_DIR/zshrc.local
