@@ -386,6 +386,9 @@ Plug 'FooSoft/vim-argwrap'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'Raimondi/delimitMate'
 Plug 'michaeljsmith/vim-indent-object'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'wellle/targets.vim'
+Plug 'rizzatti/dash.vim'
 
 call plug#end()
 " 2}}}
