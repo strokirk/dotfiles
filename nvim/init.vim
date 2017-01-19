@@ -14,8 +14,6 @@
 " TODO: Mapping för CtrlP i taggläge?
 
 "" GeneralOptions: {{{
-filetype plugin indent on
-syntax enable       " Syntax highlighting is enabled (and overrideable)
 scriptencoding utf-8
 
 " Whitespace options is mainly based on Python/Django
@@ -27,18 +25,10 @@ set ttimeoutlen=-1           " Fixes input issues when nvim is run in tmux
 set hidden                   " Allow unsaved buffers to be backgrounded
 set path=**                  " Makes :find work better. Thanks romainl!
 set nobackup nowb noswapfile " Vim-based backup is more trouble than it's worth
-set history=1000             " More history
-set wildmenu                 " This is really funky
 set wildignore=*.pyc,*~,*.mo
 
-set autoindent      " Keep indent from previous line
-set autoread        " Set to auto read from file when it is changed
-set formatoptions+=j               " Formatoptions: Combine comment lines intelligently with J
-set backspace=indent,eol,start     " Enable backspacing over everything in insert mode
+set formatoptions+=l         " Formatoptions: Don't break already long lines
 set nosmartindent   " Python comments (#) can't handle smartindent
-set smarttab
-set autoread
-set mouse=a
 set tags=./tags;,tags,./.git/tags
 
 " Enable Vim to read it's own quickfix format
@@ -55,7 +45,6 @@ autocmd BufRead  COMMIT_EDITMSG setlocal spell
 "" VisualOptions: {{{
 set background=dark
 silent! colorscheme desert
-set laststatus=2    " Always enable statusline
 set number          " Turn n line number
 set ruler           " Shows line & column number
 set scrolloff=5     " Always keep 7 lines above and below cursor
@@ -65,19 +54,6 @@ set foldlevel=999
 
 set smartcase
 set ignorecase
-
-" These are set by default in NeoVim, so are technically no-ops in a .nvimrc " {{{
-set hlsearch        " Highlight makes things easier to find
-set incsearch       " Incremental search is a necessity
-set autoread        " Automatically load external changes to files
-set backspace=indent,eol,start
-set wildmenu        " Pop-up-menu based command-line completion
-set autoindent
-" In many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
-    set mouse=a
-endif
-" }}}
 
 "" Line Wrapping:
 set cpoptions+=n            " The 'number' column used for wrapped text
