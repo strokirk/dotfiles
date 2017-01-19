@@ -79,6 +79,7 @@ else
 fi
 
 alias pgrep='pgrep -lf' # sane default for pgrep, long list and match against argument name
+alias whence="whence -avs"  # show exact origin of command
 
 alias help="run-help" # help is called run-help in zsh
 alias svim="sudo vim"
