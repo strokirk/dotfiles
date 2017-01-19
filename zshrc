@@ -60,7 +60,7 @@ export NODE_PATH="$NPM_PACKAGES/lib/node_modules${NODE_PATH:+:$NODE_PATH}"
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 export PATH="$PATH:$HOME/.local/bin"
-export PATH="$PATH:$HOME/.gem/ruby/2.0.0/bin/"
+export PATH="$PATH:$HOME/.gem/ruby/2.0.0/bin"
 export PATH="$PATH:$GOBIN"
 export PATH="$PATH:$HOME/.yarn/bin"
 export PATH="$PATH:$NPM_PACKAGES/bin"
