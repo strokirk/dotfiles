@@ -30,13 +30,21 @@ source $ZSH/oh-my-zsh.sh
 
 #
 # Options
+# Note: Zsh ignores case and underscores in option names
 #
-setopt append_history
-setopt histignoredups	 # Don't write successive identical lines to history
-setopt hist_no_store     # Don't write calls to `history` to history file
-setopt hist_ignore_all_dups # Don't write any duplicate commands to history
-# Enable interactive comments (# on the command line)
-setopt interactivecomments
+# History options
+setopt APPEND_HISTORY
+setopt EXTENDED_HISTORY         # Save history timestampts
+setopt HIST_REDUCE_BLANKS       # Remove superfluous blanks from each command
+setopt HIST_VERIFY              # Don't execute history directly, replace old line
+setopt HIST_NO_STORE            # Don't write calls to `history` to history file
+setopt HIST_IGNORE_DUPS	        # Don't write successive identical lines to history
+setopt HIST_IGNORE_ALL_DUPS     # Duplicate commands replaces old ones in history
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt INC_APPEND_HISTORY       # Enter new lines to history immediately
+# Other options
+setopt INTERACTIVE_COMMENTS     # Enable interactive comments (# on the command line)
+setopt MARK_DIRS                # Add "/" if completes directory
 
 #
 # Environment (some by oh-my-zsh)
