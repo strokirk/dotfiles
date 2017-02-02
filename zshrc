@@ -91,10 +91,8 @@ alias whence="whence -avs"  # show exact origin of command
 
 alias help="run-help" # help is called run-help in zsh
 alias svim="sudo vim"
-alias v="vim"
-alias n="nvim"
 alias ni="nvim"
-alias nit="nvim -t"
+alias nit='nvim -t'
 alias rc='$EDITOR ~/.zshrc'
 alias hist='$EDITOR $HISTFILE'
 alias reload='source ~/.zshrc'
@@ -245,6 +243,19 @@ function prev() {
 
 function run() {
     ./$1 "${@:2}"
+}
+
+function nif() {
+    local line
+    line=$(fzf --multi --exit-0 --select-1 --query="$@") &&
+    nvim ${line}
+}
+
+function nift() {
+    local line
+    [ -e .git/tags ] &&
+    line=$(awk '!/^!/ {print $1}' .git/tags | fzf --exit-0 --select-1 --query="$@") &&
+    nvim -t ${line}
 }
 
 #  }}} Custom Functions #
