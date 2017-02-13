@@ -309,9 +309,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
+Plug 'benekastah/neomake'
 
 " Excellent:
-Plug 'benekastah/neomake'
 Plug 'davidhalter/jedi-vim'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-commentary'
