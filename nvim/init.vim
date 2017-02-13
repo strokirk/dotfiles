@@ -332,6 +332,7 @@ Plug 'tmhedberg/SimpylFold'
 Plug 'tomasr/molokai'
 Plug 'tpope/vim-characterize'
 Plug 'xolox/vim-misc'
+Plug 'machakann/vim-highlightedyank'
 
 " Syntax And Filetype:
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'     }
@@ -339,7 +340,7 @@ Plug 'pangloss/vim-javascript'   | Plug 'mxw/vim-jsx'
 Plug 'plasticboy/vim-markdown',  { 'for': 'markdown'   }
 Plug 'rust-lang/rust.vim',       { 'for': 'rust'       }
 Plug 'vim-scripts/fountain.vim', { 'for': 'fountain'   }
-Plug 'lambdatoast/elm.vim',      { 'for': 'elm' }
+Plug 'ElmCast/elm-vim'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'chakrit/upstart.vim'
 Plug 'editorconfig/editorconfig-vim'
@@ -347,7 +348,6 @@ Plug 'fatih/vim-hclfmt'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-git'
 Plug 'vim-scripts/nginx.vim'
-Plug 'lambdatoast/elm.vim'
 Plug 'elixir-lang/vim-elixir'
 
 " Notetaking:
@@ -422,7 +422,9 @@ let g:pad#window_width = 80
 let g:notes_directories = ['~/Dropbox/Documents/notes/']
 let g:notes_title_sync = 'no'
 
+" Syntax Plugins:
 let g:jsx_ext_required = 0
+let g:elm_format_autosave = 1
 
 " CtrlP: (plugin)
 if executable('ag')
