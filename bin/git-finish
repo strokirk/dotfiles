@@ -4,6 +4,7 @@
 # Does a no-ff rebase and merge onto the target branch from the current one.
 # Also updates the origin of the current branch so that the github tracker knows it is merged
 
+# Exit immediately if a command exits with a non-zero status, so we don't have to do any &&-chains
 set -e
 
 current_branch=$(git rev-parse --abbrev-ref HEAD)
@@ -16,12 +17,17 @@ if [ "${to_branch}" = "${from_branch}" ]; then
 fi
 
 # Rebase old branch
-git checkout "${from_branch}" && git pull --rebase origin "${to_branch}"
-git push -f
+git checkout "${from_branch}"
+git pull --rebase origin "${to_branch}"
+git push --force-with-lease origin "${from_branch}"
 
-# Update master
-git checkout "${to_branch}" && git pull --rebase
-git merge --no-ff --no-edit "${from_branch}" && git push
+# Update target branch
+git checkout "${to_branch}"
+git pull --rebase origin "${to_branch}"
+
+# Merge old branch into target branch and update remote
+git merge --no-ff --no-edit "${from_branch}"
+git push origin "${to_branch}"
 
 # Delete old branch
 git push origin :"${from_branch}" && git branch -D "${from_branch}"
