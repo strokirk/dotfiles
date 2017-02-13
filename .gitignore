@@ -5,4 +5,5 @@ nvim/autoload/plug.vim.old
 *vim/plugged/
 *vim/spell/
 local_zshrc
+zshrc.local
 .DS_Store
