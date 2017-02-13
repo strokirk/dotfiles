@@ -365,7 +365,6 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'wellle/targets.vim'
 Plug 'rizzatti/dash.vim'
-Plug 'machakann/vim-highlightedyank'
 
 call plug#end()
 " 2}}}
