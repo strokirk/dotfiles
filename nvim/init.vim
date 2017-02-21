@@ -12,6 +12,10 @@
 " TODO: Mapping %% för hela filen?
 " TODO: Mapping för viW och viW
 " TODO: Mapping för CtrlP i taggläge?
+" TODO: Blockdiff / Linediff
+" TODO: VIM toggle list
+" TODO: Edit quickfix lists interactively
+" NOTE: v_g Ctrl-A (increment all sequentially)
 
 "" GeneralOptions: {{{
 scriptencoding utf-8
