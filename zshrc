@@ -253,6 +253,9 @@ function run() {
     ./$1 "${@:2}"
 }
 
+function dated() { date +"%Y-%m-%d" }
+function datet() { date +"%Y-%m-%d+%H.%M" }
+
 function nif() {
     local line
     line=$(fzf --multi --exit-0 --select-1 --query="$@") &&
