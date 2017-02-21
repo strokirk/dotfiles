@@ -268,7 +268,7 @@ au Filetype sql,mysql set formatprg=sqlformat\ -r\ -
 au Filetype vim setlocal foldmethod=marker
 au Filetype scss setl equalprg=sass-convert\ --stdin\ -F\ scss\ -T\ scss
 au Filetype python setl equalprg=autopep8\ -\ --max-line-length\ 119\ -a\ --ignore\ E309
-au Filetype javascript setl equalprg=js-beautify\ -i\ -s\ 2\ -w\ 130\ -X
+au Filetype javascript setl equalprg=js-beautify\ -i\ -s\ 2\ -w\ 130\ -X\ --brace-style=collapse-preserve-inline
 au Filetype javascript setl foldmethod=syntax
 " }}} Autocommands "
 
