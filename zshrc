@@ -97,7 +97,7 @@ alias rc='$EDITOR ~/.zshrc'
 alias hist='$EDITOR $HISTFILE'
 alias reload='source ~/.zshrc'
 alias dot='cd $DOTFILES_DIR'
-alias code='cd $DROPBOX_CODE_DIR'
+alias cod='cd $DROPBOX_CODE_DIR'
 alias docs='cd $DROPBOX_NOTES_DIR'
 
 alias notes='(cd $DROPBOX_NOTES_DIR && $EDITOR .)'
