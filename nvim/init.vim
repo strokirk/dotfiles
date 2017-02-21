@@ -324,6 +324,7 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'majutsushi/tagbar'
+Plug 'sjl/clam.vim'         | " easily run Shell commands
 Plug 'tpope/vim-eunuch'
 
 " Visual:
