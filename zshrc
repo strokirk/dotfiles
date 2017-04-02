@@ -286,6 +286,7 @@ function source_if_exists() { [ -f "$1" ] && source "$1" }
 source_if_exists $HOME/.fzf.zsh
 # Nix package manager
 source_if_exists $HOME/.nix-profile/etc/profile.d/nix.sh
+alias nix-installed="nix-env -q --installed --json | jq '.[]| \"- \" + .name + \" :: \" + .meta.description' | xargs -n1 | column -t -s '::'"
 # Virtualenvwrapper
 source_if_exists /usr/local/bin/virtualenvwrapper.sh
 # Local settings that should not be committed
