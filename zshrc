@@ -276,6 +276,10 @@ function nvim-fzf-tags() {
 }
 alias nift=nvim-fzf-tags
 
+function pipsi-installed() {
+    pipsi list | sed '/Package /!d ; s/Package "\(.*\)":/\1/'
+}
+
 #  }}} Custom Functions #
 
 export FZF_DEFAULT_OPTS="--bind ctrl-x:toggle-sort"
