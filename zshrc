@@ -261,18 +261,20 @@ function r() {
 function dated() { date +"%Y-%m-%d" }
 function datet() { date +"%Y-%m-%d+%H.%M" }
 
-function nif() {
+function nvim-fzf-files() {
     local line
-    line=$(fzf --multi --exit-0 --select-1 --query="$@") &&
+    line=$(ag -g "" | fzf --multi --exit-0 --select-1 --query="$@") &&
     nvim ${line}
 }
+alias nif=nvim-fzf-files
 
-function nift() {
+function nvim-fzf-tags() {
     local line
     [ -e .git/tags ] &&
     line=$(awk '!/^!/ {print $1}' .git/tags | fzf --exit-0 --select-1 --query="$@") &&
     nvim -t ${line}
 }
+alias nift=nvim-fzf-tags
 
 #  }}} Custom Functions #
 
