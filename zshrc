@@ -247,6 +247,17 @@ function run() {
     ./$1 "${@:2}"
 }
 
+disable r
+function r() {
+    # Print README files
+    f=$(find . -iname 'readme*' -maxdepth 1)
+    if [ $(command -v mdless 2>&1) ]; then
+        mdless --no-pager $f
+    else
+        less -FX $f
+    fi
+}
+
 function dated() { date +"%Y-%m-%d" }
 function datet() { date +"%Y-%m-%d+%H.%M" }
 
