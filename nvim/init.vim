@@ -15,6 +15,7 @@
 " TODO: Blockdiff / Linediff
 " TODO: VIM toggle list
 " TODO: Edit quickfix lists interactively
+" TODO: Gör bättre text-obj för [{(indent
 " NOTE: v_g Ctrl-A (increment all sequentially)
 
 "" GeneralOptions: {{{
@@ -269,6 +270,7 @@ au Filetype python nnoremap <buffer> <leader>b :Breakpoint<cr>
 au Filetype python nnoremap <buffer> <leader>p :PrintWrap<cr>
 au Filetype python nnoremap <buffer> <leader>s :Isort<cr>
 au Filetype sql,mysql set formatprg=sqlformat\ -r\ -
+au Filetype sql,mysql set equalprg=sqlformat\ -r\ -
 au Filetype vim setlocal foldmethod=marker
 au Filetype scss setl equalprg=sass-convert\ --stdin\ -F\ scss\ -T\ scss
 au Filetype python setl equalprg=autopep8\ -\ --max-line-length\ 119\ -a\ --ignore\ E309
