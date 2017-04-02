@@ -45,6 +45,9 @@ set iskeyword+=-
 
 " Spelling: in git commit messages
 autocmd BufRead  COMMIT_EDITMSG setlocal spell
+autocmd BufRead  COMMIT_EDITMSG setlocal textwidth=72
+autocmd BufRead  gitcommit setlocal spell
+autocmd BufRead  gitcommit setlocal textwidth=72
 " }}}
 
 "" VisualOptions: {{{
