@@ -418,12 +418,6 @@ nnoremap <leader>gw :Gw<cr>
 nnoremap <leader>ga :Gdiff<cr>
 nnoremap <leader>gg :Gcommit -v<cr>
 
-" VimPad: (plugin)
-nnoremap <F9> :Pad ls<cr>
-let g:pad#dir = '~/Dropbox/Documents/pad/'
-let g:pad#position = {'list': 'bottom', 'pads': 'right'}
-let g:pad#window_width = 80
-
 " Notes: (plugin)
 let g:notes_directories = ['~/Dropbox/Documents/notes/']
 let g:notes_title_sync = 'no'
@@ -439,9 +433,8 @@ endif
 let g:ctrlp_extensions = ['tag']
 let g:ctrlp_types = ['fil', 'mru', 'buf']
 
-" Startify: (plugin)
-let g:startify_change_to_dir = 0
-let g:startify_change_to_vcs_root = 0
+" UltiSnips: (plugin)
+" g:UltiSnipsSnippetsDir = "~/.dotfiles/"
 
 " Use desert as default colorscheme, molokai if installed
 silent! colorscheme desert
