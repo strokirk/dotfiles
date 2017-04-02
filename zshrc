@@ -22,12 +22,6 @@ plugins=(gitfast brew fabric docker)
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
 #
 # Options
 # Note: Zsh ignores case and underscores in option names
