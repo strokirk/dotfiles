@@ -1,0 +1,32 @@
+snippet fun "function (fun)"
+function ${1:function_name}(${2:argument}) {
+	${VISUAL}$0
+}
+endsnippet
+
+snippet fn "function (fun)"
+function ${1:function_name}(${2:argument}) {
+	${VISUAL}$0
+}
+endsnippet
+
+snippet map "function (fun)"
+var result = ${1:function_name}.map(function(item) {
+	${VISUAL}$0
+});
+endsnippet
+
+snippet af "Arrow function" i
+($1) => {${VISUAL}$0}
+endsnippet
+
+snippet cb "Curly brackets"
+{
+$0
+}
+endsnippet
+
+snippet it "Jasmine test case"
+it("$0", () => {
+})
+endsnippet
