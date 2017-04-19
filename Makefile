@@ -5,6 +5,7 @@ link:
 	ln -s -f $(realpath bashrc) ~/.bashrc
 	ln -s -f $(realpath zshrc) ~/.zshrc
 	ln -s -f $(realpath tmux.conf) ~/.tmux.conf
+	ln -s -f $(realpath taskrc) ~/.taskrc
 
 pip:
 	pip install --user --upgrade autopep8
