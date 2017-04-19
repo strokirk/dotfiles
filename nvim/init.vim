@@ -62,6 +62,7 @@ set foldlevel=999
 
 set smartcase
 set ignorecase
+set inccommand="nosplit"
 
 "" Line Wrapping:
 set cpoptions+=n            " The 'number' column used for wrapped text
