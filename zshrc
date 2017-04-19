@@ -179,6 +179,11 @@ function git-commits-per-branch() {
   done
 }
 
+function git-update-projects() {
+    [ "$#" -ne 1 ] && echo "Usage: $0 <dir>" && return 1
+    (find $1 -type d -execdir [ -d '{}/.git' ] \; -print -prune | xargs -P9 -I% sh -c 'cd %; git fetch --all -q' &)
+}
+
 function git-rfr() {
   [ $(command -v ghi 2>&1) ] || return 1
   [ $# -ne 1 ] && exit 1
