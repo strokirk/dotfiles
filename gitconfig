@@ -51,3 +51,5 @@
     lil = log --oneline --graph --decorate
     lp = log --patch-with-stat
     ls = log --pretty=format:\"%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn]\" --decorate
+[commit]
+	verbose = 1
