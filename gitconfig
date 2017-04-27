@@ -44,7 +44,7 @@
     prom = pull --rebase origin master
 
     pwd = status -sb
-    sha = log -1 --format='%H'
+    sha = rev-parse --short
     lgb = log master..HEAD
     lgg = log --graph --pretty=oneline --abbrev-commit
     lol = log --oneline --graph --decorate --all
