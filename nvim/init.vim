@@ -16,6 +16,8 @@
 " TODO: VIM toggle list
 " TODO: Edit quickfix lists interactively
 " TODO: Gör bättre text-obj för [{(indent
+" TODO: Bättre shortcut for bokmärken
+" TODO: Bättre listning av saker som :reg
 " NOTE: v_g Ctrl-A (increment all sequentially)
 
 "" GeneralOptions: {{{
