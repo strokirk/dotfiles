@@ -13,6 +13,9 @@ ZSH_THEME="robbyrussell"
 # much, much faster.
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
+# Don't check for updates on ZSH startup
+DISABLE_UPDATE_PROMPT=true
+
 HIST_STAMPS="yyyy-mm-dd"
 
 # Would you like to use another custom folder than $ZSH/custom?
