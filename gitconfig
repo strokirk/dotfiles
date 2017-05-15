@@ -32,6 +32,7 @@
 
     s = status
     d = diff
+    r = rebase
     ds = diff --staged
     ap = add --patch
     co = checkout
