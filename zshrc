@@ -182,6 +182,10 @@ function git-commits-per-branch() {
   done
 }
 
+function git-rename-pr() {
+  git branch -m pr/${$(g rev-parse --abbrev-ref HEAD)#pr/}
+}
+
 function git-update-projects() {
     [ "$#" -ne 1 ] && echo "Usage: $0 <dir>" && return 1
     (find $1 -type d -execdir [ -d '{}/.git' ] \; -print -prune | xargs -P9 -I% sh -c 'cd %; git fetch --all -q' &)
@@ -290,6 +294,9 @@ alias nift=nvim-fzf-tags
 function pipsi-installed() {
     pipsi list | sed '/Package /!d ; s/Package "\(.*\)":/\1/'
 }
+
+function tar-sizes() { tar -ztvf $1 2>&1 | awk '{print $5 "\t" $9}' | sort -k2 }
+function tar-diff() { diff -y --suppress-common-lines <(tar-sizes $1) <(tar-sizes $2) }
 
 #  }}} Custom Functions #
 
