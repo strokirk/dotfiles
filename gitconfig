@@ -40,9 +40,10 @@
     up = reset HEAD --patch
     cc = commit -v
     cm = commit -v -m
+    fix = commit --fixup
     rim = "!git fetch && git rebase -i --autosquash origin/master"
     rup = "!git reset-upstream"
-    wip = commit -am "[ci skip] WIP"
+    wip = "commit -a -m '[ci skip] WIP'"
     prom = pull --rebase origin master
 
     pwd = status -sb
