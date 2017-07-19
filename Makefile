@@ -11,3 +11,9 @@ pip:
 	pip install --user --upgrade autopep8
 	pip install --user --upgrade flake8
 	pip install --user --upgrade neovim
+	pip install --user --upgrade pipenv
+	pip install --user --upgrade pytest-watch
+	pip install --user --upgrade isort
+	pip install --user --upgrade pawk
+	pip install --user --upgrade piprot
+	pip install --user --upgrade pipsi
