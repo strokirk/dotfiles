@@ -3,9 +3,11 @@
 " SECTIONS
 " GeneralOptions:
 " VisualOptions:
-" MappingsAndCommands:
-" VimPlugins:
+" Mappings:
+" Commands:
+" Plugins:
 
+"" GeneralOptions: {{{
 " TODO: MkNonExDir
 " TODO: Mapping för Expand selection
 " TODO: Mapping för Select under cursor
@@ -20,7 +22,6 @@
 " TODO: Bättre listning av saker som :reg
 " NOTE: v_g Ctrl-A (increment all sequentially)
 
-"" GeneralOptions: {{{
 scriptencoding utf-8
 
 " Whitespace options is mainly based on Python/Django
@@ -28,6 +29,7 @@ set expandtab                " Make spaces not tabs! Tabs runs you out!
 set shiftwidth=4 tabstop=4   " Python development teaches you that 4 = good for indention
 set textwidth=120
 
+set mouse=a                  " Enable mouse in all modes
 set ttimeoutlen=-1           " Fixes input issues when nvim is run in tmux
 set hidden                   " Allow unsaved buffers to be backgrounded
 set path=**                  " Makes :find work better. Thanks romainl!
@@ -41,6 +43,8 @@ set tags=./tags;,tags,./.git/tags
 " Enable Vim to read it's own quickfix format
 set errorformat+=%f\|%l\ col\ %c\|%m
 set errorformat+=%f:%l\ %m
+" set errorformat+=%f:\ line\ %l,\ col\ %c,\ %m
+set errorformat+=%f:%m
 
 " CSS selector names are usually in snake-case
 set iskeyword+=-
@@ -77,7 +81,7 @@ au Filetype qf setlocal nowrap " Quicklist shouldn't wrap by default
 set statusline=[%F]%h%r%m\ Buf-%n%=%c,%l/%L\ [%p%%]
 " }}}
 
-"" MappingsAndCommands: {{{
+"" Mappings: {{{
 
 " Not sure what <leader> to choose... 's'? '§'? '\' is the default.
 let g:mapleader = ' '
@@ -246,8 +250,9 @@ cabbrev Qall qall
 cabbrev Wall wall
 cabbrev Wqall wqall
 " }}} Abbreviations "
+" }}}
 
-" Commands: {{{
+" " Commands: {{{
 " Quick .vimrc editing
 command! Vimrc tab drop $MYVIMRC
 " Change current working directory to the current file's directory
@@ -257,11 +262,12 @@ command! -bar Temporary setlocal buftype=nofile bufhidden=hide nobuflisted noswa
 command! -bar Scratch botright new *scratch*|Temporary|res 8|setl winfixheight
 " Copy current filename
 command! CopyFilename let @"=@% | let @+=@% | let @*=@%
+" Clear open help panes like quickfix and similar
+command! Clear silent tabdo NERDTreeClose | lcl | ccl
 
 " Trim: trim all whitespace from end of lines
 command! Trim exe "norm! ml" | keeppatterns %s/\s\+$//e | norm! `l
 autocmd BufWritePre * Trim
-" }}}
 
 " Autocommands: {{{ "
 au Filetype python nnoremap <buffer> gp yiwoprint("<c-r>0: ", <c-r>0)  # XXX<esc>
@@ -277,6 +283,8 @@ au Filetype python nnoremap <buffer> <leader>p :PrintWrap<cr>
 au Filetype python nnoremap <buffer> <leader>s :Isort<cr>
 au Filetype sql,mysql set formatprg=sqlformat\ -r\ -
 au Filetype sql,mysql set equalprg=sqlformat\ -r\ -
+au Filetype sql,mysql nmap <F5> vip<F5>
+au Filetype sql,mysql xnoremap <F5> :'<,'>Clam mysql --table<cr><c-w>h
 au Filetype vim setlocal foldmethod=marker
 au Filetype scss setl equalprg=sass-convert\ --stdin\ -F\ scss\ -T\ scss
 au Filetype python setl equalprg=autopep8\ -\ --max-line-length\ 119\ -a\ --ignore\ E309
@@ -310,9 +318,23 @@ function! s:ScratchRead(cmd, ...)
 endfunction
 command! -nargs=+ ScratchRead call s:ScratchRead("<args>")
 
+" Toggle Quickfix window {{{ "
+nnoremap <leader>q :QuickfixToggle<cr>
+command! QuickfixToggle call QuickfixToggle()
+function! QuickfixToggle()
+  if exists("g:qfix_win")
+    cclose
+    unlet g:qfix_win
+  else
+    copen
+    let g:qfix_win = bufnr("$")
+  endif
+endfunction
+" }}} Toggle Quickfix window "
+
 " }}}
 
-"" VimPlugins: {{{
+"" Plugins: {{{
 
 " Plugin List: {{{2
 call plug#begin()
@@ -403,6 +425,7 @@ nnoremap <F2> :TagbarToggle<cr>
 
 " Jedi: (Plugin)
 let g:jedi#goto_command = '' | " This competes with my <leader>d mapping
+let g:jedi#popup_on_dot = 0 | " Jedi tends to freeze vim while loading the autocompletions
 
 " Ag: (plugin) (use AltGr to quickly search)
 let g:ag_prg='ag --column'
@@ -423,6 +446,7 @@ nnoremap <F4> :Gblame<cr>
 nnoremap <leader>gw :Gw<cr>
 nnoremap <leader>ga :Gdiff<cr>
 nnoremap <leader>gg :Gcommit -v<cr>
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', '.git/.*']
 
 " Notes: (plugin)
 let g:notes_directories = ['~/Dropbox/Documents/notes/']
