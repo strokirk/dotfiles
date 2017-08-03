@@ -4,6 +4,14 @@ endsnippet
 
 snippet prop "property"
 @property
-def prop(self):
-	pass
+def ${0:name}(self):
+	return self.${0:name}
+endsnippet
+
+snippet cprop "cached property"
+@property
+def ${0:name}(self):
+	if not hasattr(self, '_${0:name}'):
+		pass
+	return self._${0:name}
 endsnippet
