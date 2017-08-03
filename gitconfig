@@ -9,6 +9,12 @@
     pager = less -F -X
 [push]
 	default = upstream
+[commit]
+    # Show diff in commit message editor
+	verbose = 1
+[diff]
+    # Don't add a/b/ prefixes to diff - to make it easier to copy filename
+	noprefix = true
 [alias]
     amend = commit --amend --verbose
     axe = log -p -G
@@ -54,5 +60,3 @@
     lil = log --oneline --graph --decorate
     lp = log --patch-with-stat
     ls = log --pretty=format:\"%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn]\" --decorate
-[commit]
-	verbose = 1
