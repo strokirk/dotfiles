@@ -288,8 +288,10 @@ au Filetype sql,mysql xnoremap <F5> :'<,'>Clam mysql --table<cr>gg<c-w>h
 au Filetype vim setlocal foldmethod=marker
 au Filetype scss setl equalprg=sass-convert\ --stdin\ -F\ scss\ -T\ scss
 au Filetype python setl equalprg=autopep8\ -\ --max-line-length\ 119\ -a\ --ignore\ E309
+au Filetype javascript setl suffixesadd=.js,.jsx,.es6.js
 au Filetype javascript setl equalprg=js-beautify\ -i\ -s\ 2\ -w\ 130\ -X\ --brace-style=collapse-preserve-inline
 au Filetype javascript setl foldmethod=syntax
+au Filetype elixir setl foldmethod=syntax
 " }}} Autocommands "
 
 " s:Pipe Vim Command Output To Tab: {{{ "
@@ -383,7 +385,7 @@ Plug 'fatih/vim-hclfmt'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-git'
 Plug 'vim-scripts/nginx.vim'
-Plug 'elixir-lang/vim-elixir'
+Plug 'elixir-editors/vim-elixir'
 
 " Notetaking:
 Plug 'vimoutliner/vimoutliner' | " Uses a custom syntax vaguely similar to org-mode
@@ -422,6 +424,26 @@ autocmd FileType html,css EmmetInstall
 
 " Tagbar: (Plugin)
 nnoremap <F2> :TagbarToggle<cr>
+let g:tagbar_type_elixir = {
+    \ 'ctagstype' : 'elixir',
+    \ 'kinds' : [
+        \ 'm:modules:1',
+        \ 'O:OTP callbacks',
+        \ 't:tests',
+        \ 'f:functions (public)',
+        \ 'g:functions (private)',
+        \ 'c:callbacks',
+        \ 'd:delegates',
+        \ 'e:exceptions',
+        \ 'i:implementations',
+        \ 'a:macros',
+        \ 'o:operators',
+        \ 's:structs',
+        \ 'p:protocols',
+        \ 'r:records',
+        \ 'T:types'
+    \ ]
+\ }
 
 " Jedi: (Plugin)
 let g:jedi#goto_command = '' | " This competes with my <leader>d mapping
@@ -460,8 +482,9 @@ let g:elm_format_autosave = 1
 if executable('ag')
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
-let g:ctrlp_extensions = ['tag']
-let g:ctrlp_types = ['fil', 'mru', 'buf']
+let g:ctrlp_extensions = ['tag', 'line']
+let g:ctrlp_types = ['fil', 'buf']
+let g:ctrlp_show_hidden = 0
 
 " UltiSnips: (plugin)
 " g:UltiSnipsSnippetsDir = "~/.dotfiles/"
