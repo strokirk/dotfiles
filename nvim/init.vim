@@ -284,7 +284,7 @@ au Filetype python nnoremap <buffer> <leader>s :Isort<cr>
 au Filetype sql,mysql set formatprg=sqlformat\ -r\ -
 au Filetype sql,mysql set equalprg=sqlformat\ -r\ -
 au Filetype sql,mysql nmap <F5> vip<F5>
-au Filetype sql,mysql xnoremap <F5> :'<,'>Clam mysql --table<cr><c-w>h
+au Filetype sql,mysql xnoremap <F5> :'<,'>Clam mysql --table<cr>gg<c-w>h
 au Filetype vim setlocal foldmethod=marker
 au Filetype scss setl equalprg=sass-convert\ --stdin\ -F\ scss\ -T\ scss
 au Filetype python setl equalprg=autopep8\ -\ --max-line-length\ 119\ -a\ --ignore\ E309
