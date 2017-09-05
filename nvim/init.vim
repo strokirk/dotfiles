@@ -275,6 +275,8 @@ au Filetype python nnoremap <buffer> gp yiwoprint("<c-r>0: ", <c-r>0)  # XXX<esc
 au Filetype python xnoremap <buffer> gp yoprint("<c-r>0: ", <c-r>0)  # XXX<esc>
 au Filetype javascript nnoremap <buffer> gp yiwoconsole.log("<c-r>0: ", <c-r>0)  // XXX<esc>
 au Filetype javascript xnoremap <buffer> gp yoconsole.log("<c-r>0: ", <c-r>0)  // XXX<esc>
+au Filetype elixir nnoremap <buffer> gp yiwoLogger.info("<c-r>0: #{inspect <c-r>0}")<esc>
+au Filetype elixir xnoremap <buffer> gp yoLogger.info("<c-r>0: #{inspect <c-r>0}")<esc>
 
 au Filetype python command! -buffer -range=% Isort :<line1>,<line2>! isort -
 au Filetype python command! -buffer PrintWrap normal! Iprint(<esc>A<c-v>)<esc>
