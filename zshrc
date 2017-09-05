@@ -291,6 +291,8 @@ function nvim-fzf-tags() {
 }
 alias nift=nvim-fzf-tags
 
+function nag() { $EDITOR -q <(ag "$@") }
+
 function pipsi-installed() {
     pipsi list | sed '/Package /!d ; s/Package "\(.*\)":/\1/'
 }
