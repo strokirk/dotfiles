@@ -14,12 +14,13 @@
 " TODO: Mapping %% för hela filen?
 " TODO: Mapping för viW och viW
 " TODO: Mapping för CtrlP i taggläge?
+" TODO: Sortera inline ([a, c, b] -> [a, b, c])
 " TODO: Blockdiff / Linediff
 " TODO: VIM toggle list
 " TODO: Edit quickfix lists interactively
-" TODO: Gör bättre text-obj för [{(indent
+" TODO: Bättre text-obj för [{(indent
 " TODO: Bättre shortcut for bokmärken
-" TODO: Bättre listning av saker som :reg
+" TODO: Bättre listning av saker som :reg och :ls
 " NOTE: v_g Ctrl-A (increment all sequentially)
 
 scriptencoding utf-8
