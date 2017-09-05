@@ -485,7 +485,7 @@ let g:elm_format_autosave = 1
 if executable('ag')
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
-let g:ctrlp_extensions = ['tag', 'line']
+let g:ctrlp_extensions = ['line', 'tag']
 let g:ctrlp_types = ['fil', 'buf']
 let g:ctrlp_show_hidden = 0
 
