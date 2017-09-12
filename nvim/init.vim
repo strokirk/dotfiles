@@ -323,6 +323,21 @@ function! s:ScratchRead(cmd, ...)
 endfunction
 command! -nargs=+ ScratchRead call s:ScratchRead("<args>")
 
+" s:Create Missing Directories On Save: {{{ "
+function s:MkNonExDir(file, buf)
+    if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
+        let dir=fnamemodify(a:file, ':h')
+        if !isdirectory(dir)
+            call mkdir(dir, 'p')
+        endif
+    endif
+endfunction
+augroup BWCCreateDir
+    autocmd!
+    autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
+augroup END
+" }}} s:Create Missing Directories On Save: "
+
 " Toggle Quickfix window {{{ "
 nnoremap <leader>q :QuickfixToggle<cr>
 command! QuickfixToggle call QuickfixToggle()
