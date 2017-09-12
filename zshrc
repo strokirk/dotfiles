@@ -144,7 +144,8 @@ alias gup="git reset --patch HEAD"
 alias gb='git-list-branches'
 alias gcb='git-change-branch'
 
-alias git-prune-merged='git checkout master && git pull --prune; git-delete-merged; git-delete-missing'
+alias gas="git rebase --autosquash --interactive master"
+alias git-prune-merged='git checkout master && git pull --prune; git-delete-merged; git branch -D $(git-list-upstream-gone) 2>/dev/null'
 alias gpm="git-prune-merged"
 alias grf="git-rfr"
 alias grup='git reset --hard $(git upstream)'
