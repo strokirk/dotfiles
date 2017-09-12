@@ -70,6 +70,9 @@ export PATH="$PATH:$GOBIN"
 export PATH="$PATH:$HOME/.yarn/bin"
 export PATH="$PATH:$NPM_PACKAGES/bin"
 
+export TIME_STYLE="long-iso"
+export BLOCK_SIZE="'1"
+
 #  Aliases {{{ #
 if [ $(uname) = 'Darwin' ]; then
     unalias ls l la ll 2>/dev/null
