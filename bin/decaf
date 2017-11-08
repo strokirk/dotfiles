@@ -1,0 +1,10 @@
+#!/bin/sh
+
+set -e
+
+f=$1
+jsname=$(echo "$f" | sed -e "s/coffee/js\/src/; s/coffee/es6.js/")
+jsdir=$(dirname "$jsname")
+mkdir -p "$jsdir";
+decaffeinate --loose --no-array-includes --use-js-modules < "$f" > "$jsname" && rm "$f";
+prettier --no-semi --print-width 140 --write "$jsname";
