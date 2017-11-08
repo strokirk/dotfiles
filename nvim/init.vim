@@ -358,6 +358,20 @@ function! QuickfixToggle()
 endfunction
 " }}} Toggle Quickfix window "
 
+" Toggle Location list window {{{ "
+nnoremap <leader>l :LocationListToggle<cr>
+command! LocationListToggle call LocationListToggle()
+function! LocationListToggle()
+  if exists("g:llist_win")
+    lclose
+    unlet g:llist_win
+  else
+    lopen
+    let g:llist_win = bufnr("$")
+  endif
+endfunction
+" }}} Toggle Quickfix window "
+
 " }}}
 
 "" Plugins: {{{
