@@ -47,9 +47,9 @@
     cc = commit -v
     cm = commit -v -m
     fix = commit --fixup
-    rim = "!git fetch && git rebase -i --autosquash origin/master"
     rup = "!git reset-upstream"
     wip = "commit -a -m '[ci skip] WIP'"
+    rom = rebase -i --autosquash origin/master
     prom = pull --rebase origin master
 
     pwd = status -sb
