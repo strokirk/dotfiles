@@ -236,6 +236,9 @@ tnoremap <Esc> <C-\><C-n>
 " Quick :sort
 xnoremap <leader>s :sort<cr>
 
+" Quick filter:
+nnoremap == mlgg=G'l
+
 " Abbreviations: {{{ "
 " Quick :copen. Abbreviation avoids mistyping it as :copy
 " Techically :cw might be faster, but I often tend to use copen when I shouldn't
