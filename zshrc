@@ -68,6 +68,7 @@ export PATH="$PATH:$HOME/.gem/ruby/2.0.0/bin"
 export PATH="$PATH:$GOBIN"
 export PATH="$PATH:$HOME/.yarn/bin"
 export PATH="$PATH:$NPM_PACKAGES/bin"
+export PATH="$PATH:$DOTFILES_DIR/bin"
 
 export TIME_STYLE="long-iso"
 export BLOCK_SIZE="'1"
@@ -85,7 +86,9 @@ else
     alias ll='ls -alF --time-style=long-iso'
 fi
 
-alias pgrep='pgrep -lf' # sane default for pgrep, long list and match against argument name
+# Sane defaults
+alias ps='ps -jh' # -j Show more columns, -h show header multiple times for long output
+alias pgrep='pgrep -lf' # long list and match against argument name
 alias whence="whence -avs"  # show exact origin of command
 
 alias t=task
@@ -133,6 +136,9 @@ alias gw="git show --decorate"
 alias gd="git diff"
 alias gds="git diff --staged"
 alias gl="git lil"
+alias glp="git lil -p"
+alias gla="git lil HEAD~5..."
+alias glap="git lil -p HEAD~5..."
 alias glm="git log --decorate origin/master...HEAD"
 alias glmp="glm -p"
 
@@ -295,6 +301,7 @@ function nvim-fzf-tags() {
 alias nift=nvim-fzf-tags
 
 function nag() { $EDITOR -q <(ag "$@") }
+function nrg() { $EDITOR -q <(rg --vimgrep "$@") }
 
 function pipsi-installed() {
     pipsi list | sed '/Package /!d ; s/Package "\(.*\)":/\1/'
