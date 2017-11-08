@@ -424,6 +424,8 @@ Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-git'
 Plug 'vim-scripts/nginx.vim'
 Plug 'elixir-editors/vim-elixir'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'dleonard0/pony-vim-syntax'
 
 " Notetaking:
 Plug 'vimoutliner/vimoutliner' | " Uses a custom syntax vaguely similar to org-mode
