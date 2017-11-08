@@ -274,6 +274,8 @@ command! Trim exe "norm! ml" | keeppatterns %s/\s\+$//e | norm! `l
 autocmd BufWritePre * Trim
 
 " Autocommands: {{{ "
+au FileType qf nnoremap <buffer> t <C-W><Enter><C-W>T
+
 au Filetype python nnoremap <buffer> gp yiwoprint("<c-r>0: ", <c-r>0)  # XXX<esc>
 au Filetype python xnoremap <buffer> gp yoprint("<c-r>0: ", <c-r>0)  # XXX<esc>
 au Filetype javascript nnoremap <buffer> gp yiwoconsole.log("<c-r>0: ", <c-r>0)  // XXX<esc>
