@@ -443,6 +443,8 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'wellle/targets.vim'
 Plug 'rizzatti/dash.vim'
+Plug 'zchee/deoplete-jedi'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 call plug#end()
 " 2}}}
@@ -489,6 +491,7 @@ let g:tagbar_type_elixir = {
 " Jedi: (Plugin)
 let g:jedi#goto_command = '' | " This competes with my <leader>d mapping
 let g:jedi#popup_on_dot = 0 | " Jedi tends to freeze vim while loading the autocompletions
+let g:deoplete#enable_at_startup = 1
 
 " Ag: (plugin) (use AltGr to quickly search)
 let g:ag_prg='ag --column'
