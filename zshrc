@@ -200,6 +200,14 @@ function git-update-projects() {
     (find $1 -type d -execdir [ -d '{}/.git' ] \; -print -prune | xargs -P9 -I% sh -c 'cd %; git fetch --all -q' &)
 }
 
+function git-rebase-all() {
+    branches=($(git for-each-ref --format='%(refname)' refs/heads | sed 's:refs/heads/::' | grep -v master | grep -v wip));
+    for branch in $branches; do
+        git checkout $branch;
+        git rebase master || git rebase --abort;
+    done;
+}
+
 function git-rfr() {
   [ $(command -v ghi 2>&1) ] || return 1
   [ $# -ne 1 ] && exit 1
@@ -309,6 +317,9 @@ function pipsi-installed() {
 
 function tar-sizes() { tar -ztvf $1 2>&1 | awk '{print $5 "\t" $9}' | sort -k2 }
 function tar-diff() { diff -y --suppress-common-lines <(tar-sizes $1) <(tar-sizes $2) }
+
+function x-piprot() { piprot $1 -o | sort -k 4 -n | tee piprot.txt }
+function x-pyenv-reinstall() { pyenv versions --skip-aliases --bare | grep "envs/$1$" && pyenv uninstall -f $1; (pyenv virtualenv $2 $1 && pyenv local $1) }
 
 #  }}} Custom Functions #
 
