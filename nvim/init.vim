@@ -84,7 +84,7 @@ set statusline=[%F]%h%r%m\ Buf-%n%=%c,%l/%L\ [%p%%]
 
 "" Mappings: {{{
 
-" Not sure what <leader> to choose... 's'? '§'? '\' is the default.
+" Use <space> as <leader>
 let g:mapleader = ' '
 
 " Repeat 'default' mapping (Essential, instead of Enter Ex mode)
