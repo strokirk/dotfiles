@@ -338,3 +338,8 @@ alias nix-installed="nix-env -q --installed --json | jq '.[]| \"- \" + .name + \
 
 # Local settings that should not be committed
 source_if_exists $DOTFILES_DIR/zshrc.local
+
+if [ $(command -v pyenv) ]; then
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi;
