@@ -467,6 +467,7 @@ Plug 'wellle/targets.vim'
 Plug 'rizzatti/dash.vim'
 Plug 'zchee/deoplete-jedi'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'milkypostman/vim-togglelist'
 
 call plug#end()
 " 2}}}
