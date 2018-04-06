@@ -1,3 +1,5 @@
+function source_if_exists() { [ -f "$1" ] && source "$1" }
+
 # vim: foldmethod=marker
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -22,7 +24,7 @@ HIST_STAMPS="yyyy-mm-dd"
 
 plugins=(gitfast brew fabric docker zsh-syntax-highlighting)
 
-source $ZSH/oh-my-zsh.sh
+source_if_exists $ZSH/oh-my-zsh.sh
 
 #
 # Options
@@ -64,6 +66,7 @@ export NODE_PATH="$NPM_PACKAGES/lib/node_modules${NODE_PATH:+:$NODE_PATH}"
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$DOTFILES_DIR/bin"
 export PATH="$PATH:$HOME/.gem/ruby/2.0.0/bin"
 export PATH="$PATH:$GOBIN"
 export PATH="$PATH:$HOME/.yarn/bin"
@@ -74,9 +77,9 @@ export TIME_STYLE="long-iso"
 export BLOCK_SIZE="'1"
 
 #  Aliases {{{ #
-if [ $(uname) = 'Darwin' ]; then
+if [ "$(uname)" = "Darwin" ]; then
     unalias ls l la ll 2>/dev/null
-    if [ -f $(which gls) ]; then
+    if [ -f "$(which gls)" ]; then
         alias ls='gls -hlpG --group-directories-first --color=auto --time-style=long-iso'
     fi
 else
@@ -325,7 +328,6 @@ function x-pyenv-reinstall() { pyenv versions --skip-aliases --bare | grep "envs
 
 export FZF_DEFAULT_OPTS="--bind ctrl-x:toggle-sort"
 
-function source_if_exists() { [ -f "$1" ] && source "$1" }
 
 # FZF by junegunn
 source_if_exists $HOME/.fzf.zsh
