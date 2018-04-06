@@ -302,6 +302,7 @@ function nvim-fzf-files() {
     nvim ${line}
 }
 alias nif=nvim-fzf-files
+function nag() { nvim -q <(ag $@) }
 
 function nvim-fzf-tags() {
     local line
