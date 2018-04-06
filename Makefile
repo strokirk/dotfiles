@@ -1,6 +1,7 @@
 link:
-	[ -d ~/.nvim ] || ln -s -f $(realpath nvim) ~/.nvim
+	[ -d ~/.config/nvim ] || ln -s -f $(realpath nvim) ~/.config/nvim
 	[ -d ~/.vim ] || ln -s -f $(realpath vim) ~/.vim
+	[ -d ~/.dotfiles ] || ln -s -f $(realpath .) ~/.dotfiles
 	ln -s -f $(realpath gitconfig) ~/.gitconfig
 	ln -s -f $(realpath bashrc) ~/.bashrc
 	ln -s -f $(realpath zshrc) ~/.zshrc
