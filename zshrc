@@ -23,6 +23,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 plugins=(gitfast brew docker zsh-syntax-highlighting z)
+fpath=(.zsh/completion $fpath)
 
 source_if_exists $ZSH/oh-my-zsh.sh
 
