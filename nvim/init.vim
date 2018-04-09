@@ -421,7 +421,8 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'jeetsukumaran/vim-gazetteer' | " Manages tag finding for ctrl-p (use gz)
 Plug 'jiangmiao/auto-pairs'
 Plug 'majutsushi/tagbar'
-Plug 'sjl/clam.vim'         | " easily run Shell commands
+Plug 'milkypostman/vim-togglelist' | " Quick-toggle quicklist and locallist
+Plug 'sjl/clam.vim'                | " easily run Shell commands
 Plug 'tpope/vim-eunuch'
 
 " Visual:
@@ -466,7 +467,6 @@ Plug 'wellle/targets.vim'
 Plug 'rizzatti/dash.vim'
 Plug 'zchee/deoplete-jedi'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'milkypostman/vim-togglelist'
 
 call plug#end()
 " 2}}}
