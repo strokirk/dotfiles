@@ -432,7 +432,6 @@ Plug 'xolox/vim-misc'
 Plug 'machakann/vim-highlightedyank'
 
 " Syntax And Filetype:
-Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'     }
 Plug 'pangloss/vim-javascript'   | Plug 'mxw/vim-jsx'
 Plug 'plasticboy/vim-markdown',  { 'for': 'markdown'   }
 Plug 'rust-lang/rust.vim',       { 'for': 'rust'       }
