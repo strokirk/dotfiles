@@ -158,6 +158,7 @@ alias git-prune-merged='git checkout master && git pull --prune; git-delete-merg
 alias gpm="git-prune-merged"
 alias grf="git-rfr"
 alias grup='git reset --hard $(git upstream)'
+alias pub='git publish && hub pull-request'
 #  }}} Git aliases #
 #
 #  }}} Aliases #
