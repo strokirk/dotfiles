@@ -320,6 +320,10 @@ function nrg() { $EDITOR -q <(rg --vimgrep "$@") }
 function pipsi-installed() {
     pipsi list | sed '/Package /!d ; s/Package "\(.*\)":/\1/'
 }
+function pyup() {
+    url=https://pyup.io/changelogs/$1/;
+    http $url --check-status &>/dev/null && open $url || echo "No pyup.io changelog for $1"
+}
 
 function tar-sizes() { tar -ztvf $1 2>&1 | awk '{print $5 "\t" $9}' | sort -k2 }
 function tar-diff() { diff -y --suppress-common-lines <(tar-sizes $1) <(tar-sizes $2) }
