@@ -418,6 +418,7 @@ Plug 'tpope/vim-repeat'
 Plug 'PeterRincker/vim-argumentative'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'jeetsukumaran/vim-gazetteer' | " Manages tag finding for ctrl-p (use gz)
 Plug 'jiangmiao/auto-pairs'
 Plug 'majutsushi/tagbar'
 Plug 'sjl/clam.vim'         | " easily run Shell commands
@@ -455,7 +456,6 @@ Plug 'xolox/vim-notes'         | " Uses a custom syntax
 Plug 'mrtazz/simplenote.vim'
 
 " New Or Evaluating:
-Plug 'jeetsukumaran/vim-gazetteer' | " Manages tag finding for ctrl-p (use gz)
 Plug 'AndrewRadev/sideways.vim'
 Plug 'FooSoft/vim-argwrap'
 Plug 'Lokaltog/vim-easymotion'
