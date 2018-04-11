@@ -345,12 +345,12 @@ source_if_exists $HOME/.fzf.zsh
 source_if_exists $HOME/.nix-profile/etc/profile.d/nix.sh
 alias nix-installed="nix-env -q --installed --json | jq '.[]| \"- \" + .name + \" :: \" + .meta.description' | xargs -n1 | column -t -s '::'"
 
-# Local settings that should not be committed
-source_if_exists $DOTFILES_DIR/zshrc.local
-
 if [ -n "$(command -v pyenv)" ]; then
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
     export PYENV_VIRTUALENV_DISABLE_PROMPT=1
     export PYENV_ROOT=$(pyenv root)
 fi;
+
+# Local settings that should not be committed
+source_if_exists $DOTFILES_DIR/zshrc.local
