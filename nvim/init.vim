@@ -294,10 +294,10 @@ au Filetype sql,mysql setl equalprg=sqlformat\ -r\ -
 au Filetype sql,mysql nmap <buffer> <F5> vip<F5>
 au Filetype sql,mysql xnoremap <buffer> <F5> :'<,'>Clam mysql --table<cr>gg<c-w>h
 au Filetype vim setlocal foldmethod=marker
-au Filetype scss setl equalprg=sass-convert\ --stdin\ -F\ scss\ -T\ scss
+au Filetype scss setl equalprg=prettier\ --parser=scss
 au Filetype python setl equalprg=autopep8\ -\ --max-line-length\ 119\ -a\ --ignore\ E309
 au Filetype javascript setl suffixesadd+=.js,.jsx,.es6.js
-au Filetype javascript setl equalprg=js-beautify\ -f-\ -s\ 2\ -w\ 130\ -X\ --brace-style=collapse-preserve-inline
+au Filetype javascript setl equalprg=prettier\ --no-semi
 au Filetype javascript setl foldmethod=syntax
 au Filetype elixir setl foldmethod=syntax
 au Filetype scss setl foldmethod=marker foldmarker={,}
