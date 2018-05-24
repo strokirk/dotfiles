@@ -141,8 +141,8 @@ alias gd="git diff"
 alias gds="git diff --staged"
 alias gl="git lil"
 alias glp="git lil -p"
-alias gla="git lil HEAD~5..."
-alias glap="git lil -p HEAD~5..."
+alias gla="git lil --first-parent HEAD~15..."
+alias glap="git lil --first-parent -p HEAD~15..."
 alias glm="git log --decorate origin/master...HEAD"
 alias glmp="glm -p"
 
@@ -213,9 +213,19 @@ function git-rebase-all() {
     done;
 }
 
+function git-stack() {
+    echo $0 $@
+    first=$1
+    while [[ $2 ]]; do
+        git checkout $2 && git rebase $1
+        shift
+    done
+    git log --oneline --graph $first...
+}
+
 function git-rfr() {
   [ $(command -v ghi 2>&1) ] || return 1
-  [ $# -ne 1 ] && exit 1
+  [ $# -ne 1 ] && return 1
   ghi label $1 -a "Ready for Review";
 }
 
