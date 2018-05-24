@@ -328,8 +328,18 @@ function nag() { $EDITOR -q <(ag "$@") }
 function nrg() { $EDITOR -q <(rg --vimgrep "$@") }
 
 function pipsi-installed() {
-    pipsi list | sed '/Package /!d ; s/Package "\(.*\)":/\1/'
+    pipsi list | sed -n 's/^ *Package "\(.*\)":/\1/p'
 }
+function pipsi-reinstall() {
+    for pkg in $@; do
+        installed=$(pipsi-installed | grep "^$pkg$")
+        if [ -n "$installed" ]; then
+            pipsi uninstall $pkg
+        fi;
+        pipsi install $pkg
+    done
+}
+
 function pyup() {
     url=https://pyup.io/changelogs/$1/;
     http $url --check-status &>/dev/null && open $url || echo "No pyup.io changelog for $1"
