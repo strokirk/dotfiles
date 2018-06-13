@@ -450,6 +450,8 @@ Plug 'elixir-editors/vim-elixir'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'dleonard0/pony-vim-syntax'
 Plug 'leafgarland/typescript-vim'
+Plug 'google/vim-jsonnet'
+Plug 'robbles/logstash.vim'
 
 " Notetaking:
 Plug 'vimoutliner/vimoutliner' | " Uses a custom syntax vaguely similar to org-mode
