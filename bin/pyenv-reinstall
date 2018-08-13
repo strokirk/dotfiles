@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+version=$1
+name=$2
+
+if [ -z "$version" ] || [ -z "$name" ]; then
+    echo "$(basename "$0")" "<python version>" "<name>";
+    exit 1;
+fi
+
+if pyenv versions --bare | grep -q "$name"; then
+    pyenv uninstall "$name";
+fi
+
+pyenv virtualenv "$version" "$name";
+pyenv local "$name";
