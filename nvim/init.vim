@@ -399,7 +399,7 @@ autocmd! QuickfixCmdPost * call s:SortUniqQFList()
 "" Plugins: {{{
 
 " Plugin List: {{{2
-call plug#begin()
+call plug#begin('~/.config/vim-plugged')
 " Essential:
 Plug 'airblade/vim-gitgutter'
 Plug 'rking/ag.vim'
