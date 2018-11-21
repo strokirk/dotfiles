@@ -154,7 +154,6 @@ alias gb='git-list-branches'
 alias gcb='git-change-branch'
 
 alias gas="git rebase --autosquash --interactive master"
-alias git-prune-merged='git checkout master && git pull --prune; git-delete-merged; git branch -D $(git-list-upstream-gone) 2>/dev/null'
 alias gpm="git-prune-merged"
 alias grf="git-rfr"
 alias grup='git reset --hard $(git upstream)'
@@ -166,6 +165,13 @@ alias pub='git publish && hub pull-request'
 #  Custom Functions {{{ #
 
 #  Git Functions {{{ #
+function git-prune-merged() { ( set -e  # Exit on error, uses subshell to only quit "this function"
+    git checkout master -q
+    git pull --prune -q
+    git-delete-merged
+    git branch -D $(git-list-upstream-gone) 2>/dev/null
+) }
+
 function git-verbose-commit() {
   if [ $# -eq 0 ]; then
       git commit --verbose;
