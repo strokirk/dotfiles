@@ -190,7 +190,7 @@ function git-change-branch() {
 }
 
 function git-delete-merged() {
-  git branch --merged | sed '/^*\|master/d' | xargs git branch -d 2>/dev/null
+  git branch --merged | sed -E '/^\*|master/d' | xargs git branch -d 2>/dev/null
 }
 
 function git-commits-per-branch() {
@@ -242,6 +242,17 @@ function fbr() {
   git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
 }
 #  }}} Git Functions #
+
+# zf - switch to directory with fzf
+function zf() {
+  local directories dir
+  directories=$(z -l $@ | awk '{ print $2 }')
+  dir=$(echo "$directories" | fzf +m) &&
+  cd "$dir"
+}
+
+alias j=z
+alias jf=zf
 
 function manflag() {
   if [ $# -eq 2 ]; then
@@ -311,7 +322,7 @@ function r() {
 }
 
 function dated() { date +"%Y-%m-%d" }
-function datet() { date +"%Y-%m-%d+%H.%M" }
+function datet() { date +"%Y-%m-%d+%H%M" }
 
 function nvim-fzf-files() {
     local line
