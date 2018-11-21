@@ -72,7 +72,6 @@ export PATH="$PATH:$HOME/.gem/ruby/2.0.0/bin"
 export PATH="$PATH:$GOBIN"
 export PATH="$PATH:$HOME/.yarn/bin"
 export PATH="$PATH:$NPM_PACKAGES/bin"
-export PATH="$PATH:$DOTFILES_DIR/bin"
 
 export TIME_STYLE="long-iso"
 export BLOCK_SIZE="'1"
