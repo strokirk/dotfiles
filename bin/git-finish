@@ -28,6 +28,3 @@ git pull --rebase origin "${to_branch}"
 # Merge old branch into target branch and update remote
 git merge --no-ff --no-edit "${from_branch}"
 git push origin "${to_branch}"
-
-# Delete old branch
-git push origin :"${from_branch}" && git branch -D "${from_branch}"
