@@ -511,6 +511,15 @@ let g:tagbar_type_elixir = {
         \ 'T:types'
     \ ]
 \ }
+let g:tagbar_type_markdown = {
+    \ 'ctagstype' : 'markdown',
+    \ 'kinds' : [
+        \ 'h:H1',
+        \ 'i:H2',
+        \ 'k:H3'
+    \ ],
+\ 'sort' : 0,
+\ }
 
 " Jedi: (Plugin)
 let g:jedi#goto_command = '' | " This competes with my <leader>d mapping
