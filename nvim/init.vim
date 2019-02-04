@@ -38,7 +38,7 @@ set nobackup nowb noswapfile " Vim-based backup is more trouble than it's worth
 set wildignore=*.pyc,*~,*.mo
 
 set formatoptions+=l         " Formatoptions: Don't break already long lines
-set nosmartindent   " Python comments (#) can't handle smartindent
+set nosmartindent            " Python comments (#) can't handle smartindent
 set tags=./tags;,tags,./.git/tags
 
 " Enable Vim to read it's own quickfix format
@@ -297,7 +297,6 @@ au Filetype vim setlocal foldmethod=marker
 au Filetype scss setl equalprg=prettier\ --parser=scss
 au Filetype python setl equalprg=autopep8\ -\ --max-line-length\ 119\ -a\ --ignore\ E309
 au Filetype javascript setl suffixesadd+=.js,.jsx,.es6.js
-au Filetype javascript setl equalprg=prettier\ --no-semi
 au Filetype javascript setl foldmethod=syntax
 au Filetype elixir setl foldmethod=syntax
 au Filetype scss setl foldmethod=marker foldmarker={,}
@@ -415,15 +414,17 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 
 " Good:
-Plug 'PeterRincker/vim-argumentative'
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'               | Plug 'honza/vim-snippets'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'jeetsukumaran/vim-gazetteer' | " Manages tag finding for ctrl-p (use gz)
 Plug 'jiangmiao/auto-pairs'
 Plug 'majutsushi/tagbar'
-Plug 'milkypostman/vim-togglelist' | " Quick-toggle quicklist and locallist
-Plug 'sjl/clam.vim'                | " easily run Shell commands
-Plug 'tpope/vim-eunuch'
+Plug 'jeetsukumaran/vim-gazetteer'    | " Manages tag finding for ctrl-p (use gz)
+Plug 'PeterRincker/vim-argumentative' | " Adds arguments manipulations with <, [, a,
+Plug 'milkypostman/vim-togglelist'    | " Quick-toggle quicklist and locallist with <leader>l and <leader>q
+Plug 'sjl/clam.vim'                   | " Easily run Shell commands with :Clam
+Plug 'tpope/vim-eunuch'               | " Adds :Remove, :Move and other useful file management commands
+Plug 'junegunn/vim-easy-align'        | " Adds :EasyAlign, which aligns tables
+Plug 'FooSoft/vim-argwrap'            | " Adds :ArgWrap, which 'unfolds' lists and arguments
 
 " Visual:
 Plug 'bling/vim-airline'
@@ -456,24 +457,30 @@ Plug 'cespare/vim-toml'
 
 " Notetaking:
 Plug 'vimoutliner/vimoutliner' | " Uses a custom syntax vaguely similar to org-mode
-Plug 'xolox/vim-notes'         | " Uses a custom syntax
-Plug 'mrtazz/simplenote.vim'
+
+" AutoCompletion:
+" Plug 'zxqfl/tabnine-vim'   | " AI Based Autocompletion
+" Plug 'zchee/deoplete-jedi'
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " New Or Evaluating:
-Plug 'AndrewRadev/sideways.vim'
-Plug 'FooSoft/vim-argwrap'
-Plug 'Lokaltog/vim-easymotion'
-Plug 'Raimondi/delimitMate'
+" Plug 'Lokaltog/vim-easymotion'
+" Plug 'Raimondi/delimitMate'     | " Automatically closes quotes, brackets and other delimiter pairs
+Plug 'wellle/targets.vim'       | " Add more text objects, like vi' or viq
 Plug 'michaeljsmith/vim-indent-object'
-Plug 'wellle/targets.vim'
+Plug 'romainl/vim-qf'           | " Add quickfix manipulation commands and mappings
+Plug 'AndrewRadev/sideways.vim' | " Does roughly the same thing as vim-argumentative
+Plug 'sbdchd/neoformat'         | " Adds :Neoformat, which formats selected text
 Plug 'rizzatti/dash.vim'
-Plug 'zchee/deoplete-jedi'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'alfredodeza/pytest.vim'
 
 call plug#end()
 " 2}}}
 
 " Plugin Options: {{{2
+
+" ArgWrap: (plugin)
+nnoremap <leader>a :ArgWrap<cr>
 
 " GitGutter: (plugin)
 nnoremap [g :GitGutterPrevHunk<cr>
@@ -528,8 +535,10 @@ let g:deoplete#enable_at_startup = 1
 
 " Ag: (plugin) (use AltGr to quickly search)
 let g:ag_prg='ag --column'
+nnoremap º :Ag! --ignore tests --ignore __tests__ "\b<c-r>=expand("<cword>")<cr>\b"
+xnoremap º "ly:Ag! --ignore tests --ignore __tests__ --literal "<c-r>l"
 nnoremap ª :Ag! "\b<c-r>=expand("<cword>")<cr>\b"
-xnoremap ª "ly:Ag! "<c-r>l"
+xnoremap ª "ly:Ag! --literal "<c-r>l"
 cabbrev ag Ag
 command! -nargs=1 Usage Ag! '\b<args>\b'
 
