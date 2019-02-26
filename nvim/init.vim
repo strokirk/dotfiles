@@ -25,6 +25,9 @@
 
 scriptencoding utf-8
 
+let g:python3_host_prog = expand($HOME) . '/.pyenv/versions/neovim-3/bin/python'
+set updatetime=100
+
 " Whitespace options is mainly based on Python/Django
 set expandtab                " Make spaces not tabs! Tabs runs you out!
 set shiftwidth=4 tabstop=4   " Python development teaches you that 4 = good for indention
@@ -343,34 +346,6 @@ augroup BWCCreateDir
 augroup END
 " }}} s:Create Missing Directories On Save: "
 
-" Toggle Quickfix window {{{ "
-nnoremap <leader>q :QuickfixToggle<cr>
-command! QuickfixToggle call QuickfixToggle()
-function! QuickfixToggle()
-  if exists("g:qfix_win")
-    cclose
-    unlet g:qfix_win
-  else
-    copen
-    let g:qfix_win = bufnr("$")
-  endif
-endfunction
-" }}} Toggle Quickfix window "
-
-" Toggle Location list window {{{ "
-nnoremap <leader>l :LocationListToggle<cr>
-command! LocationListToggle call LocationListToggle()
-function! LocationListToggle()
-  if exists("g:llist_win")
-    lclose
-    unlet g:llist_win
-  else
-    lopen
-    let g:llist_win = bufnr("$")
-  endif
-endfunction
-" }}} Toggle Quickfix window "
-
 function! s:CompareQuickfixEntries(i1, i2)
   if bufname(a:i1.bufnr) == bufname(a:i2.bufnr)
     return a:i1.lnum == a:i2.lnum ? 0 : (a:i1.lnum < a:i2.lnum ? -1 : 1)
@@ -418,13 +393,13 @@ Plug 'SirVer/ultisnips'               | Plug 'honza/vim-snippets'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'majutsushi/tagbar'
-Plug 'jeetsukumaran/vim-gazetteer'    | " Manages tag finding for ctrl-p (use gz)
+Plug 'FooSoft/vim-argwrap'            | " Adds :ArgWrap, which 'unfolds' lists and arguments
 Plug 'PeterRincker/vim-argumentative' | " Adds arguments manipulations with <, [, a,
-Plug 'milkypostman/vim-togglelist'    | " Quick-toggle quicklist and locallist with <leader>l and <leader>q
+Plug 'jeetsukumaran/vim-gazetteer'    | " Manages tag finding for ctrl-p (use gz)
+Plug 'junegunn/vim-easy-align'        | " Adds :EasyAlign, which aligns tables
+Plug 'romainl/vim-qf'                 | " Add quickfix manipulation commands and mappings
 Plug 'sjl/clam.vim'                   | " Easily run Shell commands with :Clam
 Plug 'tpope/vim-eunuch'               | " Adds :Remove, :Move and other useful file management commands
-Plug 'junegunn/vim-easy-align'        | " Adds :EasyAlign, which aligns tables
-Plug 'FooSoft/vim-argwrap'            | " Adds :ArgWrap, which 'unfolds' lists and arguments
 
 " Visual:
 Plug 'bling/vim-airline'
@@ -468,7 +443,6 @@ Plug 'vimoutliner/vimoutliner' | " Uses a custom syntax vaguely similar to org-m
 " Plug 'Raimondi/delimitMate'     | " Automatically closes quotes, brackets and other delimiter pairs
 Plug 'wellle/targets.vim'       | " Add more text objects, like vi' or viq
 Plug 'michaeljsmith/vim-indent-object'
-Plug 'romainl/vim-qf'           | " Add quickfix manipulation commands and mappings
 Plug 'AndrewRadev/sideways.vim' | " Does roughly the same thing as vim-argumentative
 Plug 'sbdchd/neoformat'         | " Adds :Neoformat, which formats selected text
 Plug 'rizzatti/dash.vim'
@@ -571,6 +545,10 @@ endif
 let g:ctrlp_extensions = ['line', 'tag']
 let g:ctrlp_types = ['fil', 'buf']
 let g:ctrlp_show_hidden = 0
+
+" QF: (plugin)"
+nmap <leader>q <Plug>(qf_qf_toggle_stay)
+nmap <leader>l <Plug>(qf_loc_toggle_stay)
 
 " UltiSnips: (plugin)
 " g:UltiSnipsSnippetsDir = "~/.dotfiles/"
