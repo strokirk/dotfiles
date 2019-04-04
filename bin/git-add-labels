@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+# git-add-labels
+#
+# Adds labels to the PR of the currently checked out branch.
+#
+# Usage:
+#
+# git-set-label Label "Label with Spaces" "Label 3"
+
+set -e
+
+function exit-if-missing-dep() {
+  [ "$(command -v "$1" 2>&1)" ] && return
+
+  echo "Error: Missing dependency $1"
+  echo
+  echo "Install them from:"
+  echo "  https://github.com/stephencelis/ghi"
+  echo "  https://github.com/github/hub"
+  exit 1
+}
+
+function git-set-label() {
+  exit-if-missing-dep ghi
+  exit-if-missing-dep hub
+  if [ $# -eq 0 ]; then
+    echo 'Error: No labels provided'
+    exit 1
+  fi
+
+  branch_name=$(git rev-parse --abbrev-ref HEAD)
+  github_pr_id=$(hub pr list -f '%I' -h "$branch_name")
+
+  if [ -z "$github_pr_id" ]; then
+    echo 'Err: No PR found for "'"$branch_name"'", have you pushed to GitHub?'
+    exit 1
+  fi
+
+  for label in "$@"; do
+    ghi label "$github_pr_id" -a "$label";
+  done
+
+}
+
+git-set-label "$@"
