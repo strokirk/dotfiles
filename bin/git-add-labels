@@ -6,7 +6,7 @@
 #
 # Usage:
 #
-# git-set-label Label "Label with Spaces" "Label 3"
+# git-add-labels Label "Label with Spaces" "Label 3"
 
 set -e
 
@@ -21,7 +21,7 @@ function exit-if-missing-dep() {
   exit 1
 }
 
-function git-set-label() {
+function git-add-labels() {
   exit-if-missing-dep ghi
   exit-if-missing-dep hub
   if [ $# -eq 0 ]; then
@@ -43,4 +43,4 @@ function git-set-label() {
 
 }
 
-git-set-label "$@"
+git-add-labels "$@"
