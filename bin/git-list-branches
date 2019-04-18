@@ -1,21 +1,89 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
-RED=$(tput setaf 1);
-RESET=$(tput sgr0);
+import subprocess
 
-branches=($(git for-each-ref 'refs/heads/**' --shell --format='%(refname:short) %(upstream)'));
-for (( i = 0; i < ${#branches[@]}; i+=2 )); do
-    branch=$(echo "${branches[i]}" | tr -d "'")
-    upstream=$(echo "${branches[i+1]}" | tr -d "'")
-    tracking=$(git config "branch.${branch}.merge" || true)
-    time_ago=$(git log -1 --pretty=format:"%Cgreen%ci %C(bold blue)%cr%Creset" "$branch" --);
-    # Add a red star to mark branches that are tracking something upstream
-    upstream=$(git rev-parse "$branch@{upstream}" 2>/dev/null -- || true);
-    tracks_upstream=$(if [ "${upstream}" ]; then printf "%s★%s" "$RED" "$RESET"; fi);
-    warn=$(if [ "$tracking" ]; then echo "⚠"; fi)
-    if [ -z "$tracks_upstream" ]; then
-        tracks_upstream=$(if [ "$warn" ]; then echo "$warn"; fi)
-    fi
-    printf "[%s]\t+ %s %s\n" "$time_ago" "${tracks_upstream:- }" "$branch";
-done | sort | column -t -s $'\t';
+
+def call(cmd, split=False):
+    if split:
+        cmd = cmd.split(" ")
+    return subprocess.check_output(cmd).strip().decode("utf-8")
+
+
+RED = call("tput setaf 1", split=True)
+GREEN = call("tput setaf 2", split=True)
+GRAY = call("tput setaf 8", split=True)
+RESET = call("tput sgr0", split=True)
+
+STAR = "★"
+
+
+def col(c):
+    return staticmethod(lambda s: c + s + RESET)
+
+
+class Colors:
+    red = col(RED)
+    green = col(GREEN)
+    gray = col(GRAY)
+
+
+sort_keys = ["date", "tracking", "name"]
+sort_default = sort_keys[0]
+
+
+class Branch:
+    ref_fields = [
+        "%(refname:short)",
+        "%(upstream)",
+        "%(authordate:iso)",
+        "%(authordate:relative)",
+        "%(committerdate:iso)",
+        "%(committerdate:relative)",
+        "%(upstream:remoteref)",
+    ]
+    ref_format = "\x1F".join(ref_fields)
+
+    def __init__(self, name, upstream, authordate, authordate_rel, committerdate, committerdate_rel, remoteref):
+        self.name = name
+        self.upstream = upstream
+        self.tracking = bool(remoteref)
+        self.authordate = authordate[:-6]
+        self.authordate_rel = authordate_rel
+        self.committerdate = committerdate[:-6]
+        self.committerdate_rel = committerdate_rel
+        self.date = committerdate
+
+    @classmethod
+    def from_string(cls, string):
+        return cls(*string.split("\x1F"))
+
+
+def list_branches(sort=sort_default, only_pushed=False):
+    raw_branches = call(["git", "for-each-ref", "refs/heads/**", "--format=" + Branch.ref_format])
+    branches = [Branch.from_string(line) for line in raw_branches.splitlines()]
+
+    if only_pushed:
+        branches = [b for b in branches if b.tracking]
+
+    rel_width = max(len(b.committerdate_rel) for b in branches) + len(Colors.gray(""))
+    fmt = "[{date}] {rel:{rel_width}}  {star} {name}"
+    for branch in sorted(branches, key=lambda b: getattr(b, sort)):
+        print(fmt.format(
+            date=branch.committerdate,
+            rel=Colors.gray(branch.committerdate_rel),
+            star=Colors.red(STAR) if branch.tracking else " ",
+            name=Colors.green(branch.name) if branch.name == "master" else branch.name,
+            rel_width=rel_width,
+        ))
+
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--sort", choices=sort_keys, default=sort_default)
+    parser.add_argument("--pushed", action="store_true")
+    args = parser.parse_args()
+    list_branches(args.sort, only_pushed=args.pushed)
