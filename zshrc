@@ -133,7 +133,8 @@ alias gc="git checkout"
 alias gcm="git commit -ev -m"
 alias gcom="git-verbose-commit"
 alias gp="git pull"
-alias grbm="git rebase --interactive master"
+alias grom="git rebase --interactive master"
+alias grc="git rebase --continue"
 
 alias gec='$EDITOR $(git changed)'
 alias gep='gec -p'
