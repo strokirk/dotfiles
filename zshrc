@@ -1,6 +1,6 @@
+# vim: foldmethod=marker
 function source_if_exists() { [ -f "$1" ] && source "$1" }
 
-# vim: foldmethod=marker
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
@@ -32,15 +32,17 @@ source_if_exists $ZSH/oh-my-zsh.sh
 # Note: Zsh ignores case and underscores in option names
 #
 # History options
+HISTSIZE=20000
 setopt APPEND_HISTORY
 setopt EXTENDED_HISTORY         # Save history timestampts
 setopt HIST_REDUCE_BLANKS       # Remove superfluous blanks from each command
-setopt HIST_VERIFY              # Don't execute history directly, replace old line
-setopt HIST_NO_STORE            # Don't write calls to `history` to history file
-setopt HIST_IGNORE_DUPS	        # Don't write successive identical lines to history
+setopt HIST_VERIFY              # Donot execute history directly, replace old line
+setopt HIST_NO_STORE            # Donot write calls to `history` to history file
+setopt HIST_IGNORE_DUPS         # Donot write successive identical lines to history
 setopt HIST_IGNORE_ALL_DUPS     # Duplicate commands replaces old ones in history
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt INC_APPEND_HISTORY       # Enter new lines to history immediately
+setopt SHARE_HISTORY            # share command history data
 # Other options
 setopt INTERACTIVE_COMMENTS     # Enable interactive comments (# on the command line)
 setopt MARK_DIRS                # Add "/" if completes directory
@@ -64,14 +66,14 @@ export GOBIN="$GOPATH/bin"
 export NPM_PACKAGES="$HOME/.npm-packages"
 export NODE_PATH="$NPM_PACKAGES/lib/node_modules${NODE_PATH:+:$NODE_PATH}"
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-
-export PATH="$PATH:$HOME/.local/bin"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH"
 export PATH="$PATH:$DOTFILES_DIR/bin"
 export PATH="$PATH:$HOME/.gem/ruby/2.0.0/bin"
 export PATH="$PATH:$GOBIN"
 export PATH="$PATH:$HOME/.yarn/bin"
 export PATH="$PATH:$NPM_PACKAGES/bin"
+export PATH="$HOME/.local/bin:$PATH"
+typeset -aU path  # Deduplicate PATH
 
 export TIME_STYLE="long-iso"
 export BLOCK_SIZE="'1"
