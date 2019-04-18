@@ -1,0 +1,35 @@
+# READMORE:
+# - https://grantlucas.com/posts/2014/01/note-archiving-gmail-messages-mutt
+# - https://heipei.net/2009/09/10/mutt-threading-like-a-pro/
+# - https://hynek.me/articles/fleeing-from-gmail/
+# - https://hynek.me/articles/my-mutt-gmail-setup/
+
+set smtp_url = "smtps://$GMAIL_USER@gmail.com@smtp.gmail.com:465/"
+set imap_user = "$GMAIL_USER"
+set imap_pass = "$GMAIL_PASS"
+set smtp_pass = "$GMAIL_PASS"
+
+set folder = "imaps://imap.gmail.com:993"
+set spoolfile = "+INBOX"
+
+set sort="threads"
+set move              = no
+set wrap=111
+source ~/.mutt/dracula.muttrc
+bind pager <up> previous-line #scroll inside the message rather than the index
+bind pager <down> next-line
+bind pager j next-line
+bind pager k previous-line
+
+bind generic,index,pager g  noop
+bind generic,index,pager G  noop
+
+bind generic,index       gg first-entry
+bind generic,index       G  last-entry
+bind pager               gg top
+bind pager               G  bottom
+
+# Only using a space since save-message autocompletes the full "[Gmail]/All Mail" name
+# Note that the equal sign (=) and plus sign (+) mean the same thing,
+#   that is, "expand to the current value of $folder" (at compile time)
+macro index,pager e "<tag-prefix><save-message>=[Gmail]/All " "Archive conversation"
