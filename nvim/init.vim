@@ -410,25 +410,26 @@ Plug 'xolox/vim-misc'
 Plug 'machakann/vim-highlightedyank'
 
 " Syntax And Filetype:
-Plug 'pangloss/vim-javascript'   | Plug 'mxw/vim-jsx'
-Plug 'plasticboy/vim-markdown',  { 'for': 'markdown'   }
-Plug 'rust-lang/rust.vim',       { 'for': 'rust'       }
-Plug 'vim-scripts/fountain.vim', { 'for': 'fountain'   }
-Plug 'ElmCast/elm-vim'
+Plug 'ElmCast/elm-vim',           { 'for': 'elm'       }
+Plug 'cespare/vim-toml',          { 'for': 'toml'      }
+Plug 'dleonard0/pony-vim-syntax', { 'for': 'pony'      }
+Plug 'google/vim-jsonnet',        { 'for': 'jsonnet'   }
+Plug 'pangloss/vim-javascript'    | Plug 'mxw/vim-jsx'
+Plug 'plasticboy/vim-markdown',   { 'for': 'markdown'  }
+Plug 'rust-lang/rust.vim',        { 'for': 'rust'      }
+Plug 'vim-scripts/fountain.vim',  { 'for': 'fountain'  }
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'chakrit/upstart.vim'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'elixir-editors/vim-elixir'
 Plug 'fatih/vim-hclfmt'
+Plug 'google/vim-jsonnet'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'leafgarland/typescript-vim'
+Plug 'robbles/logstash.vim'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-git'
 Plug 'vim-scripts/nginx.vim'
-Plug 'elixir-editors/vim-elixir'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'dleonard0/pony-vim-syntax'
-Plug 'leafgarland/typescript-vim'
-Plug 'google/vim-jsonnet'
-Plug 'robbles/logstash.vim'
-Plug 'cespare/vim-toml'
 
 " Notetaking:
 Plug 'vimoutliner/vimoutliner' | " Uses a custom syntax vaguely similar to org-mode
