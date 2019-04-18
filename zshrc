@@ -97,6 +97,7 @@ alias pgrep='pgrep -lf' # long list and match against argument name
 alias whence="whence -avs"  # show exact origin of command
 
 alias t=task
+alias b="buku -p"
 alias log="$EDITOR $DROPBOX_NOTES_DIR/log-notes.md"
 
 alias help="run-help" # help is called run-help in zsh
@@ -127,6 +128,7 @@ bindkey ^W backward-kill-word
 bindkey ^F kill-word
 
 #  Git aliases {{{ #
+alias g="git"
 alias gc="git checkout"
 alias gcm="git commit -ev -m"
 alias gcom="git-verbose-commit"
@@ -134,7 +136,9 @@ alias gp="git pull"
 alias grbm="git rebase --interactive master"
 
 alias gec='$EDITOR $(git changed)'
+alias gep='gec -p'
 alias gbf='$EDITOR $(git branch-files)'
+alias gbp='gbf -p'
 
 alias gs="git status"
 alias gw="git show --decorate"
@@ -156,9 +160,10 @@ alias gcb='git-change-branch'
 
 alias gas="git rebase --autosquash --interactive master"
 alias gpm="git-prune-merged"
-alias grf="git-rfr"
+alias grf="git-add-labels 'Ready for Review'"
 alias grup='git reset --hard $(git upstream)'
 alias pub='git publish && hub pull-request'
+
 #  }}} Git aliases #
 #
 #  }}} Aliases #
@@ -168,9 +173,9 @@ alias pub='git publish && hub pull-request'
 #  Git Functions {{{ #
 function git-prune-merged() { ( set -e  # Exit on error, uses subshell to only quit "this function"
     git checkout master -q
-    git pull --prune -q
-    git-delete-merged
+    git pull --prune
     git branch -D $(git-list-upstream-gone) 2>/dev/null
+    git-delete-merged
 ) }
 
 function git-verbose-commit() {
@@ -230,10 +235,8 @@ function git-stack() {
     git log --oneline --graph $first...
 }
 
-function git-rfr() {
-  [ $(command -v ghi 2>&1) ] || return 1
-  [ $# -ne 1 ] && return 1
-  ghi label $1 -a "Ready for Review";
+function git-pr() {
+  git fetch origin pull/$1/head:pr-$1 && git checkout pr-$1
 }
 
 # fbr - checkout git branch with fzf
