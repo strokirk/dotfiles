@@ -370,7 +370,7 @@ function tar-sizes() { tar -ztvf $1 2>&1 | awk '{print $5 "\t" $9}' | sort -k2 }
 function tar-diff() { diff -y --suppress-common-lines <(tar-sizes $1) <(tar-sizes $2) }
 
 # Recalculate tags for git repo
-function tagme() { git ls-files | ctags -f .git/tags -L- --tag-relative=yes }
+function tagme() { git ls-files | ctags -f .git/tags -L- --tag-relative=yes --exclude='*.css' --exclude="package*.json"}
 
 function x-piprot() { piprot $1 -o | sort -k 4 -n | tee piprot.txt }
 function x-pyenv-reinstall() { pyenv versions --skip-aliases --bare | grep "envs/$1$" && pyenv uninstall -f $1; (pyenv virtualenv $2 $1 && pyenv local $1) }
