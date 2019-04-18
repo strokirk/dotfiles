@@ -40,6 +40,7 @@ set path=**                  " Makes :find work better. Thanks romainl!
 set nobackup nowb noswapfile " Vim-based backup is more trouble than it's worth
 set wildignore=*.pyc,*~,*.mo
 
+set inccommand=nosplit       " Shows the effects of a command incrementally, as you type
 set formatoptions+=l         " Formatoptions: Don't break already long lines
 set nosmartindent            " Python comments (#) can't handle smartindent
 set tags=./tags;,tags,./.git/tags
@@ -281,6 +282,7 @@ au FileType qf nnoremap <buffer> t <C-W><Enter><C-W>T
 
 au Filetype python nnoremap <buffer> gp yiwoprint("<c-r>0: ", <c-r>0)  # XXX<esc>
 au Filetype python xnoremap <buffer> gp yoprint("<c-r>0: ", <c-r>0)  # XXX<esc>
+au Filetype python xnoremap <buffer> gpi yofrom icecream import ic; ic(<c-r>0)  # XXX<esc>
 au Filetype javascript nnoremap <buffer> gp yiwoconsole.log("<c-r>0: ", <c-r>0)  // XXX<esc>
 au Filetype javascript xnoremap <buffer> gp yoconsole.log("<c-r>0: ", <c-r>0)  // XXX<esc>
 au Filetype elixir nnoremap <buffer> gp yiwoLogger.info("<c-r>0: #{inspect <c-r>0}")<esc>
@@ -299,10 +301,11 @@ au Filetype sql,mysql xnoremap <buffer> <F5> :'<,'>Clam mysql --table<cr>gg<c-w>
 au Filetype vim setlocal foldmethod=marker
 au Filetype scss setl equalprg=prettier\ --parser=scss
 au Filetype python setl equalprg=autopep8\ -\ --max-line-length\ 119\ -a\ --ignore\ E309
-au Filetype javascript setl suffixesadd+=.js,.jsx,.es6.js
-au Filetype javascript setl foldmethod=syntax
+au Filetype javascript,javascript.jsx setl suffixesadd+=.js,.jsx,.es6.js
+au Filetype javascript,javascript.jsx setl foldmethod=syntax
 au Filetype elixir setl foldmethod=syntax
 au Filetype scss setl foldmethod=marker foldmarker={,}
+autocmd BufRead .babelrc setfiletype json5.json
 " }}} Autocommands "
 
 " s:Pipe Vim Command Output To Tab: {{{ "
@@ -377,26 +380,26 @@ call plug#begin('~/.config/vim-plugged')
 " Essential:
 Plug 'airblade/vim-gitgutter'
 Plug 'rking/ag.vim'
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'tpope/vim-surround'
 Plug 'benekastah/neomake'
 
 " Excellent:
-Plug 'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi-vim',    { 'for': 'python' }
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
+Plug 'majutsushi/tagbar',       { 'on': 'TagbarToggle' }
+Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 
 " Good:
 Plug 'SirVer/ultisnips'               | Plug 'honza/vim-snippets'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'majutsushi/tagbar'
 Plug 'FooSoft/vim-argwrap'            | " Adds :ArgWrap, which 'unfolds' lists and arguments
 Plug 'PeterRincker/vim-argumentative' | " Adds arguments manipulations with <, [, a,
 Plug 'jeetsukumaran/vim-gazetteer'    | " Manages tag finding for ctrl-p (use gz)
-Plug 'junegunn/vim-easy-align'        | " Adds :EasyAlign, which aligns tables
 Plug 'romainl/vim-qf'                 | " Add quickfix manipulation commands and mappings
 Plug 'sjl/clam.vim'                   | " Easily run Shell commands with :Clam
 Plug 'tpope/vim-eunuch'               | " Adds :Remove, :Move and other useful file management commands
@@ -419,13 +422,13 @@ Plug 'plasticboy/vim-markdown',   { 'for': 'markdown'  }
 Plug 'rust-lang/rust.vim',        { 'for': 'rust'      }
 Plug 'vim-scripts/fountain.vim',  { 'for': 'fountain'  }
 Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'HerringtonDarkholme/yats.vim'
 Plug 'chakrit/upstart.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'elixir-editors/vim-elixir'
 Plug 'fatih/vim-hclfmt'
-Plug 'google/vim-jsonnet'
+Plug 'gutenye/json5.vim'
 Plug 'hail2u/vim-css3-syntax'
-Plug 'leafgarland/typescript-vim'
 Plug 'robbles/logstash.vim'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-git'
@@ -433,6 +436,7 @@ Plug 'vim-scripts/nginx.vim'
 
 " Notetaking:
 Plug 'vimoutliner/vimoutliner' | " Uses a custom syntax vaguely similar to org-mode
+Plug 'junegunn/vim-journal'
 
 " AutoCompletion:
 " Plug 'zxqfl/tabnine-vim'   | " AI Based Autocompletion
@@ -443,6 +447,7 @@ Plug 'vimoutliner/vimoutliner' | " Uses a custom syntax vaguely similar to org-m
 " Plug 'Lokaltog/vim-easymotion'
 " Plug 'Raimondi/delimitMate'     | " Automatically closes quotes, brackets and other delimiter pairs
 Plug 'wellle/targets.vim'       | " Add more text objects, like vi' or viq
+Plug 'alfredodeza/coveragepy.vim'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'AndrewRadev/sideways.vim' | " Does roughly the same thing as vim-argumentative
 Plug 'sbdchd/neoformat'         | " Adds :Neoformat, which formats selected text
@@ -553,6 +558,10 @@ let g:ctrlp_show_hidden = 0
 " QF: (plugin)"
 nmap <leader>q <Plug>(qf_qf_toggle_stay)
 nmap <leader>l <Plug>(qf_loc_toggle_stay)
+
+" Pytest: (plugin)
+autocmd Filetype python nnoremap <buffer> <leader>t :Pytest file<CR>
+autocmd Filetype python nnoremap <buffer> <leader>tc :Pytest class<CR>
 
 " UltiSnips: (plugin)
 " g:UltiSnipsSnippetsDir = "~/.dotfiles/"
