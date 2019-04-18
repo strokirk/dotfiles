@@ -516,6 +516,9 @@ xnoremap ª "ly:Ag! --literal "<c-r>l"
 cabbrev ag Ag
 command! -nargs=1 Usage Ag! '\b<args>\b'
 
+" ArgWrap:
+let g:argwrap_tail_comma=1
+
 " NERDTree: (plugin)
 nnoremap <C-T> :NERDTreeToggle<CR>
 nnoremap <F3> :NERDTreeFind<CR>
