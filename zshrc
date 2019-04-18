@@ -375,6 +375,10 @@ function tagme() { git ls-files | ctags -f .git/tags -L- --tag-relative=yes }
 function x-piprot() { piprot $1 -o | sort -k 4 -n | tee piprot.txt }
 function x-pyenv-reinstall() { pyenv versions --skip-aliases --bare | grep "envs/$1$" && pyenv uninstall -f $1; (pyenv virtualenv $2 $1 && pyenv local $1) }
 
+# Smaller, more readable docker ps output
+function docker-ps() { docker ps $@ --format "table {{.ID}}\t{{.Image}}\t{{.Names}}\t{{.CreatedAt}}\t{{.Status}}"; }
+alias dps=docker-ps
+
 #  }}} Custom Functions #
 
 export FZF_DEFAULT_OPTS="--bind ctrl-x:toggle-sort"
