@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleIdentifier</key>
+	<string>org.sil.ukelele.keyboardlayout.swedishpronodead</string>
+	<key>CFBundleName</key>
+	<string>Swedish-Pro-Living-v2_bundle</string>
+	<key>CFBundleVersion</key>
+	<string>v3</string>
+	<key>KLInfo_Swedish-Pro-Living-v2</key>
+	<dict>
+		<key>TISInputSourceID</key>
+		<string>org.sil.ukelele.keyboardlayout.swedishpronodead.swedish-pro-living-v2</string>
+		<key>TISIntendedLanguage</key>
+		<string>sv</string>
+	</dict>
+</dict>
+</plist>
