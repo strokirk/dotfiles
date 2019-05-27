@@ -1,4 +1,5 @@
 link:
+	mkdir -p ~/.config
 	[ -d ~/.config/nvim ] || ln -s -f $(realpath nvim) ~/.config/nvim
 	[ -d ~/.vim ] || ln -s -f $(realpath vim) ~/.vim
 	[ -d ~/.dotfiles ] || ln -s -f $(realpath .) ~/.dotfiles
