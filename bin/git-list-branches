@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import os
 import subprocess
 
 
@@ -61,6 +62,9 @@ class Branch:
 
 
 def list_branches(sort=sort_default, only_pushed=False):
+    if not os.path.exists(".git"):
+        raise SystemExit("Not in a git directory. Exiting.")
+
     raw_branches = call(["git", "for-each-ref", "refs/heads/**", "--format=" + Branch.ref_format])
     branches = [Branch.from_string(line) for line in raw_branches.splitlines()]
 
