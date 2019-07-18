@@ -4,7 +4,7 @@ endsnippet
 
 snippet ic "icecream"
 from icecream import ic
-ic()
+ic(${0})
 endsnippet
 
 snippet prop "property"
@@ -29,4 +29,12 @@ endsnippet
 snippet init "__init__"
 def __init__(self, ${1:*args, **kwargs}):
 	super(${2:cls, self}).__init__($1)
+endsnippet
+
+snippet arg "description"
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument('${0:name}')
+args = parser.parse_args()
+${0:name} = args.${0:name}
 endsnippet
