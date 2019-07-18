@@ -403,6 +403,8 @@ Plug 'jeetsukumaran/vim-gazetteer'    | " Manages tag finding for ctrl-p (use gz
 Plug 'romainl/vim-qf'                 | " Add quickfix manipulation commands and mappings
 Plug 'sjl/clam.vim'                   | " Easily run Shell commands with :Clam
 Plug 'tpope/vim-eunuch'               | " Adds :Remove, :Move and other useful file management commands
+Plug 'wellle/targets.vim'             | " Add more text objects, like vi' or viq
+Plug 'michaeljsmith/vim-indent-object'| " Adds ii ai aI text objects
 
 " Visual:
 Plug 'bling/vim-airline'
@@ -421,6 +423,7 @@ Plug 'pangloss/vim-javascript'    | Plug 'mxw/vim-jsx'
 Plug 'plasticboy/vim-markdown',   { 'for': 'markdown'  }
 Plug 'rust-lang/rust.vim',        { 'for': 'rust'      }
 Plug 'vim-scripts/fountain.vim',  { 'for': 'fountain'  }
+Plug 'alfredodeza/coveragepy.vim',{ 'for': 'python'    }
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'chakrit/upstart.vim'
@@ -445,14 +448,10 @@ Plug 'junegunn/vim-journal'
 
 " New Or Evaluating:
 " Plug 'Lokaltog/vim-easymotion'
-" Plug 'Raimondi/delimitMate'     | " Automatically closes quotes, brackets and other delimiter pairs
-Plug 'wellle/targets.vim'       | " Add more text objects, like vi' or viq
-Plug 'alfredodeza/coveragepy.vim'
-Plug 'michaeljsmith/vim-indent-object'
-Plug 'AndrewRadev/sideways.vim' | " Does roughly the same thing as vim-argumentative
 Plug 'sbdchd/neoformat'         | " Adds :Neoformat, which formats selected text
 Plug 'rizzatti/dash.vim'
 Plug 'alfredodeza/pytest.vim'
+" Plug 'ternjs/tern_for_vim'
 
 call plug#end()
 " 2}}}
@@ -471,6 +470,7 @@ cabbrev ggr GGR
 " Neomake: (plugin)
 au BufWritePost * Neomake
 let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_python_enabled_makers = ["python", "flake8", "mypy"]
 
 " Emmet: (Plugin)
 let g:user_emmet_install_global = 0
@@ -509,8 +509,9 @@ let g:tagbar_type_markdown = {
 \ }
 
 " Jedi: (Plugin)
-let g:jedi#goto_command = '' | " This competes with my <leader>d mapping
-let g:jedi#popup_on_dot = 0 | " Jedi tends to freeze vim while loading the autocompletions
+let g:jedi#goto_command = ''       | " This competes with my <leader>d mapping
+let g:jedi#goto_stubs_command = '' | " This competes with my <leader>s mapping
+let g:jedi#popup_on_dot = 0        | " Jedi tends to freeze vim while loading the autocompletions
 let g:deoplete#enable_at_startup = 1
 
 " Ag: (plugin) (use AltGr to quickly search)
@@ -569,6 +570,12 @@ autocmd Filetype python nnoremap <buffer> <leader>tc :Pytest class<CR>
 " Use desert as default colorscheme, molokai if installed
 silent! colorscheme desert
 silent! colorscheme molokai
+
+" EasyAlign: (plugin)
+xmap <leader>0 <Plug>(EasyAlign)
+
+" JsonNet: (plugin)
+let g:jsonnet_fmt_options = ' --string-style d '
 
 " }}}
 " vim: foldmethod=marker
