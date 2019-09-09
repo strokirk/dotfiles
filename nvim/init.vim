@@ -306,6 +306,7 @@ au Filetype javascript,javascript.jsx setl foldmethod=syntax
 au Filetype elixir setl foldmethod=syntax
 au Filetype scss setl foldmethod=marker foldmarker={,}
 autocmd BufRead .babelrc setfiletype json5.json
+autocmd BufRead Dockerfile.* setfiletype dockerfile
 " }}} Autocommands "
 
 " s:Pipe Vim Command Output To Tab: {{{ "
