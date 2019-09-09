@@ -241,7 +241,7 @@ tnoremap <Esc> <C-\><C-n>
 xnoremap <leader>s :sort<cr>
 
 " Quick filter:
-nnoremap == mlgg=G'l
+nnoremap == :Neoformat<cr>
 
 " Abbreviations: {{{ "
 " Quick :copen. Abbreviation avoids mistyping it as :copy
