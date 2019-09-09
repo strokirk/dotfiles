@@ -120,6 +120,7 @@ bindkey -s £ '$(!!)'
 bindkey -s ª '${EDITOR} -q <(!!)'
 bindkey -s ﬁ '| less'
 bindkey -s ß '| grep'
+bindkey -s JK '| jq ". | keys"'
 
 bindkey ^O backward-word
 bindkey ^P forward-word
