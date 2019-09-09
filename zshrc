@@ -38,8 +38,8 @@ setopt EXTENDED_HISTORY         # Save history timestampts
 setopt HIST_REDUCE_BLANKS       # Remove superfluous blanks from each command
 setopt HIST_VERIFY              # Donot execute history directly, replace old line
 setopt HIST_NO_STORE            # Donot write calls to `history` to history file
-setopt HIST_IGNORE_DUPS         # Donot write successive identical lines to history
 setopt HIST_IGNORE_ALL_DUPS     # Duplicate commands replaces old ones in history
+setopt HIST_SAVE_NO_DUPS
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt INC_APPEND_HISTORY       # Enter new lines to history immediately
 setopt SHARE_HISTORY            # share command history data
