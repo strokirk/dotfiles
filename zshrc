@@ -209,21 +209,9 @@ function git-commits-per-branch() {
   done
 }
 
-function git-rename-pr() {
-  git branch -m pr/${$(g rev-parse --abbrev-ref HEAD)#pr/}
-}
-
 function git-update-projects() {
     [ "$#" -ne 1 ] && echo "Usage: $0 <dir>" && return 1
     (find $1 -type d -execdir [ -d '{}/.git' ] \; -print -prune | xargs -P9 -I% sh -c 'cd %; git fetch --all -q' &)
-}
-
-function git-rebase-all() {
-    branches=($(git for-each-ref --format='%(refname)' refs/heads | sed 's:refs/heads/::' | grep -v master | grep -v wip));
-    for branch in $branches; do
-        git checkout $branch;
-        git rebase master || git rebase --abort;
-    done;
 }
 
 function git-stack() {
@@ -360,11 +348,6 @@ function pipsi-reinstall() {
         fi;
         pipsi install $pkg
     done
-}
-
-function pyup() {
-    url=https://pyup.io/changelogs/$1/;
-    http $url --check-status &>/dev/null && open $url || echo "No pyup.io changelog for $1"
 }
 
 function tar-sizes() { tar -ztvf $1 2>&1 | awk '{print $5 "\t" $9}' | sort -k2 }

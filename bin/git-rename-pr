@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+branch_name="$(git rev-parse --abbrev-ref HEAD)"
+git branch -m "pr/${branch_name}"

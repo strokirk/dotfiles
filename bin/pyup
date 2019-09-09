@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+for p in "$@"; do
+    url=https://pyup.io/changelogs/$p/;
+    http "$url" --check-status &>/dev/null && open "$url" || echo "No pyup.io changelog for $p"
+done;
