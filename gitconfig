@@ -18,7 +18,7 @@
 [alias]
     amend = commit --amend --verbose
     axe = log -p -G
-    branch-files = diff origin/master...HEAD --diff-filter=AM --name-only
+    branch-files = diff origin/master...HEAD --diff-filter=AMR --name-only
     branch-name = rev-parse --abbrev-ref HEAD
     changed = "!(git diff --name-only --staged --diff-filter=AM ; git diff --name-only --diff-filter=AM;) | sort -u"
     done = "!git fetch && git rebase origin/master"
