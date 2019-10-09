@@ -9,20 +9,20 @@ export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="dan"
 # ~/.oh-my-zsh/themes/dan.zsh-theme
 
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-DISABLE_UNTRACKED_FILES_DIRTY="true"
-
+# Disable marking untracked files under VCS as dirty.
+# This makes repository status check for large repositories much, much faster.
+DISABLE_UNTRACKED_FILES_DIRTY=true
 # Don't check for updates on ZSH startup
 DISABLE_UPDATE_PROMPT=true
 
 HIST_STAMPS="yyyy-mm-dd"
 
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-plugins=(gitfast brew docker zsh-syntax-highlighting z zsh-autosuggestions)
+plugins=(
+    brew docker gitfast     # Auto-completion
+    z                       # Add `z` command to jump to frequently used directories
+    zsh-autosuggestions     # Add Fish-like autosuggestions for zsh
+    zsh-syntax-highlighting # Add syntax highligting to the shell
+)
 fpath=(.zsh/completion $fpath)
 
 source_if_exists $ZSH/oh-my-zsh.sh
@@ -122,6 +122,7 @@ bindkey -s ﬁ '| less'
 bindkey -s ß '| grep'
 bindkey -s JK '| jq ". | keys"'
 
+# Use Ctrl-O and Ctrl-P to move cursor one word backward/forwards
 bindkey ^O backward-word
 bindkey ^P forward-word
 
