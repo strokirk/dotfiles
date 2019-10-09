@@ -338,19 +338,6 @@ alias nift=nvim-fzf-tags
 function nag() { $EDITOR -q <(ag "$@") }
 function nrg() { $EDITOR -q <(rg --vimgrep "$@") }
 
-function pipsi-installed() {
-    pipsi list | sed -n 's/^ *Package "\(.*\)":/\1/p'
-}
-function pipsi-reinstall() {
-    for pkg in $@; do
-        installed=$(pipsi-installed | grep "^$pkg$")
-        if [ -n "$installed" ]; then
-            pipsi uninstall $pkg
-        fi;
-        pipsi install $pkg
-    done
-}
-
 function tar-sizes() { tar -ztvf $1 2>&1 | awk '{print $5 "\t" $9}' | sort -k2 }
 function tar-diff() { diff -y --suppress-common-lines <(tar-sizes $1) <(tar-sizes $2) }
 
