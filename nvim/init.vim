@@ -43,7 +43,7 @@ set wildignore=*.pyc,*~,*.mo
 set inccommand=nosplit       " Shows the effects of a command incrementally, as you type
 set formatoptions+=l         " Formatoptions: Don't break already long lines
 set nosmartindent            " Python comments (#) can't handle smartindent
-set tags=./tags;,tags,./.git/tags
+set tags=./tags;,tags,./.git/tags,.git/tags
 
 " Enable Vim to read it's own quickfix format
 set errorformat+=%f\|%l\ col\ %c\|%m
