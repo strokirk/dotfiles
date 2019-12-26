@@ -242,6 +242,8 @@ xnoremap <leader>s :sort<cr>
 
 " Quick filter:
 nnoremap == :Neoformat<cr>
+au Filetype python nnoremap <buffer> <F9> :Neoformat black<cr>
+au Filetype typescript nnoremap <buffer> <F9> :Neoformat prettier<cr>
 
 " Abbreviations: {{{ "
 " Quick :copen. Abbreviation avoids mistyping it as :copy
@@ -305,8 +307,9 @@ au Filetype javascript,javascript.jsx setl suffixesadd+=.js,.jsx,.es6.js
 au Filetype javascript,javascript.jsx setl foldmethod=syntax
 au Filetype elixir setl foldmethod=syntax
 au Filetype scss setl foldmethod=marker foldmarker={,}
-autocmd BufRead .babelrc setfiletype json5.json
+autocmd BufRead .babelrc,tsconfig.json setfiletype json5.json
 autocmd BufRead Dockerfile.* setfiletype dockerfile
+autocmd BufRead poetry.lock setfiletype toml
 " }}} Autocommands "
 
 " s:Pipe Vim Command Output To Tab: {{{ "
@@ -577,6 +580,14 @@ xmap <leader>0 <Plug>(EasyAlign)
 
 " JsonNet: (plugin)
 let g:jsonnet_fmt_options = ' --string-style d '
+
+let g:neoformat_enabled_json5 = ['prettier']
+let g:neoformat_json5_prettier = {
+  \ 'exe': 'prettier',
+  \ 'args': ['--stdin', '--stdin-filepath', '"%:p"', '--parser', 'json5'],
+  \ 'stdin': 1,
+  \ 'no_append': 1,
+  \ }
 
 " }}}
 " vim: foldmethod=marker
