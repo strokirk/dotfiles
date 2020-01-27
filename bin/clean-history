@@ -1,0 +1,55 @@
+#!/usr/bin/env zsh
+
+HISTFILE=~/.zsh_history
+
+function common-commands() {
+    cat $HISTFILE | gsed -e 's/: [0-9]*:[0-9]*;//' | sort | uniq -c | sort -n
+}
+
+if [ $1 = "print-common" ]; then
+    common-commands
+    exit
+fi
+
+function find-pattern() {
+    gsed -n -e "/[^;]*;$1/p" $HISTFILE
+}
+
+function clean-pattern() {
+    echo "Cleaning pattern $1 from history..."
+    gsed --in-place -n -e "/[^;]*;$1/!p" $HISTFILE
+}
+function clean-pattern-git() {
+    clean-pattern '\(g\|git\) '"$1"
+}
+function clean-pattern-filename() {
+    clean-pattern "$1"' [a-zA-Z/_.=-]*$'
+}
+
+_old_history_count=$(wc -l < $HISTFILE | xargs)
+
+clean-pattern '[a-z]\{1,4\}$'
+clean-pattern 'make \w*$'
+clean-pattern-filename '[ar]g'
+clean-pattern-filename 'cat'
+clean-pattern-filename 'fd'
+clean-pattern-filename 'gc'
+clean-pattern-filename 'gcb'
+clean-pattern-filename 'gcp'
+clean-pattern-filename 'pytest'
+clean-pattern-filename 'z'
+clean-pattern-git 'add [-=._/a-zA-Z]*$'
+clean-pattern-git 'amend$'
+clean-pattern-git 'branch -D [-=._/a-zA-Z]*$'
+clean-pattern-git 'branch -m [-=._/a-zA-Z]*$'
+clean-pattern-git 'clean -f$'
+clean-pattern-git 'push -f$'
+clean-pattern-git 'push$'
+clean-pattern-git 'rom$'
+clean-pattern-git 'unstage [-=._/a-zA-Z]*$'
+clean-pattern-git 'wip$'
+
+_new_history_count=$(wc -l < $HISTFILE | xargs)
+if [ $_old_history_count -gt $_new_history_count ]; then
+    echo "History size went from $_old_history_count to $_new_history_count"
+fi
