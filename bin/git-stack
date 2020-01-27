@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+
+echo $0 $@
+first=$1
+while [[ $2 ]]; do
+    echo "git checkout $2 && git rebase $1"
+    git checkout $2 && git rebase $1
+    shift
+done
+git log --oneline --graph $first~1...$2
+git checkout $first
