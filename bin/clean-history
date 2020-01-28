@@ -6,7 +6,7 @@ function common-commands() {
     cat $HISTFILE | gsed -e 's/: [0-9]*:[0-9]*;//' | sort | uniq -c | sort -n
 }
 
-if [ $1 = "print-common" ]; then
+if [ "$1" = "print-common" ]; then
     common-commands
     exit
 fi
@@ -22,8 +22,10 @@ function clean-pattern() {
 function clean-pattern-git() {
     clean-pattern '\(g\|git\) '"$1"
 }
+
+_filename_pattern='[-a-zA-Z/_.=0-9]*$'
 function clean-pattern-filename() {
-    clean-pattern "$1"' [a-zA-Z/_.=-]*$'
+    clean-pattern "$1 $_filename_pattern"
 }
 
 _old_history_count=$(wc -l < $HISTFILE | xargs)
@@ -32,21 +34,26 @@ clean-pattern '[a-z]\{1,4\}$'
 clean-pattern 'make \w*$'
 clean-pattern-filename '[ar]g'
 clean-pattern-filename 'cat'
+clean-pattern-filename 'cd'
 clean-pattern-filename 'fd'
 clean-pattern-filename 'gc'
 clean-pattern-filename 'gcb'
 clean-pattern-filename 'gcp'
+clean-pattern-filename 'mkdir'
 clean-pattern-filename 'pytest'
+clean-pattern-filename 'rm -rf'
+clean-pattern-filename 'rm'
 clean-pattern-filename 'z'
-clean-pattern-git 'add [-=._/a-zA-Z]*$'
+clean-pattern-git "add $_filename_pattern"
+clean-pattern-git "branch -D $_filename_pattern"
+clean-pattern-git "branch -m $_filename_pattern"
+clean-pattern-git "fix $_filename_pattern"
+clean-pattern-git "unstage $_filename_pattern"
 clean-pattern-git 'amend$'
-clean-pattern-git 'branch -D [-=._/a-zA-Z]*$'
-clean-pattern-git 'branch -m [-=._/a-zA-Z]*$'
 clean-pattern-git 'clean -f$'
 clean-pattern-git 'push -f$'
 clean-pattern-git 'push$'
 clean-pattern-git 'rom$'
-clean-pattern-git 'unstage [-=._/a-zA-Z]*$'
 clean-pattern-git 'wip$'
 
 _new_history_count=$(wc -l < $HISTFILE | xargs)
