@@ -8,7 +8,18 @@ while IFS='' read -r line; do branches+=("$line"); done < <(
         grep -v wip
     )
 
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+RESET=$(tput sgr0)
+
 for branch in "${branches[@]}"; do
-    git checkout "$branch";
-    git rebase master || git rebase --abort;
+    git checkout "$branch" --quiet;
+    if git rebase master --quiet; then
+        echo "${GREEN}✔${RESET} $branch"
+    else
+        git rebase --abort
+        echo "${RED}✗${RESET} $branch"
+    fi
 done;
+
+git checkout master
