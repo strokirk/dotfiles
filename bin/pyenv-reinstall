@@ -1,15 +1,17 @@
 #!/usr/bin/env bash
-version=$1
-name=$2
+name=$1
+version=${2:-3}
 
-if [ -z "$version" ] || [ -z "$name" ]; then
-    echo "$(basename "$0")" "<python version>" "<name>";
+if [ -z "$name" ]; then
+    echo "$(basename "$0")" "<name>" "<python version = 3>" ;
     exit 1;
 fi
+
+version=$(pyenv install --list | grep "^\s*$version" | tail -1 | tr -d '[:space:]')
+pyenv install --skip-existing "$version"
 
 if pyenv versions --bare | grep -q "$name"; then
     pyenv uninstall "$name";
 fi
 
 pyenv virtualenv "$version" "$name";
-pyenv local "$name";

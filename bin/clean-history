@@ -1,62 +1,142 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env python
+import re
+from pathlib import Path
 
-HISTFILE=~/.zsh_history
+HISTFILE = Path("~/.zsh_history")
 
-function common-commands() {
-    cat $HISTFILE | gsed -e 's/: [0-9]*:[0-9]*;//' | sort | uniq -c | sort -n
-}
+filename_pattern = "[-a-zA-Z/_.=0-9]+"
 
-if [ "$1" = "print-common" ]; then
-    common-commands
-    exit
-fi
 
-function find-pattern() {
-    gsed -n -e "/[^;]*;$1/p" $HISTFILE
-}
+def deduplicate_commands():
+    pass
+    # TODO
 
-function clean-pattern() {
-    echo "Cleaning pattern $1 from history..."
-    gsed --in-place -n -e "/[^;]*;$1/!p" $HISTFILE
-}
-function clean-pattern-git() {
-    clean-pattern '\(g\|git\) '"$1"
-}
 
-_filename_pattern='[-a-zA-Z/_.=0-9]*$'
-function clean-pattern-filename() {
-    clean-pattern "$1 $_filename_pattern"
-}
+def common_commands():
+    commands = {}
+    lines = read_history()
+    for line in lines:
+        command = line.split(";", maxsplit=1)[-1]
+        commands[command] = commands.get(command, 0) + 1
+    common = []
+    for command, count in commands.items():
+        if count > 1:
+            common.append((count, command))
+    common = sorted(common)
+    for count, command in common:
+        print(f"{count:>3}: {command}")
 
-_old_history_count=$(wc -l < $HISTFILE | xargs)
 
-clean-pattern '[a-z]\{1,4\}$'
-clean-pattern 'make \w*$'
-clean-pattern-filename '[ar]g'
-clean-pattern-filename 'cat'
-clean-pattern-filename 'cd'
-clean-pattern-filename 'fd'
-clean-pattern-filename 'gc'
-clean-pattern-filename 'gcb'
-clean-pattern-filename 'gcp'
-clean-pattern-filename 'mkdir'
-clean-pattern-filename 'pytest'
-clean-pattern-filename 'rm -rf'
-clean-pattern-filename 'rm'
-clean-pattern-filename 'z'
-clean-pattern-git "add $_filename_pattern"
-clean-pattern-git "branch -D $_filename_pattern"
-clean-pattern-git "branch -m $_filename_pattern"
-clean-pattern-git "fix $_filename_pattern"
-clean-pattern-git "unstage $_filename_pattern"
-clean-pattern-git 'amend$'
-clean-pattern-git 'clean -f$'
-clean-pattern-git 'push -f$'
-clean-pattern-git 'push$'
-clean-pattern-git 'rom$'
-clean-pattern-git 'wip$'
+def clean_pattern(lines, pattern):
+    print(f"Cleaning pattern {pattern} from history...")
+    out = []
+    pattern = re.compile(pattern)
+    for line in lines:
+        command = line.split(";", maxsplit=1)[-1]
+        matches = pattern.match(command)
+        if matches:
+            print(f"Removing: {command}")
+        else:
+            out.append(line)
+    return out
 
-_new_history_count=$(wc -l < $HISTFILE | xargs)
-if [ $_old_history_count -gt $_new_history_count ]; then
-    echo "History size went from $_old_history_count to $_new_history_count"
-fi
+
+def _is_filename(arg):
+    return re.match(filename_pattern + "$", arg) and arg[0] != "-"
+
+
+def clean_exe(lines, exe):
+    print(f"Cleaning pattern `{exe}` from history...")
+    out = []
+    for line in lines:
+        command = line.split(";", maxsplit=1)[-1]
+        cmd_exe, *args = command.strip().split(" ")
+        if cmd_exe == exe:
+            if all(_is_filename(arg) for arg in args):
+                print(f"Removing: {command}")
+                continue
+        out.append(line)
+    return out
+
+
+def clean_git_exe(lines, pattern):
+    print(f"Cleaning pattern `git {pattern}` from history...")
+    out = []
+    for line in lines:
+        command = line.split(";", maxsplit=1)[-1]
+        if command.startswith("g "):
+            command = "git " + command[len("g "):]
+        if command.startswith("git " + pattern):
+            args = command[len("git " + pattern):].strip().split(" ")
+            if all(_is_filename(arg) for arg in args):
+                print(f"Removing: {command}")
+                continue
+        out.append(line)
+    return out
+
+
+def clean_git(lines, pattern):
+    return clean_pattern(lines, rf"(g|git) {pattern}")
+
+
+def clean_lines(lines):
+    lines = clean_exe(lines, r"ag")
+    lines = clean_exe(lines, r"cat")
+    lines = clean_exe(lines, r"cd")
+    lines = clean_exe(lines, r"fd")
+    lines = clean_exe(lines, r"gc")
+    lines = clean_exe(lines, r"gcb")
+    lines = clean_exe(lines, r"gcp")
+    lines = clean_exe(lines, r"mkdir")
+    lines = clean_exe(lines, r"nag")
+    lines = clean_exe(lines, r"ni")
+    lines = clean_exe(lines, r"nift")
+    lines = clean_exe(lines, r"nrg")
+    lines = clean_exe(lines, r"pytest")
+    lines = clean_exe(lines, r"rg")
+    lines = clean_exe(lines, r"rm")
+    lines = clean_exe(lines, r"z")
+    lines = clean_git(lines, r"amend$")
+    lines = clean_git(lines, r"clean -f$")
+    lines = clean_git(lines, r"push -f$")
+    lines = clean_git(lines, r"push$")
+    lines = clean_git(lines, r"rom$")
+    lines = clean_git(lines, r"wip$")
+    lines = clean_git_exe(lines, r"add")
+    lines = clean_git_exe(lines, r"branch -D")
+    lines = clean_git_exe(lines, r"branch -m")
+    lines = clean_git_exe(lines, r"fix")
+    lines = clean_git_exe(lines, r"unstage")
+    lines = clean_pattern(lines, r"[a-z]{1,4}$")
+    lines = clean_pattern(lines, r"make \w*$")
+    return lines
+
+
+def read_history():
+    with open(HISTFILE.expanduser(), encoding="latin-1") as f:
+        lines = f.read().splitlines()
+    return lines
+
+
+def clean_commands(write):
+    lines = read_history()
+    new_lines = clean_lines(lines)
+    old_count = len(lines)
+    new_count = len(new_lines)
+    print(f"History size went from {old_count} to {new_count}")
+
+    if write:
+        with open(HISTFILE.expanduser(), "w", encoding="latin-1") as f:
+            f.write("\n".join(new_lines))
+
+
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--write', action="store_true")
+    parser.add_argument('--common', action="store_true")
+    args = parser.parse_args()
+    if args.common:
+        common_commands()
+    else:
+        clean_commands(args.write)
