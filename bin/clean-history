@@ -1,142 +1,150 @@
 #!/usr/bin/env python
 import re
+import typing as t
+from collections import OrderedDict
+from functools import partial
 from pathlib import Path
+
+History = t.List["HistoryEntry"]
 
 HISTFILE = Path("~/.zsh_history")
 
 filename_pattern = "[-a-zA-Z/_.=0-9]+"
 
 
-def deduplicate_commands():
-    pass
-    # TODO
+class HistoryEntry:
+    def __init__(self, line: str) -> None:
+        self.line = line
+        time_part, self.command = line.split(";", maxsplit=1)
+        _, self.time, count = time_part.split(":")
+        self.count = int(count) or 1
+
+    def __repr__(self) -> str:
+        return self.line
+
+    def __str__(self) -> str:
+        return self.command
+
+    @property
+    def exe(self):
+        exe, *args = self.command.strip().split(" ")
+        return exe
+
+    @property
+    def args(self):
+        exe, *args = self.command.strip().split(" ")
+        return args
+
+    def update_line(self) -> None:
+        self.line = f":{self.time}:{self.count};{self.command}"
 
 
-def common_commands():
-    commands = {}
-    lines = read_history()
-    for line in lines:
-        command = line.split(";", maxsplit=1)[-1]
-        commands[command] = commands.get(command, 0) + 1
-    common = []
-    for command, count in commands.items():
-        if count > 1:
-            common.append((count, command))
-    common = sorted(common)
-    for count, command in common:
-        print(f"{count:>3}: {command}")
+def common_commands(history: History) -> None:
+    deduplicated_history = _deduplicate_history(history)
+    common = [entry for entry in deduplicated_history if entry.count > 1]
+    common = sorted(common, key=lambda e: e.count)
+    for entry in common:
+        print(f"{entry.count:>3}: {entry.command}")
 
 
-def clean_pattern(lines, pattern):
-    print(f"Cleaning pattern {pattern} from history...")
-    out = []
-    pattern = re.compile(pattern)
-    for line in lines:
-        command = line.split(";", maxsplit=1)[-1]
-        matches = pattern.match(command)
-        if matches:
-            print(f"Removing: {command}")
-        else:
-            out.append(line)
-    return out
+def clean_history(history: History, write: bool) -> None:
+    new_history = clean_common_commands(history)
+    old_count = len(history)
+    new_count = len(new_history)
 
-
-def _is_filename(arg):
-    return re.match(filename_pattern + "$", arg) and arg[0] != "-"
-
-
-def clean_exe(lines, exe):
-    print(f"Cleaning pattern `{exe}` from history...")
-    out = []
-    for line in lines:
-        command = line.split(";", maxsplit=1)[-1]
-        cmd_exe, *args = command.strip().split(" ")
-        if cmd_exe == exe:
-            if all(_is_filename(arg) for arg in args):
-                print(f"Removing: {command}")
-                continue
-        out.append(line)
-    return out
-
-
-def clean_git_exe(lines, pattern):
-    print(f"Cleaning pattern `git {pattern}` from history...")
-    out = []
-    for line in lines:
-        command = line.split(";", maxsplit=1)[-1]
-        if command.startswith("g "):
-            command = "git " + command[len("g "):]
-        if command.startswith("git " + pattern):
-            args = command[len("git " + pattern):].strip().split(" ")
-            if all(_is_filename(arg) for arg in args):
-                print(f"Removing: {command}")
-                continue
-        out.append(line)
-    return out
-
-
-def clean_git(lines, pattern):
-    return clean_pattern(lines, rf"(g|git) {pattern}")
-
-
-def clean_lines(lines):
-    lines = clean_exe(lines, r"ag")
-    lines = clean_exe(lines, r"cat")
-    lines = clean_exe(lines, r"cd")
-    lines = clean_exe(lines, r"fd")
-    lines = clean_exe(lines, r"gc")
-    lines = clean_exe(lines, r"gcb")
-    lines = clean_exe(lines, r"gcp")
-    lines = clean_exe(lines, r"mkdir")
-    lines = clean_exe(lines, r"nag")
-    lines = clean_exe(lines, r"ni")
-    lines = clean_exe(lines, r"nift")
-    lines = clean_exe(lines, r"nrg")
-    lines = clean_exe(lines, r"pytest")
-    lines = clean_exe(lines, r"rg")
-    lines = clean_exe(lines, r"rm")
-    lines = clean_exe(lines, r"z")
-    lines = clean_git(lines, r"amend$")
-    lines = clean_git(lines, r"clean -f$")
-    lines = clean_git(lines, r"push -f$")
-    lines = clean_git(lines, r"push$")
-    lines = clean_git(lines, r"rom$")
-    lines = clean_git(lines, r"wip$")
-    lines = clean_git_exe(lines, r"add")
-    lines = clean_git_exe(lines, r"branch -D")
-    lines = clean_git_exe(lines, r"branch -m")
-    lines = clean_git_exe(lines, r"fix")
-    lines = clean_git_exe(lines, r"unstage")
-    lines = clean_pattern(lines, r"[a-z]{1,4}$")
-    lines = clean_pattern(lines, r"make \w*$")
-    return lines
-
-
-def read_history():
-    with open(HISTFILE.expanduser(), encoding="latin-1") as f:
-        lines = f.read().splitlines()
-    return lines
-
-
-def clean_commands(write):
-    lines = read_history()
-    new_lines = clean_lines(lines)
-    old_count = len(lines)
-    new_count = len(new_lines)
+    print("Deduplicating history entries...")
+    new_history = _deduplicate_history(new_history)
+    if write:
+        write_history(new_history)
     print(f"History size went from {old_count} to {new_count}")
 
-    if write:
-        with open(HISTFILE.expanduser(), "w", encoding="latin-1") as f:
-            f.write("\n".join(new_lines))
+
+def _deduplicate_history(history: History) -> History:
+    entries: OrderedDict[str, HistoryEntry] = OrderedDict()
+    for entry in history:
+        if entry.command not in entries:
+            entries[entry.command] = entry
+            continue
+        entries[entry.command].count += entry.count
+        entries[entry.command].time = entry.time
+        entries[entry.command].update_line()
+    return list(entries.values())
+
+
+def clean_common_commands(history: History) -> History:
+    patterns = [r"[a-z]{1,4}$", r"make \w*$"]
+    for pattern in patterns:
+        print(f"Cleaning pattern `{pattern}` from history...")
+        re_pattern = re.compile(pattern)
+        history = _clean_history(history, partial(filter_pattern, re_pattern))
+
+    exes = [r"ag", r"cat", r"cd", r"code", r"fd", r"gc", r"gcb", r"gcp", r"mkdir", r"nag", r"ni", r"nift", r"nrg", r"pytest", r"rg", r"rm", r"z"]
+    for exe in exes:
+        print(f"Cleaning pattern `{exe}` from history...")
+        history = _clean_history(history, partial(filter_exe, exe))
+
+    git_exes = [r"add", r"amend", r"push", r"rom", r"wip", r"add", r"clean -f", r"push -f", r"branch -D", r"branch -m", r"fix", r"unstage"]
+    for exe in git_exes:
+        print(f"Cleaning pattern `git {exe}` from history...")
+        history = _clean_history(history, partial(filter_git, exe))
+    return history
+
+
+def _clean_history(history: History, filter_func: t.Callable[[HistoryEntry], bool]) -> History:
+    out = []
+    for entry in history:
+        if filter_func(entry):
+            print(f"Removing: {entry.command}")
+            continue
+        out.append(entry)
+    return out
+
+
+def is_filename(arg: str) -> bool:
+    return bool(re.match(filename_pattern + "$", arg)) and arg[0] != "-"
+
+
+def all_filenames(args: t.List[str]) -> bool:
+    return all(is_filename(arg) for arg in args)
+
+
+def filter_pattern(pattern: re.Pattern, entry: HistoryEntry) -> bool:
+    return bool(pattern.match(entry.command))
+
+
+def filter_exe(exe: str, entry: HistoryEntry) -> bool:
+    return entry.exe == exe and all_filenames(entry.args)
+
+
+def filter_git(pattern: str, entry: HistoryEntry) -> bool:
+    if entry.exe in ("git", "g"):
+        pattern_args = pattern.split(" ")
+        if entry.args[: len(pattern_args)] == pattern_args:
+            return all_filenames(entry.args[len(pattern_args):])
+    return False
+
+
+def read_history() -> History:
+    with open(HISTFILE.expanduser(), encoding="latin-1") as f:
+        lines = f.read().splitlines()
+    return [HistoryEntry(line) for line in lines]
+
+
+def write_history(history: History) -> None:
+    with open(HISTFILE.expanduser(), "w", encoding="latin-1") as f:
+        f.write("\n".join([entry.line for entry in history]) + "\n")
 
 
 if __name__ == "__main__":
     import argparse
+
     parser = argparse.ArgumentParser()
-    parser.add_argument('--write', action="store_true")
-    parser.add_argument('--common', action="store_true")
+    parser.add_argument("--write", action="store_true")
+    parser.add_argument("--common", action="store_true")
     args = parser.parse_args()
+
+    history = read_history()
     if args.common:
-        common_commands()
+        common_commands(history)
     else:
-        clean_commands(args.write)
+        clean_history(history, args.write)
