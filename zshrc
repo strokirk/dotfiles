@@ -22,6 +22,7 @@ plugins=(
     z                       # Add `z` command to jump to frequently used directories
     zsh-autosuggestions     # Add Fish-like autosuggestions for zsh
     zsh-syntax-highlighting # Add syntax highligting to the shell
+    iterm-tab-color
 )
 fpath=(.zsh/completion $fpath)
 
@@ -371,6 +372,10 @@ if [ -n "$(command -v pyenv)" ]; then
 fi;
 
 alias docker-this='docker run -it --rm -v $(realpath .):/data'
+
+_tabcolor_on_cwd_change() { tc $(echo $PWD | md5 | cut -c1-6); };
+_tabcolor_on_cwd_change
+add-zsh-hook chpwd _tabcolor_on_cwd_change
 
 # Local settings that should not be committed
 source_if_exists $DOTFILES_DIR/zshrc.local
