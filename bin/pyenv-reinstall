@@ -11,7 +11,7 @@ version=$(pyenv install --list | grep "^\s*$version" | tail -1 | tr -d '[:space:
 pyenv install --skip-existing "$version"
 
 if pyenv versions --bare | grep -q "$name"; then
-    pyenv uninstall "$name";
+    pyenv virtualenv-delete -f "$name";
 fi
 
 pyenv virtualenv "$version" "$name";
