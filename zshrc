@@ -91,6 +91,7 @@ else
     alias la='ls -A'
     alias ll='ls -alF --time-style=long-iso'
 fi
+alias el="exa -l"
 
 # Sane defaults
 alias ps='ps -jh' # -j Show more columns, -h show header multiple times for long output
@@ -157,6 +158,7 @@ alias glmp="glm -p"
 
 alias gap="git add --patch"
 alias gcp="git checkout --patch"
+alias gu="git reset ."
 alias gup="git reset --patch HEAD"
 
 alias gb='git-list-branches'
