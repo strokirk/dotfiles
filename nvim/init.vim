@@ -381,6 +381,86 @@ autocmd! QuickfixCmdPost * call s:SortUniqQFList()
 
 "" Plugins: {{{1
 
+" Plugin List: {{{2
+call plug#begin('~/.config/vim-plugged')
+" Essential:
+Plug 'airblade/vim-gitgutter'
+Plug 'rking/ag.vim'
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
+Plug 'tpope/vim-surround'
+Plug 'benekastah/neomake'
+
+" Excellent:
+Plug 'davidhalter/jedi-vim',    { 'for': 'python' }
+Plug 'mattn/emmet-vim'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'majutsushi/tagbar'
+Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
+
+" Good:
+Plug 'SirVer/ultisnips'               | Plug 'honza/vim-snippets'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'FooSoft/vim-argwrap'            | " Adds :ArgWrap, which 'unfolds' lists and arguments
+Plug 'PeterRincker/vim-argumentative' | " Adds arguments manipulations with <, [, a,
+Plug 'jeetsukumaran/vim-gazetteer'    | " Manages tag finding for ctrl-p (use gz)
+Plug 'romainl/vim-qf'                 | " Add quickfix manipulation commands and mappings
+Plug 'sjl/clam.vim'                   | " Easily run Shell commands with :Clam
+Plug 'tpope/vim-eunuch'               | " Adds :Remove, :Move and other useful file management commands
+Plug 'wellle/targets.vim'             | " Add more text objects, like vi' or viq
+Plug 'michaeljsmith/vim-indent-object'| " Adds ii ai aI text objects
+
+" Visual:
+Plug 'bling/vim-airline'
+Plug 'tmhedberg/SimpylFold'
+Plug 'tomasr/molokai'
+Plug 'tpope/vim-characterize'
+Plug 'xolox/vim-misc'
+Plug 'machakann/vim-highlightedyank'
+
+" Syntax And Filetype:
+Plug 'ElmCast/elm-vim',           { 'for': 'elm'       }
+Plug 'cespare/vim-toml',          { 'for': 'toml'      }
+Plug 'dleonard0/pony-vim-syntax', { 'for': 'pony'      }
+Plug 'google/vim-jsonnet',        { 'for': 'jsonnet'   }
+Plug 'pangloss/vim-javascript'    | Plug 'mxw/vim-jsx'
+Plug 'plasticboy/vim-markdown',   { 'for': 'markdown'  }
+Plug 'rust-lang/rust.vim',        { 'for': 'rust'      }
+Plug 'vim-scripts/fountain.vim',  { 'for': 'fountain'  }
+Plug 'alfredodeza/coveragepy.vim',{ 'for': 'python'    }
+Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'chakrit/upstart.vim'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'elixir-editors/vim-elixir'
+Plug 'fatih/vim-hclfmt'
+Plug 'gutenye/json5.vim'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'robbles/logstash.vim'
+Plug 'tmux-plugins/vim-tmux'
+Plug 'tpope/vim-git'
+Plug 'vim-scripts/nginx.vim'
+
+" Notetaking:
+Plug 'vimoutliner/vimoutliner' | " Uses a custom syntax vaguely similar to org-mode
+Plug 'junegunn/vim-journal'
+
+" AutoCompletion:
+" Plug 'zxqfl/tabnine-vim'   | " AI Based Autocompletion
+" Plug 'zchee/deoplete-jedi'
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+" New Or Evaluating:
+" Plug 'Lokaltog/vim-easymotion'
+Plug 'sbdchd/neoformat'         | " Adds :Neoformat, which formats selected text
+Plug 'rizzatti/dash.vim'
+Plug 'alfredodeza/pytest.vim'
+
+call plug#end()
+" 2}}}
+
 " Plugin Options: {{{2
 
 " ArgWrap: (plugin)
@@ -510,86 +590,6 @@ let g:neoformat_json5_prettier = {
   \ 'no_append': 1,
   \ }
 
-" 2}}}
-
-" Plugin List: {{{2
-call plug#begin('~/.config/vim-plugged')
-" Essential:
-Plug 'airblade/vim-gitgutter'
-Plug 'rking/ag.vim'
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
-Plug 'tpope/vim-surround'
-Plug 'benekastah/neomake'
-
-" Excellent:
-Plug 'davidhalter/jedi-vim',    { 'for': 'python' }
-Plug 'mattn/emmet-vim'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-repeat'
-Plug 'majutsushi/tagbar'
-Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
-
-" Good:
-Plug 'SirVer/ultisnips'               | Plug 'honza/vim-snippets'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'jiangmiao/auto-pairs'
-Plug 'FooSoft/vim-argwrap'            | " Adds :ArgWrap, which 'unfolds' lists and arguments
-Plug 'PeterRincker/vim-argumentative' | " Adds arguments manipulations with <, [, a,
-Plug 'jeetsukumaran/vim-gazetteer'    | " Manages tag finding for ctrl-p (use gz)
-Plug 'romainl/vim-qf'                 | " Add quickfix manipulation commands and mappings
-Plug 'sjl/clam.vim'                   | " Easily run Shell commands with :Clam
-Plug 'tpope/vim-eunuch'               | " Adds :Remove, :Move and other useful file management commands
-Plug 'wellle/targets.vim'             | " Add more text objects, like vi' or viq
-Plug 'michaeljsmith/vim-indent-object'| " Adds ii ai aI text objects
-
-" Visual:
-Plug 'bling/vim-airline'
-Plug 'tmhedberg/SimpylFold'
-Plug 'tomasr/molokai'
-Plug 'tpope/vim-characterize'
-Plug 'xolox/vim-misc'
-Plug 'machakann/vim-highlightedyank'
-
-" Syntax And Filetype:
-Plug 'ElmCast/elm-vim',           { 'for': 'elm'       }
-Plug 'cespare/vim-toml',          { 'for': 'toml'      }
-Plug 'dleonard0/pony-vim-syntax', { 'for': 'pony'      }
-Plug 'google/vim-jsonnet',        { 'for': 'jsonnet'   }
-Plug 'pangloss/vim-javascript'    | Plug 'mxw/vim-jsx'
-Plug 'plasticboy/vim-markdown',   { 'for': 'markdown'  }
-Plug 'rust-lang/rust.vim',        { 'for': 'rust'      }
-Plug 'vim-scripts/fountain.vim',  { 'for': 'fountain'  }
-Plug 'alfredodeza/coveragepy.vim',{ 'for': 'python'    }
-Plug 'Glench/Vim-Jinja2-Syntax'
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'chakrit/upstart.vim'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'elixir-editors/vim-elixir'
-Plug 'fatih/vim-hclfmt'
-Plug 'gutenye/json5.vim'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'robbles/logstash.vim'
-Plug 'tmux-plugins/vim-tmux'
-Plug 'tpope/vim-git'
-Plug 'vim-scripts/nginx.vim'
-
-" Notetaking:
-Plug 'vimoutliner/vimoutliner' | " Uses a custom syntax vaguely similar to org-mode
-Plug 'junegunn/vim-journal'
-
-" AutoCompletion:
-" Plug 'zxqfl/tabnine-vim'   | " AI Based Autocompletion
-" Plug 'zchee/deoplete-jedi'
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-" New Or Evaluating:
-" Plug 'Lokaltog/vim-easymotion'
-Plug 'sbdchd/neoformat'         | " Adds :Neoformat, which formats selected text
-Plug 'rizzatti/dash.vim'
-Plug 'alfredodeza/pytest.vim'
-
-call plug#end()
 " 2}}}
 
 " 1}}}
