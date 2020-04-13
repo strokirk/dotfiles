@@ -334,7 +334,7 @@ function nag() { nvim -q <(ag $@) }
 function nvim-fzf-tags() {
     local line
     [ -e .git/tags ] &&
-    line=$(awk '!/^!/ {print $1}' .git/tags | fzf --exit-0 --select-1 --query="$@") &&
+    line=$(awk '!/^!/ {print $1 "\t" $2}' .git/tags | xsv table -d '\t' | fzf --exit-0 --select-1 --query="$@" | awk '{print $1}') &&
     nvim -t ${line}
 }
 alias nift=nvim-fzf-tags
@@ -344,9 +344,6 @@ function nrg() { $EDITOR -q <(rg --vimgrep "$@") }
 
 function tar-sizes() { tar -ztvf $1 2>&1 | awk '{print $5 "\t" $9}' | sort -k2 }
 function tar-diff() { diff -y --suppress-common-lines <(tar-sizes $1) <(tar-sizes $2) }
-
-# Recalculate tags for git repo
-function tagme() { git ls-files | ctags -f .git/tags -L- --tag-relative=yes --exclude='*.css' --exclude="package*.json" --exclude='static/fonts' --exclude='**/Makefile' --exclude='**/make.bat'}
 
 function x-piprot() { piprot $1 -o | sort -k 4 -n | tee piprot.txt }
 function x-pyenv-reinstall() { pyenv versions --skip-aliases --bare | grep "envs/$1$" && pyenv uninstall -f $1; (pyenv virtualenv $2 $1 && pyenv local $1) }
