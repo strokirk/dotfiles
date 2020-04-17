@@ -304,7 +304,7 @@ au Filetype sql,mysql xnoremap <buffer> <F5> :'<,'>Clam mysql --table<cr>gg<c-w>
 au Filetype vim setlocal foldmethod=marker
 au Filetype scss setl equalprg=prettier\ --parser=scss
 au Filetype python setl equalprg=autopep8\ -\ --max-line-length\ 119\ -a\ --ignore\ E309\ --ignore\ E731
-au Filetype javascript,javascript.jsx setl suffixesadd+=.js,.jsx,.es6.js
+au Filetype javascript,javascript.jsx setl suffixesadd+=.js,.jsx,.es6.js,.ts,.tsx
 au Filetype javascript,javascript.jsx setl foldmethod=syntax
 au Filetype elixir setl foldmethod=syntax
 au Filetype scss setl foldmethod=marker foldmarker={,}

@@ -11,6 +11,42 @@ HISTFILE = Path("~/.zsh_history")
 
 filename_pattern = "[-a-zA-Z/_.=0-9]+"
 
+exes = [
+    "ag",
+    "cat",
+    "cd",
+    "code",
+    "fd",
+    "gc",
+    "gcb",
+    "gcp",
+    "mkdir",
+    "nag",
+    "ni",
+    "nift",
+    "nrg",
+    "open",
+    "pytest",
+    "rg",
+    "rm",
+    "z",
+]
+
+git_exes = [
+    "add",
+    "amend",
+    "push",
+    "rom",
+    "wip",
+    "add",
+    "clean -f",
+    "push -f",
+    "branch -D",
+    "branch -m",
+    "fix",
+    "unstage",
+]
+
 
 class HistoryEntry:
     def __init__(self, line: str) -> None:
@@ -78,19 +114,19 @@ def clean_common_commands(history: History) -> History:
         re_pattern = re.compile(pattern)
         history = _clean_history(history, partial(filter_pattern, re_pattern))
 
-    exes = [r"ag", r"cat", r"cd", r"code", r"fd", r"gc", r"gcb", r"gcp", r"mkdir", r"nag", r"ni", r"nift", r"nrg", r"pytest", r"rg", r"rm", r"z"]
     for exe in exes:
         print(f"Cleaning pattern `{exe}` from history...")
         history = _clean_history(history, partial(filter_exe, exe))
 
-    git_exes = [r"add", r"amend", r"push", r"rom", r"wip", r"add", r"clean -f", r"push -f", r"branch -D", r"branch -m", r"fix", r"unstage"]
     for exe in git_exes:
         print(f"Cleaning pattern `git {exe}` from history...")
         history = _clean_history(history, partial(filter_git, exe))
     return history
 
 
-def _clean_history(history: History, filter_func: t.Callable[[HistoryEntry], bool]) -> History:
+def _clean_history(
+    history: History, filter_func: t.Callable[[HistoryEntry], bool]
+) -> History:
     out = []
     for entry in history:
         if filter_func(entry):
@@ -120,7 +156,7 @@ def filter_git(pattern: str, entry: HistoryEntry) -> bool:
     if entry.exe in ("git", "g"):
         pattern_args = pattern.split(" ")
         if entry.args[: len(pattern_args)] == pattern_args:
-            return all_filenames(entry.args[len(pattern_args):])
+            return all_filenames(entry.args[len(pattern_args) :])
     return False
 
 
