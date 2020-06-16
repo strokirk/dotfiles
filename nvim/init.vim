@@ -400,17 +400,18 @@ Plug 'majutsushi/tagbar'
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 
 " Good:
-Plug 'SirVer/ultisnips'               | Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'                | Plug 'honza/vim-snippets'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'FooSoft/vim-argwrap'            | " Adds :ArgWrap, which 'unfolds' lists and arguments
-Plug 'PeterRincker/vim-argumentative' | " Adds arguments manipulations with <, [, a,
-Plug 'jeetsukumaran/vim-gazetteer'    | " Manages tag finding for ctrl-p (use gz)
-Plug 'romainl/vim-qf'                 | " Add quickfix manipulation commands and mappings
-Plug 'sjl/clam.vim'                   | " Easily run Shell commands with :Clam
-Plug 'tpope/vim-eunuch'               | " Adds :Remove, :Move and other useful file management commands
-Plug 'wellle/targets.vim'             | " Add more text objects, like vi' or viq
-Plug 'michaeljsmith/vim-indent-object'| " Adds ii ai aI text objects
+Plug 'FooSoft/vim-argwrap'             | " Adds :ArgWrap, which 'unfolds' lists and arguments
+Plug 'PeterRincker/vim-argumentative'  | " Adds arguments manipulations with <, [, a,
+Plug 'jeetsukumaran/vim-gazetteer'     | " Manages tag finding for ctrl-p (use gz)
+Plug 'michaeljsmith/vim-indent-object' | " Adds ii ai aI text objects
+Plug 'romainl/vim-qf'                  | " Add quickfix manipulation commands and mappings
+Plug 'sbdchd/neoformat'                | " Adds :Neoformat, which formats selected text
+Plug 'sjl/clam.vim'                    | " Easily run Shell commands with :Clam
+Plug 'tpope/vim-eunuch'                | " Adds :Remove, :Move and other useful file management commands
+Plug 'wellle/targets.vim'              | " Add more text objects, like vi' or viq
 
 " Visual:
 Plug 'bling/vim-airline'
@@ -454,7 +455,6 @@ Plug 'junegunn/vim-journal'
 
 " New Or Evaluating:
 " Plug 'Lokaltog/vim-easymotion'
-Plug 'sbdchd/neoformat'         | " Adds :Neoformat, which formats selected text
 Plug 'rizzatti/dash.vim'
 Plug 'alfredodeza/pytest.vim'
 
