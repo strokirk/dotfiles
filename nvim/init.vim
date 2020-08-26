@@ -582,6 +582,11 @@ xmap <leader>0 <Plug>(EasyAlign)
 " JsonNet: (plugin)
 let g:jsonnet_fmt_options = ' --string-style d '
 
+let g:neoformat_enabled_javascriptreact = ['prettier']
+let g:neoformat_enabled_typescriptreact = ['prettier']
+let g:neoformat_javascriptreact_prettier = {'exe': 'prettier', 'stdin': 1, 'args': ['--stdin', '--stdin-filepath', '"%:p"', '--parser', 'typescript']}
+let g:neoformat_typescriptreact_prettier = {'exe': 'prettier', 'stdin': 1, 'args': ['--stdin', '--stdin-filepath', '"%:p"', '--parser', 'typescript']}
+
 let g:neoformat_enabled_json5 = ['prettier']
 let g:neoformat_json5_prettier = {
   \ 'exe': 'prettier',
