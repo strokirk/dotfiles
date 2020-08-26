@@ -372,7 +372,7 @@ fi;
 
 alias docker-this='docker run -it --rm -v $(realpath .):/data'
 
-_tabcolor_on_cwd_change() { tc $(echo $PWD | md5 | cut -c1-6); };
+_tabcolor_on_cwd_change() { tc $(echo $PWD | sha256sum | cut -c1-6); };
 _tabcolor_on_cwd_change
 add-zsh-hook chpwd _tabcolor_on_cwd_change
 
