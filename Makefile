@@ -9,16 +9,17 @@ link:
 	ln -s -f $(realpath tmux.conf) ~/.tmux.conf
 	ln -s -f $(realpath taskrc) ~/.taskrc
 
-pip:
-	pip install --user --upgrade autopep8
-	pip install --user --upgrade flake8
-	pip install --user --upgrade neovim
-	pip install --user --upgrade pipenv
-	pip install --user --upgrade pytest-watch
-	pip install --user --upgrade isort
-	pip install --user --upgrade pawk
-	pip install --user --upgrade piprot
-	pip install --user --upgrade pipsi
+pipx:
+	pipx install sqlformat flake8 mypy isort piprot
+	pipx install sncli black cookiecutter myougiden
+
+yarn:
+	yarn global add prettier
+
+brew:
+	brew install -q tealdeer jq k9s tmux tig tokei tree lazydocker zsh yq youtube-dl
+	brew install -q ncdu pipx pstree the_silver_searcher task xsv
+	brew install -q mosh neovim entr emojify buku fzf fd exa universal-ctags
 
 pyenv:
 	# Setup python versions
