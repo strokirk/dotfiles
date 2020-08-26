@@ -100,7 +100,7 @@ alias whence="whence -avs"  # show exact origin of command
 
 alias t=task
 alias b="buku -p"
-alias log="$EDITOR $DROPBOX_NOTES_DIR/log-notes.md"
+alias log="(cd $DROPBOX_NOTES_DIR/ && $EDITOR log-notes.md)"
 
 alias help="run-help" # help is called run-help in zsh
 alias svim="sudo vim"
