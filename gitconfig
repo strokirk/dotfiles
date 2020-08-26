@@ -9,6 +9,8 @@
     pager = less -F -X
 [push]
 	default = upstream
+[pull]
+	ff = only
 [commit]
     # Show diff in commit message editor
 	verbose = 1
