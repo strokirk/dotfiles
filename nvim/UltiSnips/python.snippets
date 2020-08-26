@@ -2,6 +2,10 @@ snippet pp "pprint"
 from pprint import pprint as pp
 endsnippet
 
+snippet tt "timeit"
+import time; "t" in locals() and print(1, time.time()-locals()["t"]); t=time.time()
+endsnippet
+
 snippet ic "icecream"
 from icecream import ic
 ic(${0})
