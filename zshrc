@@ -115,15 +115,6 @@ alias docs='cd $DROPBOX_NOTES_DIR'
 
 alias notes='(cd $DROPBOX_NOTES_DIR && $EDITOR .)'
 
-# Utilize some Swedish characters for a more comfortable shell
-bindkey -s ¨ /
-bindkey -s § '|'
-bindkey -s £ '$(!!)'
-bindkey -s ª '${EDITOR} -q <(!!)'
-bindkey -s ﬁ '| less'
-bindkey -s ß '| grep'
-bindkey -s JK '| jq ". | keys"'
-
 # Use Ctrl-O and Ctrl-P to move cursor one word backward/forwards
 bindkey ^O backward-word
 bindkey ^P forward-word
