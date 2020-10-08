@@ -18,8 +18,9 @@ yarn:
 
 brew:
 	brew install -q tealdeer jq k9s tmux tig tokei tree lazydocker zsh yq youtube-dl
-	brew install -q ncdu pipx pstree the_silver_searcher task xsv
+	brew install -q ncdu pipx pstree the_silver_searcher task xsv httpie gnu-sed
 	brew install -q mosh neovim entr emojify buku fzf fd exa universal-ctags
+	brew cask install docker dropbox iterm2 alfred dash virtualbox spotify simplenot insomnia firefox spectacle slack ukulele
 
 pyenv:
 	# Setup python versions
