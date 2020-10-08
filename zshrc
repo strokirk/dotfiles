@@ -24,7 +24,7 @@ plugins=(
     zsh-syntax-highlighting # Add syntax highligting to the shell
     iterm-tab-color
 )
-fpath=(.zsh/completion $fpath)
+fpath=($HOME/.zsh/completion $fpath)
 
 source_if_exists $ZSH/oh-my-zsh.sh
 
@@ -91,7 +91,7 @@ else
     alias la='ls -A'
     alias ll='ls -alF --time-style=long-iso'
 fi
-alias el="exa -l"
+alias el="exa -l --group-directories-first"
 
 # Sane defaults
 alias ps='ps -jh' # -j Show more columns, -h show header multiple times for long output
