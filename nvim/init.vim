@@ -378,6 +378,37 @@ autocmd! QuickfixCmdPost * call s:SortUniqQFList()
 
 " }}}
 
+" QDeleteLine {{{1
+" Remove line(s) from quickfix
+" Copied from: https://github.com/fcpg/vim-kickfix/blob/master/autoload/kickfix.vim#L100-L124
+function! QFDeleteLines(...) abort
+  let isloc = !empty(getloclist(0))
+  let curlist = isloc ? getloclist(0) : getqflist()
+  if a:0 == 1 && type(a:1) == type("")
+    " called from g@
+    let [l1, l2] = [line("'["), line("']")]
+  elseif a:0 == 2
+    " called from cmdline
+    let [l1, l2] = [a:1, a:2]
+  else
+    echom "Argument error (kickfix#QDeleteLine)"
+    return
+  endif
+  let curline = line('.')
+  let newlist = copy(curlist)
+  call remove(newlist, l1 - 1, l2 - 1)
+  if isloc
+    call setloclist(0, newlist)
+  else
+    call setqflist(newlist)
+  endif
+  call cursor(curline, 0)
+endfun
+au Filetype qf nnoremap <buffer><silent> dd :QFDeleteLines<cr>
+au Filetype qf nnoremap <buffer><silent> d  :set opfunc=QFDeleteLines<cr>g@
+au Filetype qf xnoremap <buffer><silent> d  :QFDeleteLines<cr>
+au Filetype qf command! -range -bar QFDeleteLines call QFDeleteLines(<line1>, <line2>)
+" }}}
 
 "" Plugins: {{{1
 
