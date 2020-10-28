@@ -453,6 +453,7 @@ Plug 'xolox/vim-misc'
 Plug 'machakann/vim-highlightedyank'
 
 " Syntax And Filetype:
+Plug 'sheerun/vim-polyglot'
 Plug 'ElmCast/elm-vim',           { 'for': 'elm'       }
 Plug 'cespare/vim-toml',          { 'for': 'toml'      }
 Plug 'dleonard0/pony-vim-syntax', { 'for': 'pony'      }
@@ -462,6 +463,7 @@ Plug 'plasticboy/vim-markdown',   { 'for': 'markdown'  }
 Plug 'rust-lang/rust.vim',        { 'for': 'rust'      }
 Plug 'vim-scripts/fountain.vim',  { 'for': 'fountain'  }
 Plug 'alfredodeza/coveragepy.vim',{ 'for': 'python'    }
+Plug 'alfredodeza/pytest.vim',    { 'for': 'python'    }
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'chakrit/upstart.vim'
@@ -480,19 +482,26 @@ Plug 'vimoutliner/vimoutliner' | " Uses a custom syntax vaguely similar to org-m
 Plug 'junegunn/vim-journal'
 
 " AutoCompletion:
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'zxqfl/tabnine-vim'   | " AI Based Autocompletion
 " Plug 'zchee/deoplete-jedi'
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " New Or Evaluating:
 " Plug 'Lokaltog/vim-easymotion'
+Plug 'djoshea/vim-autoread'
 Plug 'rizzatti/dash.vim'
-Plug 'alfredodeza/pytest.vim'
+Plug 'fcpg/vim-kickfix'
 
 call plug#end()
 " 2}}}
 
 " Plugin Options: {{{2
+
+let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank', 'coc-prettier', 'coc-python']
+
+" KickFix: (plugin) Disable Zebra striping in Quickfix window
+let g:kickfix_zebra = 0
 
 " ArgWrap: (plugin)
 nnoremap <leader>a :ArgWrap<cr>
@@ -543,6 +552,7 @@ let g:tagbar_type_markdown = {
     \ ],
 \ 'sort' : 0,
 \ }
+let g:airline#extensions#tagbar#enabled = 0
 
 " Jedi: (Plugin)
 let g:jedi#goto_command = ''       | " This competes with my <leader>d mapping
