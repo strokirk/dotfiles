@@ -42,3 +42,8 @@ parser.add_argument('${0:name}')
 args = parser.parse_args()
 ${0:name} = args.${0:name}
 endsnippet
+
+snippet open "read file"
+with open("${0:filename.txt}") as f:
+	content = f.read()
+endsnippet
