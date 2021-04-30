@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+function git-delete-merged() {
+  git branch --merged | sed -E '/^\*|master/d' | xargs git branch -d 2>/dev/null
+}
+
+set -e  # Exit on error, uses subshell to only quit "this function"
+
+git checkout master -q
+git pull --prune -q
+
+# shellcheck disable=SC2046
+for b in $(git-list-upstream-gone); do
+  git branch -D "$b" 2>/dev/null
+done
+
+git-delete-merged

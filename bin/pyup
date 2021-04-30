@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 for p in "$@"; do
     url=https://pyup.io/changelogs/$p/;
-    http "$url" --check-status &>/dev/null && open "$url" || echo "No pyup.io changelog for $p"
+    if http "$url" --check-status &>/dev/null; then
+        open "$url";
+    else
+        echo "No pyup.io changelog for $p";
+        open "https://pypi.org/project/$p/";
+    fi
 done;

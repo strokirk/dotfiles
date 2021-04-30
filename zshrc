@@ -66,6 +66,7 @@ export GOPATH="$LOCAL_CODE_DIR/go"
 export GOBIN="$GOPATH/bin"
 export NPM_PACKAGES="$HOME/.npm-packages"
 export NODE_PATH="$NPM_PACKAGES/lib/node_modules${NODE_PATH:+:$NODE_PATH}"
+export HOMEBREW_NO_AUTO_UPDATE=1
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH"
 export PATH="$PATH:$DOTFILES_DIR/bin"
@@ -91,7 +92,8 @@ else
     alias la='ls -A'
     alias ll='ls -alF --time-style=long-iso'
 fi
-alias el="exa -l --group-directories-first"
+alias el="exa -l --git --group-directories-first"
+alias l="el"
 
 # Sane defaults
 alias ps='ps -jh' # -j Show more columns, -h show header multiple times for long output
@@ -136,6 +138,7 @@ alias gep='gec -p'
 alias gbf='$EDITOR $(git branch-files)'
 alias gbp='gbf -p'
 
+alias ga="git add"
 alias gs="git status"
 alias gw="git show --decorate"
 alias gd="git diff"
@@ -168,13 +171,6 @@ alias pub='git publish && hub pull-request'
 #  Custom Functions {{{ #
 
 #  Git Functions {{{ #
-function git-prune-merged() { ( set -e  # Exit on error, uses subshell to only quit "this function"
-    git checkout master -q
-    git pull --prune
-    git branch -D $(git-list-upstream-gone) 2>/dev/null
-    git-delete-merged
-) }
-
 function git-verbose-commit() {
   if [ $# -eq 0 ]; then
       git commit --verbose;
@@ -243,6 +239,9 @@ function zf() {
 
 alias j=z
 alias jf=zf
+
+# Thanks @jen20 https://news.ycombinator.com/item?id=25308708
+pman() { man -t "$@" | open -f -a Preview; }
 
 function manflag() {
   if [ $# -eq 2 ]; then
@@ -329,7 +328,10 @@ function nvim-fzf-tags() {
     nvim -t ${line}
 }
 alias nift=nvim-fzf-tags
+alias h=hivemind
 
+function rgp() { rg "$*" }
+alias rgu="rg -u --hidden -M200 -g '!.git/'"
 function nag() { $EDITOR -q <(ag "$@") }
 function nrg() { $EDITOR -q <(rg --vimgrep "$@") }
 
@@ -337,7 +339,7 @@ function tar-sizes() { tar -ztvf $1 2>&1 | awk '{print $5 "\t" $9}' | sort -k2 }
 function tar-diff() { diff -y --suppress-common-lines <(tar-sizes $1) <(tar-sizes $2) }
 
 function x-piprot() { piprot $1 -o | sort -k 4 -n | tee piprot.txt }
-function x-pyenv-reinstall() { pyenv versions --skip-aliases --bare | grep "envs/$1$" && pyenv uninstall -f $1; (pyenv virtualenv $2 $1 && pyenv local $1) }
+function git-rebase-on() { _r=$(git config branch.$(git symbolic-ref --short HEAD).rebased-on); test $_r && git rebase $_r; }
 
 # Smaller, more readable docker ps output
 function docker-ps() { docker ps $@ --format "table {{.ID}}\t{{.Image}}\t{{.Names}}\t{{.CreatedAt}}\t{{.Status}}"; }
