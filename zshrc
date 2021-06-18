@@ -276,25 +276,6 @@ if [ $(uname) = 'Linux' ]; then
     alias open=xdg-open
 fi
 
-function next() {
-    if [ $(uname) = 'Darwin' ]; then
-        osascript -e 'tell application "spotify"' -e 'next track' -e 'end tell'
-    else
-        if [ $(command -v xdotool 2>&1) ]; then
-            xdotool key XF86AudioNext
-        fi
-    fi
-}
-function prev() {
-    if [ $(uname) = 'Darwin' ]; then
-        osascript -e 'tell application "spotify"' -e 'previous track' -e 'end tell'
-    else
-        if [ $(command -v xdotool 2>&1) ]; then
-            xdotool key XF86AudioPrev
-        fi
-    fi
-}
-
 function run() {
     ./$1 "${@:2}"
 }
