@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+set -x
+fd --no-ignore --hidden "^.git$"    | xargs -n1 xattr -w com.dropbox.ignored 1
+fd --no-ignore --hidden _cache_     | xargs -n1 xattr -w com.dropbox.ignored 1
+fd --no-ignore --hidden cache       | xargs -n1 xattr -w com.dropbox.ignored 1
+fd --no-ignore --hidden __pycache__ | xargs -n1 xattr -w com.dropbox.ignored 1
+fd --no-ignore --hidden mypy_cache  | xargs -n1 xattr -w com.dropbox.ignored 1
