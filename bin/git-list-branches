@@ -1,12 +1,9 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 import os
 import subprocess
 
 
-def call(cmd, split=False):
+def call(cmd, split=False) -> str:
     if split:
         cmd = cmd.split(" ")
     return subprocess.check_output(cmd).strip().decode("utf-8")
@@ -20,7 +17,7 @@ RESET = call("tput sgr0", split=True)
 STAR = "★"
 
 
-def col(c):
+def col(c) -> staticmethod:
     return staticmethod(lambda s: c + s + RESET)
 
 
@@ -57,11 +54,11 @@ class Branch:
         self.date = committerdate
 
     @classmethod
-    def from_string(cls, string):
+    def from_string(cls, string) -> "Branch":
         return cls(*string.split("\x1F"))
 
 
-def list_branches(sort=sort_default, only_pushed=False):
+def list_branches(sort=sort_default, only_pushed=False) -> None:
     if not os.path.exists(".git"):
         raise SystemExit("Not in a git directory. Exiting.")
 
@@ -74,11 +71,16 @@ def list_branches(sort=sort_default, only_pushed=False):
     rel_width = max(len(b.committerdate_rel) for b in branches) + len(Colors.gray(""))
     fmt = "[{date}] {rel:{rel_width}}  {star} {name}"
     for branch in sorted(branches, key=lambda b: getattr(b, sort)):
+        name = branch.name
+        if name in ("master", "main"):
+            name = Colors.green(name)
+        elif "wip" in name:
+            name = Colors.gray(name)
         print(fmt.format(
             date=branch.committerdate,
             rel=Colors.gray(branch.committerdate_rel),
             star=Colors.red(STAR) if branch.tracking else " ",
-            name=Colors.green(branch.name) if branch.name == "master" else branch.name,
+            name=name,
             rel_width=rel_width,
         ))
 
