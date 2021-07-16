@@ -28,6 +28,7 @@
     publish = "!git push --set-upstream origin $(git branch-name)"
     reset-upstream = "!git reset --hard $(git upstream)"
     sync = fetch origin master:master
+    back = "!git undo && git unstage"
     undo = reset --soft HEAD^
     unstage = reset HEAD
     upstream = rev-parse --abbrev-ref --symbolic-full-name "@{upstream}"
