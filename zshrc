@@ -322,6 +322,9 @@ function tar-diff() { diff -y --suppress-common-lines <(tar-sizes $1) <(tar-size
 function x-piprot() { piprot $1 -o | sort -k 4 -n | tee piprot.txt }
 function git-rebase-on() { _r=$(git config branch.$(git symbolic-ref --short HEAD).rebased-on); test $_r && git rebase $_r; }
 
+alias pc='pre-commit run --files $(git branch-files) $(git changed)'
+alias pca='pc && pre-commit run --files $(git branch-files) $(git changed) --config ~/.pre-commit-config.yaml'
+
 # Smaller, more readable docker ps output
 function docker-ps() { docker ps $@ --format "table {{.ID}}\t{{.Image}}\t{{.Names}}\t{{.CreatedAt}}\t{{.Status}}"; }
 alias dps=docker-ps
