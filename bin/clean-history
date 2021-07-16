@@ -100,7 +100,7 @@ def clean_history(history: History, write: bool) -> None:
 
 
 def _deduplicate_history(history: History) -> History:
-    entries: OrderedDict[str, HistoryEntry] = OrderedDict()
+    entries: t.Dict[str, HistoryEntry] = dict()
     for entry in history:
         if entry.command not in entries:
             entries[entry.command] = entry
@@ -108,7 +108,8 @@ def _deduplicate_history(history: History) -> History:
         entries[entry.command].count += entry.count
         entries[entry.command].time = entry.time
         entries[entry.command].update_line()
-    return list(entries.values())
+
+    return sorted(entries.values(), key=lambda h: (h.count, h.time))
 
 
 def clean_common_commands(history: History) -> History:
