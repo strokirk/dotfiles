@@ -64,3 +64,7 @@ autocmd BufRead COMMIT_EDITMSG setlocal textwidth=72
 autocmd Filetype gitcommit setlocal spell
 autocmd Filetype gitcommit setlocal textwidth=72
 " }}}
+
+autocmd Filetype yaml setlocal foldmethod=indent
+autocmd Filetype elixir setlocal foldmethod=indent
+autocmd Filetype markdown setlocal textwidth=73
