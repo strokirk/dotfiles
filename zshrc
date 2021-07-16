@@ -39,8 +39,6 @@ setopt EXTENDED_HISTORY         # Save history timestampts
 setopt HIST_REDUCE_BLANKS       # Remove superfluous blanks from each command
 setopt HIST_VERIFY              # Donot execute history directly, replace old line
 setopt HIST_NO_STORE            # Donot write calls to `history` to history file
-setopt HIST_IGNORE_ALL_DUPS     # Duplicate commands replaces old ones in history
-setopt HIST_SAVE_NO_DUPS
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt INC_APPEND_HISTORY       # Enter new lines to history immediately
 setopt SHARE_HISTORY            # share command history data
@@ -104,6 +102,9 @@ alias t=task
 alias b="buku -p"
 alias log="(cd $DROPBOX_NOTES_DIR/ && $EDITOR log-notes.md)"
 
+alias p=python
+alias pt=pytest
+
 alias help="run-help" # help is called run-help in zsh
 alias svim="sudo vim"
 alias ni="nvim"
@@ -130,6 +131,7 @@ alias gc="git checkout"
 alias gcm="git commit -ev -m"
 alias gcom="git-verbose-commit"
 alias gp="git pull"
+alias gr="git rebase --interactive"
 alias grom="git rebase --interactive master"
 alias grc="git rebase --continue"
 
@@ -320,7 +322,13 @@ function tar-sizes() { tar -ztvf $1 2>&1 | awk '{print $5 "\t" $9}' | sort -k2 }
 function tar-diff() { diff -y --suppress-common-lines <(tar-sizes $1) <(tar-sizes $2) }
 
 function x-piprot() { piprot $1 -o | sort -k 4 -n | tee piprot.txt }
+function pip-to-be-square() { pip freeze | sd "(.*)==.*" '$1' | grep -v '^#' | grep -v '^-' | xargs pip install -U --pre }
 function git-rebase-on() { _r=$(git config branch.$(git symbolic-ref --short HEAD).rebased-on); test $_r && git rebase $_r; }
+function github-browse() { hub browse $(git remote get-url origin | sd '.*:(.*).git' '$1')/tree/master/$1 }
+
+alias x-git-rebase-on=git-rebase-on
+alias x-github-browse=github-browse
+alias x-pip-to-be-square=pip-to-be-square
 
 alias pc='pre-commit run --files $(git branch-files) $(git changed)'
 alias pca='pc && pre-commit run --files $(git branch-files) $(git changed) --config ~/.pre-commit-config.yaml'
@@ -328,6 +336,8 @@ alias pca='pc && pre-commit run --files $(git branch-files) $(git changed) --con
 # Smaller, more readable docker ps output
 function docker-ps() { docker ps $@ --format "table {{.ID}}\t{{.Image}}\t{{.Names}}\t{{.CreatedAt}}\t{{.Status}}"; }
 alias dps=docker-ps
+alias drm='docker run --rm -it'
+alias docker-this='docker run -it --rm -v $(realpath .):/data'
 
 #  }}} Custom Functions #
 
@@ -341,13 +351,14 @@ source_if_exists $HOME/.nix-profile/etc/profile.d/nix.sh
 alias nix-installed="nix-env -q --installed --json | jq '.[]| \"- \" + .name + \" :: \" + .meta.description' | xargs -n1 | column -t -s '::'"
 
 if [ -n "$(command -v pyenv)" ]; then
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
+    # eval "$(pyenv init -)"
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PYENV_SHELL=zsh
     export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-    export PYENV_ROOT=$(pyenv root)
+    export PATH="$PYENV_ROOT/shims:${PATH}"
+    eval "$(pyenv virtualenv-init -)"
 fi;
 
-alias docker-this='docker run -it --rm -v $(realpath .):/data'
 
 _tabcolor_on_cwd_change() { tc $(echo $PWD | sha256sum | cut -c1-6); };
 _tabcolor_on_cwd_change
