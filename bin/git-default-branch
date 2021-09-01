@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+git symbolic-ref --short refs/remotes/origin/HEAD | cut -d/ -f2
