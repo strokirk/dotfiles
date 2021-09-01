@@ -2,15 +2,23 @@
 call plug#begin('~/.config/vim-plugged')
 
 " New Or Evaluating: {{{
+    Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+    Plug 'mhinz/vim-signify'
     " Plug 'liuchengxu/vista.vim' | " Viewer for LSP tags
-    " Plug 'mgedmin/python-imports.vim'
+    Plug 'mgedmin/python-imports.vim'
     " Plug 'rizzatti/dash.vim'
     Plug 'Lokaltog/vim-easymotion'
     Plug 'jremmen/vim-ripgrep'
     Plug 'kana/vim-textobj-entire'
     Plug 'kana/vim-textobj-user'
-    Plug 'michaelb/sniprun'
+    " Plug 'michaelb/sniprun'
     Plug 'terryma/vim-expand-region'
+    Plug 'mg979/vim-visual-multi'
+
+    " Used for running jobs in lua
+    Plug 'nvim-lua/plenary.nvim'
+    " Actual plugin
+    Plug 'tjdevries/apyrori.nvim'
 " }}}
 
 " Visual: {{{
@@ -18,8 +26,8 @@ call plug#begin('~/.config/vim-plugged')
     Plug 'machakann/vim-highlightedyank'
 " }}}
 
-" " AutoCompletion: {{{
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" AutoCompletion: {{{
+    " Plug 'neoclide/coc.nvim', {'branch': 'release'}
     " Plug 'davidhalter/jedi-vim',    { 'for': 'python' }
     " Plug 'zxqfl/tabnine-vim'   | " AI Based Autocompletion
     " Plug 'zchee/deoplete-jedi'
@@ -93,7 +101,7 @@ call plug#begin('~/.config/vim-plugged')
 
 
 " Essential: {{{
-    Plug 'airblade/vim-gitgutter'
+    " Plug 'airblade/vim-gitgutter'
     Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
     Plug 'tpope/vim-surround'
     Plug 'benekastah/neomake'
@@ -106,6 +114,9 @@ call plug#end()
 
 " Plugin Options: {{{
 
+" You may want to put this within a python only part of your config.
+nmap <leader>i <plug>ApyroriInsert
+
 let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank', 'coc-prettier', 'coc-python']
 
 " KickFix: (plugin) Disable Zebra striping in Quickfix window
@@ -117,14 +128,13 @@ nnoremap <leader>a :ArgWrap<cr>
 " ArgWrap:
 nmap ga <Plug>(characterize)
 
-" GitGutter:
-nnoremap [g :GitGutterPrevHunk<cr>
-nnoremap ]g :GitGutterNextHunk<cr>
-command! GGR GitGutterRevertHunk
-cabbrev ggr GGR
+" Signify:
+nmap [g <plug>(signify-prev-hunk)
+nmap ]g <plug>(signify-next-hunk)
 
 " Neomake: (plugin)
 au BufWritePost * Neomake
+au BufRead .env NeomakeDisableBuffer
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_python_enabled_makers = ["python", "flake8", "mypy"]
 
@@ -173,15 +183,14 @@ let g:deoplete#enable_at_startup = 1
 
 " Rg: (plugin) (use AltGr to quickly search)
 nnoremap º :Rg --ignore tests --ignore __tests__ "\b<c-r>=expand("<cword>")<cr>\b"
-xnoremap º "ly:Rg --ignore tests --ignore __tests__ --literal "<c-r>l"
+xnoremap º "ly:Rg --ignore tests --ignore __tests__ --fixed-strings "<c-r>l"
 nnoremap ª :Rg "\b<c-r>=expand("<cword>")<cr>\b"
-xnoremap ª "ly:Rg --literal "<c-r>l"
-cabbrev ag Rg
-command! -nargs=1 Usage Rg '\b<args>\b'
+xnoremap ª "ly:Rg --fixed-strings "<c-r>l"
+cabbrev rg Rg
 
 xnoremap <leader>s :sort<cr>
-xnoremap <leader>f "ly:Rg --fixed-strings <c-r>l<cr><c-w>p
-nnoremap <leader>f :Usage <cword><cr><c-w>p
+xnoremap <leader>f "ly:Rg --fixed-strings "<c-r>l"<cr><c-w>p
+nnoremap <leader>f :Rg "\b<c-r>=expand("<cword>")<cr>\b"
 
 " ArgWrap:
 let g:argwrap_tail_comma=1
