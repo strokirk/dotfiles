@@ -94,6 +94,8 @@ autocmd Filetype python nnoremap <buffer> <S-F5> :!python %
 " Quicksave
 nnoremap <F8> :w<cr>
 inoremap <F8> <c-o>:w<cr>
+nnoremap <F20> :Gw<cr>
+inoremap <F20> <c-o>:Gw<cr>
 " Use <F12> and <S-F12> to toggle wrapping and listing
 nnoremap <F12> :set wrap!<cr>
 nnoremap <F24> :set list!<cr>
