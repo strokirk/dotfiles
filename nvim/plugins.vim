@@ -102,6 +102,7 @@ call plug#begin('~/.config/vim-plugged')
 " Essential: {{{
     " Plug 'airblade/vim-gitgutter'
     Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
+    Plug 'haya14busa/vim-asterisk' | " Adds z* anv x_* mappings. 🔍️
     Plug 'benekastah/neomake'
     Plug 'sbdchd/neoformat'                | " Adds :Neoformat, which formats selected text
 " }}}
@@ -176,6 +177,12 @@ let g:tagbar_type_markdown = {
 \ 'sort' : 0,
 \ }
 let g:airline#extensions#tagbar#enabled = 0
+
+" Asterisk: (Plugin)
+map *  <Plug>(asterisk-z*)
+map #  <Plug>(asterisk-z#)
+map g* <Plug>(asterisk-gz*)
+map g# <Plug>(asterisk-gz#)
 
 " Jedi: (Plugin)
 let g:jedi#goto_command = ''       | " This competes with my <leader>d mapping

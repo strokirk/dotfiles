@@ -102,14 +102,6 @@ nnoremap <F24> :set list!<cr>
 " <F11> to set colorcolumn based on Github maxwidth
 nnoremap <F11> :set colorcolumn=111<cr>
 
-" Search non-magically with * and # in visual mode
-" Useful for text containing special characters, e.g. filenames or line-endings
-function! NullToDollar(str)
-    return substitute(substitute(a:str, '\%x00$', '\\$', ''), '\%x00', '\\$\\n', 'g')
-endfunction
-xnoremap * "ly/\V<c-r>=NullToDollar(escape(@l, '/\'))<cr><cr>
-xnoremap # "ly?\V<c-r>=NullToDollar(escape(@l, '/\'))<cr><cr>
-
 " Easier System Clipboard Interaction:
 nnoremap ,p "+p
 nnoremap ,P "+P
