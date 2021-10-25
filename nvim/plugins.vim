@@ -212,7 +212,7 @@ cabbrev ntf NTF
 let g:NERDTreeIgnore=['\.cover$', '\.pyc$', '\~$', '__pycache__', 'node_modules']
 
 " Fugitive: (plugin)
-nnoremap <F4> :Gblame<cr>
+nnoremap <F4> :Git blame<cr>
 nnoremap <leader>gw :Gw<cr>
 nnoremap <leader>ga :Gdiff<cr>
 nnoremap <leader>gg :Gcommit -v<cr>
