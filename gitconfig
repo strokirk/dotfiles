@@ -17,6 +17,11 @@
 [diff]
     # Don't add a/b/ prefixes to diff - to make it easier to copy filename
 	noprefix = true
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
 [alias]
     amend = commit --amend --verbose
     axe = log -p -G
