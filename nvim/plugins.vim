@@ -81,7 +81,6 @@ call plug#begin('~/.config/vim-plugged')
     Plug 'PeterRincker/vim-argumentative'  | " Adds arguments manipulations with <, [, a,
     Plug 'djoshea/vim-autoread'            | " Makes autoread actually work
     Plug 'jeetsukumaran/vim-gazetteer'     | " Manages tag finding for ctrl-p (use gz)
-    Plug 'michaeljsmith/vim-indent-object' | " Adds ii ai aI text objects
     Plug 'romainl/vim-qf'                  | " Add quickfix manipulation commands and mappings
     Plug 'sjl/clam.vim'                    | " Easily run Shell commands with :Clam
     Plug 'tpope/vim-eunuch'                | " Adds :Remove, :Move and other useful file management commands
@@ -103,11 +102,14 @@ call plug#begin('~/.config/vim-plugged')
 " Essential: {{{
     " Plug 'airblade/vim-gitgutter'
     Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
-    Plug 'tpope/vim-surround'
     Plug 'benekastah/neomake'
     Plug 'sbdchd/neoformat'                | " Adds :Neoformat, which formats selected text
 " }}}
 
+" ShouldBeBuiltin: {{{
+    Plug 'tpope/vim-surround'              | " Adds mappings for changing 'surrounding' characters, like ds( ...
+    Plug 'michaeljsmith/vim-indent-object' | " Adds ii ai aI indent-based text objects
+" }}}
 
 call plug#end()
 " }}}
