@@ -168,7 +168,7 @@ def filter_git(pattern: str, entry: HistoryEntry) -> bool:
 def read_history() -> History:
     with open(HISTFILE.expanduser(), encoding="latin-1") as f:
         lines = f.read().splitlines()
-    return [HistoryEntry(line) for line in lines]
+    return [HistoryEntry(line) for line in lines if ":" in line]
 
 
 def write_history(history: History) -> None:
