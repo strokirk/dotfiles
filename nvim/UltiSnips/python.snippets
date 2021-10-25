@@ -1,19 +1,39 @@
-snippet pp "pprint"
-from pprint import pprint as pp
+snippet fut "future annotations"
+from __future__ import annotations
+endsnippet
+
+snippet bp "breakpoint"
+breakpoint()
 endsnippet
 
 snippet tt "timeit"
 import time; "t" in locals() and print(1, time.time()-locals()["t"]); t=time.time()
 endsnippet
 
+snippet pp "pprint"
+from pprint import pprint as pp
+endsnippet
+
 snippet ic "icecream"
 from icecream import ic
-ic(${0})
+ic(${0:${VISUAL}})
+endsnippet
+
+snippet dc "dataclass"
+@dataclasses.datacass
+class ${0:Name}:
+	${1:x}: int
+endsnippet
+
+snippet fn "function"
+def ${1:fname}(`!p snip.rv = "self, " if snip.indent else ""`$2) -> None:
+	${3:${VISUAL:pass}}
 endsnippet
 
 snippet clsdata ""
 @classmethod
 def setUpTestData(cls):
+	${1:${VISUAL:pass}}
 endsnippet
 
 snippet prop "property"
@@ -53,8 +73,10 @@ with open("${0:filename.txt}") as f:
 	content = f.read()
 endsnippet
 
-snippet dc "dataclass"
-@dataclasses.datacass
-class ${0:Name}:
-	${1:x}: int
+snippet lc "List comprehension"
+[${2:value} for $2 in ${1:${VISUAL:iterable}}]
+endsnippet
+
+snippet lci "List comprehension with filter"
+[${2:value} for $2 in ${1:${VISUAL:iterable}} if ${3:condition}]
 endsnippet
