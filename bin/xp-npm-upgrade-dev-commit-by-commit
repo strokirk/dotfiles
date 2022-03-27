@@ -1,0 +1,65 @@
+#!/usr/bin/env python
+
+import json
+import random
+import subprocess
+
+
+def get_deps():
+    res = subprocess.run("npm outdated -l -j", capture_output=True, shell=True)
+
+    data = json.loads(res.stdout)
+
+    deps = []
+    for package, values in data.items():
+        values["name"] = package
+        deps.append(values)
+
+    print("To install:")
+    for values in deps:
+        if values["type"] != "devDependencies":
+            continue
+        d = values["name"] + "@" + values["latest"]
+        print(d)
+    return deps
+
+
+def install_deps(deps):
+    for values in deps:
+        if values["type"] != "devDependencies":
+            continue
+
+        d = values["name"] + "@" + values["latest"]
+        print()
+        print()
+        print(d)
+        print("-" * len(d))
+        print(values.get("homepage", ""))
+        print()
+
+        try:
+            subprocess.run(["npm", "install", "--save-dev", "--save-exact", d], check=True)
+        except subprocess.CalledProcessError:
+            return
+
+        res = subprocess.run("npm test --if-present", shell=True)
+        if res.returncode:
+            _run_sh("git checkout .", check=True)
+            _run_sh("npm install", check=True)
+        else:
+            _run_sh("git add package.json package-lock.json", check=True)
+            subprocess.run(["git", "commit", "-n", "-m", "Upgrade " + d], check=True)
+
+
+def _run_sh(cmd, **kwargs):
+    return subprocess.run(cmd, shell=True, **kwargs)
+
+
+def main():
+    deps = get_deps()
+    random.shuffle(deps)
+    install_deps(deps)
+
+
+if __name__ == "__main__":
+    main()
