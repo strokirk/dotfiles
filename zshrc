@@ -1,6 +1,13 @@
 # vim: foldmethod=marker
 function source_if_exists() { [ -f "$1" ] && source "$1" }
 
+# From brew --prefix
+BREW_PREFIX="/opt/homebrew"
+
+if [ -d "$BREW_PREFIX" ]; then
+  eval "$($BREW_PREFIX/bin/brew shellenv)"
+fi
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
