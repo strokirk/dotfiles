@@ -36,5 +36,7 @@ function iterm_tab_color() {
 }
 _tabcolor_on_cwd_change() { iterm_tab_color $(echo $PWD | shasum | cut -c1-6); };
 _tabcolor_on_cwd_change
-typeset -ga chpwd_functions
-set -A chpwd_functions _tabcolor_on_cwd_change
+
+autoload -Uz add-zsh-hook
+
+add-zsh-hook chpwd _tabcolor_on_cwd_change

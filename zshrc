@@ -1,6 +1,8 @@
 # vim: foldmethod=marker
 function source_if_exists() { [ -f "$1" ] && source "$1" }
 
+source "$HOME/.dotfiles/zsh/dir-tabcolor.zsh"
+
 # From brew --prefix
 BREW_PREFIX="/opt/homebrew"
 
