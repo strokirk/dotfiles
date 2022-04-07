@@ -7,6 +7,7 @@
     user = strokirk
 [core]
     pager = less -F -X
+    excludesFile = ~/.gitignore
 [push]
 	default = upstream
 [pull]
