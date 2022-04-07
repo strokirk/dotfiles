@@ -218,10 +218,6 @@ nnoremap <leader>ga :Gdiff<cr>
 nnoremap <leader>gg :Gcommit -v<cr>
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', '.git/.*']
 
-" Notes: (plugin)
-let g:notes_directories = ['~/Dropbox/Documents/notes/']
-let g:notes_title_sync = 'no'
-
 " Syntax Plugins:
 let g:jsx_ext_required = 0
 let g:elm_format_autosave = 1
