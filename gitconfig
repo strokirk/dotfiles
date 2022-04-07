@@ -18,6 +18,8 @@
 [diff]
     # Don't add a/b/ prefixes to diff - to make it easier to copy filename
 	noprefix = true
+[hub]
+	protocol = ssh
 [filter "lfs"]
     clean = git-lfs clean -- %f
     smudge = git-lfs smudge -- %f
