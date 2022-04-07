@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # vim: foldmethod=marker
 function source_if_exists() { [ -f "$1" ] && source "$1" }
 
@@ -6,37 +13,28 @@ source "$HOME/.dotfiles/zsh/dir-tabcolor.zsh"
 # From brew --prefix
 BREW_PREFIX="/opt/homebrew"
 
-if [ -d "$BREW_PREFIX" ]; then
-  eval "$($BREW_PREFIX/bin/brew shellenv)"
+export ZPLUG_HOME="$BREW_PREFIX/opt/zplug"
+source_if_exists $ZPLUG_HOME/init.zsh
+
+if [ $(command -v zplug) ]; then
+  # Add automatic colors to iterm tabs based on current directory
+  zplug "~/.dotfiles/zsh/iterm-fast-tabcolor/", from:local
+  # Add Fish-like syntax highlighting
+  zplug "zdharma-continuum/fast-syntax-highlighting", defer:2
+  # Add Fish-like autosuggestions for zsh
+  zplug "zsh-users/zsh-autosuggestions"
+  # Add `z` command to jump to frequently used directories
+  zplug plugins/z, from:oh-my-zsh
+  # Auto-completion
+  zplug plugins/brew, from:oh-my-zsh
+  zplug plugins/docker, from:oh-my-zsh
+  zplug plugins/gitfast, from:oh-my-zsh
+  zplug load
 fi
 
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
-
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-ZSH_THEME="dan"
-# ~/.oh-my-zsh/themes/dan.zsh-theme
-
-# Disable marking untracked files under VCS as dirty.
-# This makes repository status check for large repositories much, much faster.
-DISABLE_UNTRACKED_FILES_DIRTY=true
-# Don't check for updates on ZSH startup
-DISABLE_UPDATE_PROMPT=true
-
-HIST_STAMPS="yyyy-mm-dd"
-
-plugins=(
-    brew docker gitfast     # Auto-completion
-    z                       # Add `z` command to jump to frequently used directories
-    zsh-autosuggestions     # Add Fish-like autosuggestions for zsh
-    zsh-syntax-highlighting # Add syntax highligting to the shell
-    iterm-tab-color
-)
-fpath=($HOME/.zsh/completion $fpath)
-
-source_if_exists $ZSH/oh-my-zsh.sh
 source_if_exists "$HOME/.dotfiles/zsh/git.zsh"
+
+fpath=($HOME/.zsh/completion $fpath)
 
 #
 # Options
@@ -271,9 +269,9 @@ if [ -n "$(command -v pyenv)" ]; then
 fi;
 
 
-_tabcolor_on_cwd_change() { tc $(echo $PWD | sha256sum | cut -c1-6); };
-_tabcolor_on_cwd_change
-add-zsh-hook chpwd _tabcolor_on_cwd_change
-
 # Local settings that should not be committed
 source_if_exists $DOTFILES_DIR/zshrc.local
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+source_if_exists "$BREW_PREFIX/opt/powerlevel10k/powerlevel10k.zsh-theme"
+source_if_exists "$HOME/.p10k.zsh"
