@@ -15,6 +15,9 @@ call plug#begin('~/.config/vim-plugged')
     Plug 'terryma/vim-expand-region'
     Plug 'mg979/vim-visual-multi'
 
+    " Takes care of managing tags files
+    Plug 'ludovicchabant/vim-gutentags'
+
     " Used for running jobs in lua
     Plug 'nvim-lua/plenary.nvim'
     " Actual plugin
@@ -22,16 +25,11 @@ call plug#begin('~/.config/vim-plugged')
 " }}}
 
 " Visual: {{{
-    " Plug 'bling/vim-airline'
     Plug 'machakann/vim-highlightedyank'
-" }}}
 
-" AutoCompletion: {{{
-    " Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    " Plug 'davidhalter/jedi-vim',    { 'for': 'python' }
-    " Plug 'zxqfl/tabnine-vim'   | " AI Based Autocompletion
-    " Plug 'zchee/deoplete-jedi'
-    " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    " Colorthemes:
+    Plug 'challenger-deep-theme/vim'
+    Plug 'tomasr/molokai'
 " }}}
 
 " Syntax And Filetype: {{{
@@ -61,16 +59,6 @@ call plug#begin('~/.config/vim-plugged')
     Plug 'vim-scripts/nginx.vim'
 " }}}
 
-" Notetaking: {{{
-    Plug 'vimoutliner/vimoutliner' | " Uses a custom syntax vaguely similar to org-mode
-    Plug 'junegunn/vim-journal'
-" }}}
-
-" Color: {{{
-    Plug 'challenger-deep-theme/vim'
-    Plug 'tomasr/molokai'
-" }}}
-
 " Good: {{{
     Plug 'SirVer/ultisnips'                | Plug 'honza/vim-snippets'
     Plug 'ctrlpvim/ctrlp.vim'
@@ -90,21 +78,19 @@ call plug#begin('~/.config/vim-plugged')
 " }}}
 
 " Excellent: {{{
+    Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
+    Plug 'majutsushi/tagbar'
     Plug 'mattn/emmet-vim'
-    Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-repeat'
-    Plug 'majutsushi/tagbar'
-    Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 " }}}
 
-
 " Essential: {{{
-    " Plug 'airblade/vim-gitgutter'
     Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
     Plug 'haya14busa/vim-asterisk' | " Adds z* anv x_* mappings. 🔍️
-    Plug 'benekastah/neomake'
-    Plug 'sbdchd/neoformat'                | " Adds :Neoformat, which formats selected text
+    Plug 'tpope/vim-commentary'    | " Adds gc, which toggles line comments on and off
+    Plug 'benekastah/neomake'      | " Adds :Neomake,   which have a bunch of pre-configured language-specific linters
+    Plug 'sbdchd/neoformat'        | " Adds :Neoformat, which have a bunch of pre-configured language-specific formatters
 " }}}
 
 " ShouldBeBuiltin: {{{
@@ -203,6 +189,9 @@ nnoremap <leader>f :Rg "\b<c-r>=expand("<cword>")<cr>\b"
 
 " ArgWrap:
 let g:argwrap_tail_comma=1
+
+" Gutentags: (plugin)
+let g:gutentags_ctags_tagfile = ".git/tags"
 
 " NERDTree: (plugin)
 nnoremap <C-T> :NERDTreeToggle<CR>
