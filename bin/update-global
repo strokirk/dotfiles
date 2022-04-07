@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+set -ex
+
+command -v brew && brew update && brew upgrade && brew cleanup
+command -v pipx && pipx upgrade-all
+command -v nvim && nvim +PlugUpgrade +PlugUpdate +qa!
+command -v pyenv && pyenv rehash
+command -v asdf && asdf reshim
