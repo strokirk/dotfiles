@@ -26,7 +26,7 @@ yarn:
 brew:
 	brew install -q tealdeer jq k9s tmux tig tokei tree lazydocker zsh yq youtube-dl
 	brew install -q ncdu pipx pstree the_silver_searcher task xsv httpie gnu-sed ripgrep
-	brew install -q mosh neovim entr emojify buku fzf fd exa universal-ctags zplug bat
+	brew install -q mosh neovim entr emojify buku fzf fd exa universal-ctags zplug bat glow
 	brew install -q romkatv/powerlevel10k/powerlevel10k
 	brew install --cask docker dash insomnia
 	brew install --cask spotify
