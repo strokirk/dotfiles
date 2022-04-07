@@ -193,6 +193,15 @@ function! StripTrailingWhitespace()
 endfun
 autocmd BufWritePre * call StripTrailingWhitespace()
 autocmd FileType fountain let b:noStripWhitespace=1
+
+" EmptyRegisters: Taken from https://stackoverflow.com/a/39348498
+command! EmptyRegisters call EmptyRegisters()
+function! EmptyRegisters()
+    let regs=split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
+    for r in regs
+        call setreg(r, [])
+    endfor
+endfunction
 " }}}
 
 
