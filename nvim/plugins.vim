@@ -227,8 +227,9 @@ let g:jsx_ext_required = 0
 let g:elm_format_autosave = 1
 
 " CtrlP: (plugin)
-if executable('ag')
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+if executable('fd')
+    let g:ctrlp_user_command = 'fd --type f --color never "" %s'
+    let g:ctrlp_use_caching  = 0
 endif
 let g:ctrlp_extensions = ['line', 'tag']
 let g:ctrlp_types = ['fil', 'buf']
