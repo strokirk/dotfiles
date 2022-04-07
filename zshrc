@@ -8,8 +8,6 @@ fi
 # vim: foldmethod=marker
 function source_if_exists() { [ -f "$1" ] && source "$1" }
 
-source "$HOME/.dotfiles/zsh/dir-tabcolor.zsh"
-
 # From brew --prefix
 BREW_PREFIX="/opt/homebrew"
 
@@ -61,12 +59,11 @@ export LC_ALL='en_US.UTF-8'
 export LANG='en_US.UTF-8'
 export EDITOR='nvim'
 
-# export GREP_OPTIONS='--color=auto'
-# export PIP_REQUIRE_VIRTUALENV=true
-
+export CLOUD_DIR="$HOME/iCloud"
+export CLOUD_CODE_DIR="$CLOUD_DIR/Code"
+export CLOUD_NOTES_DIR="$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/iCloud"
 export DOTFILES_DIR="$HOME/.dotfiles"
-export DROPBOX_CODE_DIR="$HOME/Dropbox/Code"
-export DROPBOX_NOTES_DIR="$HOME/Dropbox/Documents"
+
 export LOCAL_CODE_DIR="$HOME/dev"
 export GOPATH="$LOCAL_CODE_DIR/go"
 export GOBIN="$GOPATH/bin"
@@ -74,7 +71,7 @@ export NPM_PACKAGES="$HOME/.npm-packages"
 export NODE_PATH="$NPM_PACKAGES/lib/node_modules${NODE_PATH:+:$NODE_PATH}"
 export HOMEBREW_NO_AUTO_UPDATE=1
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH"
+export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 export PATH="$PATH:$DOTFILES_DIR/bin"
 export PATH="$PATH:$HOME/.gem/ruby/2.0.0/bin"
 export PATH="$PATH:$GOBIN"
@@ -110,7 +107,7 @@ alias whence="whence -avs"  # show exact origin of command
 alias t=task
 alias b="buku -p"
 alias j=just
-alias log="(cd $DROPBOX_NOTES_DIR/ && $EDITOR log-notes.md)"
+alias log="(cd $CLOUD_NOTES_DIR/ && $EDITOR log-notes.md)"
 
 alias p=python
 alias pt=pytest
@@ -125,10 +122,10 @@ alias rc='$EDITOR ~/.zshrc'
 alias hist='$EDITOR $HISTFILE'
 alias reload='source ~/.zshrc'
 alias dot='cd $DOTFILES_DIR'
-alias cod='cd $DROPBOX_CODE_DIR'
-alias docs='cd $DROPBOX_NOTES_DIR'
+alias cod='cd $CLOUD_CODE_DIR'
+alias docs='cd $CLOUD_NOTES_DIR'
 
-alias notes='(cd $DROPBOX_NOTES_DIR && $EDITOR .)'
+alias notes='(cd $CLOUD_NOTES_DIR && $EDITOR .)'
 
 # Use Ctrl-O and Ctrl-P to move cursor one word backward/forwards
 bindkey ^O backward-word
@@ -147,9 +144,6 @@ function zf() {
   dir=$(echo "$directories" | fzf +m) &&
   cd "$dir"
 }
-
-alias j=z
-alias jf=zf
 
 # Thanks @jen20 https://news.ycombinator.com/item?id=25308708
 pman() { man -t "$@" | open -f -a Preview; }
@@ -193,13 +187,8 @@ function run() {
 
 disable r
 function r() {
-    # Print README files
-    f=$(find . -iname 'readme*' -maxdepth 1)
-    if [ $(command -v mdless 2>&1) ]; then
-        mdless --no-pager $f
-    else
-        less -FX $f
-    fi
+    # Print README file
+    glow README.md
 }
 
 function dated() { date +"%Y-%m-%d" }
@@ -207,7 +196,7 @@ function datet() { date +"%Y-%m-%d+%H%M" }
 
 function nvim-fzf-files() {
     local line
-    line=$(ag -g "" | fzf --multi --exit-0 --select-1 --query="$@") &&
+    line=$(fd | fzf --multi --exit-0 --select-1 --query="$@") &&
     nvim ${line}
 }
 alias nif=nvim-fzf-files
@@ -221,6 +210,7 @@ function nvim-fzf-tags() {
 }
 alias nift=nvim-fzf-tags
 alias h=hivemind
+alias w="watchexec -r --"
 
 function rgp() { rg "$*" }
 alias rgu="rg -u --hidden -M200 -g '!.git/'"
@@ -231,13 +221,16 @@ function tar-sizes() { tar -ztvf $1 2>&1 | awk '{print $5 "\t" $9}' | sort -k2 }
 function tar-diff() { diff -y --suppress-common-lines <(tar-sizes $1) <(tar-sizes $2) }
 
 function x-piprot() { piprot $1 -o | sort -k 4 -n | tee piprot.txt }
-function pip-to-be-square() { pip freeze | sd "(.*)==.*" '$1' | grep -v '^#' | grep -v '^-' | xargs pip install -U --pre }
-function git-rebase-on() { _r=$(git config branch.$(git symbolic-ref --short HEAD).rebased-on); test $_r && git rebase $_r; }
+function pip-to-be-square() { pip freeze | sd "(.*)==.*" '$1' | grep -v '^#' | grep -v '^-' | xargs -n5 pip install -U --pre }
 function github-browse() { hub browse $(git remote get-url origin | sd '.*:(.*).git' '$1')/tree/master/$1 }
+function pytest-changed-files() {
+  pytest $(echo $(git branch-files) $(git changed) | sd '^([^/]*)/.*' '$1' | sort | uniq)
+}
 
 alias x-git-rebase-on=git-rebase-on
 alias x-github-browse=github-browse
 alias x-pip-to-be-square=pip-to-be-square
+alias x-pytest-changed-files=pytest-changed-files
 
 alias pc='pre-commit run --files $(git branch-files) $(git changed)'
 alias pca='pc && pre-commit run --files $(git branch-files) $(git changed) --config ~/.pre-commit-config.yaml'
@@ -246,7 +239,7 @@ alias pca='pc && pre-commit run --files $(git branch-files) $(git changed) --con
 function docker-ps() { docker ps $@ --format "table {{.ID}}\t{{.Image}}\t{{.Names}}\t{{.CreatedAt}}\t{{.Status}}"; }
 alias dps=docker-ps
 alias drm='docker run --rm -it'
-alias docker-this='docker run -it --rm -v $(realpath .):/data'
+alias docker-this='docker run -it --rm -v $(realpath .):/app -w /app'
 
 #  }}} Custom Functions #
 
@@ -255,9 +248,6 @@ export FZF_DEFAULT_OPTS="--bind ctrl-x:toggle-sort"
 
 # FZF by junegunn
 source_if_exists $HOME/.fzf.zsh
-# Nix package manager
-source_if_exists $HOME/.nix-profile/etc/profile.d/nix.sh
-alias nix-installed="nix-env -q --installed --json | jq '.[]| \"- \" + .name + \" :: \" + .meta.description' | xargs -n1 | column -t -s '::'"
 
 if [ -n "$(command -v pyenv)" ]; then
     # eval "$(pyenv init -)"
@@ -267,7 +257,6 @@ if [ -n "$(command -v pyenv)" ]; then
     export PATH="$PYENV_ROOT/shims:${PATH}"
     eval "$(pyenv virtualenv-init -)"
 fi;
-
 
 # Local settings that should not be committed
 source_if_exists $DOTFILES_DIR/zshrc.local
