@@ -177,8 +177,11 @@ command! WorkHere cd %:h
 " Make current buffer a "Scratch" buffer
 command! -bar Temporary setlocal buftype=nofile bufhidden=hide nobuflisted noswapfile
 command! -bar Scratch botright new *scratch*|Temporary|res 8|setl winfixheight
+
 " Copy current filename
 command! CopyFilename let @"=@% | let @+=@% | let @*=@%
+nnoremap Ç :CopyFilename<cr>
+
 " Clear open help panes like quickfix and similar
 command! Clear silent tabdo NERDTreeClose | lcl | ccl
 
@@ -209,6 +212,7 @@ endfunction
 au FileType qf nnoremap <buffer> t <C-W><Enter><C-W>T
 
 au Filetype python nnoremap <buffer> <leader>to viwo<esc>iOptional[<esc>ea]<esc>
+au Filetype python xmap <buffer> ic <tab>ic<tab>
 
 au Filetype python nnoremap <buffer> gp yiwoprint("<c-r>0: ", <c-r>0)  # XXX<esc>
 au Filetype python xnoremap <buffer> gp yoprint("<c-r>0: ", <c-r>0)  # XXX<esc>
