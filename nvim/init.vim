@@ -1,19 +1,18 @@
 " "VIMRC SETTINGS"
 
-"
 " "OPTIONS & SETTINGS"
-"
 source ~/.config/nvim/settings.vim
 
-"
 " "MAPPINGS, COMMANDS & AUTOCOMMANDS"
-"
 source ~/.config/nvim/mappings.vim
 
-"
 " "PLUGINS"
-"
 source ~/.config/nvim/plugins.vim
+
+" "PLUGINS"
+if filereadable('~/.config/nvim/local.vim')
+    source ~/.config/nvim/local.vim
+endif
 
 
 " Colorscheme
@@ -25,12 +24,10 @@ silent! colorscheme molokai
 "
 " "NOTES"
 "
-" TODO: Mapping för Select under cursor
-" TODO: Mapping för viW och viw
-" TODO: Mapping för CtrlP i taggläge?
+" TODO: Ännu snabbare mapping för viW och viw
 " TODO: Sortera inline ([a, c, b] -> [a, b, c])
-" TODO: Blockdiff / Linediff
 " TODO: Bättre text-obj för [{("'indent
 " TODO: Bättre shortcut for bokmärken
 " TODO: Bättre listning av saker som :reg och :ls
-" NOTE: v_g Ctrl-A (increment all sequentially)
+" TODO: Multicursor
+" TODO: Better quickfix management
