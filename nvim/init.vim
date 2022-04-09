@@ -10,7 +10,7 @@ source ~/.config/nvim/mappings.vim
 source ~/.config/nvim/plugins.vim
 
 " "PLUGINS"
-if filereadable('~/.config/nvim/local.vim')
+if filereadable(expand('~/.config/nvim/local.vim'))
     source ~/.config/nvim/local.vim
 endif
 
