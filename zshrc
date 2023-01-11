@@ -61,7 +61,7 @@ export EDITOR='nvim'
 
 export CLOUD_DIR="$HOME/iCloud"
 export CLOUD_CODE_DIR="$CLOUD_DIR/Code"
-export CLOUD_NOTES_DIR="$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/iCloud"
+export CLOUD_NOTES_DIR="$HOME/Notes"
 export DOTFILES_DIR="$HOME/.dotfiles"
 
 export LOCAL_CODE_DIR="$HOME/dev"
@@ -259,8 +259,8 @@ if [ -n "$(command -v pyenv)" ]; then
 fi;
 
 # Local settings that should not be committed
-source_if_exists $DOTFILES_DIR/zshrc.local
+source_if_exists ~/zshrc.local
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-source_if_exists "$BREW_PREFIX/opt/powerlevel10k/powerlevel10k.zsh-theme"
+source_if_exists "$HOME/.p10k/powerlevel10k.zsh-theme"
 source_if_exists "$HOME/.p10k.zsh"

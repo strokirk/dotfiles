@@ -1,9 +1,10 @@
-nvim/autoload/plug.vim
-nvim/autoload/plug.vim.old
 *vim/.netrwhist
 *vim/bundle/
 *vim/plugged/
 *vim/spell/
-local_zshrc
-zshrc.local
 .DS_Store
+local_zshrc
+nvim/autoload/plug.vim
+nvim/autoload/plug.vim.old
+nvim/lua/plugins/local.lua
+zshrc.local
