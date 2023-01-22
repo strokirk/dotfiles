@@ -19,10 +19,11 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 return {
 	"mbbill/undotree",
+	"isobit/vim-caddyfile",
 	"monaqa/dial.nvim",
 	"folke/trouble.nvim",
 	"tomasr/molokai", -- Colorful colorscheme
-	"tpope/vim-fugitive", -- Adds git integration with :Gblame and :Gwrite 
+	"tpope/vim-fugitive", -- Adds git integration with :Gblame and :Gwrite
 	"folke/which-key.nvim",
 	"FooSoft/vim-argwrap", -- Adds :ArgWrap, which 'unfolds' lists and arguments
 	"tpope/vim-eunuch", -- Adds :Remove, :Move and other useful file management commands

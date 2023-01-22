@@ -70,10 +70,10 @@ Autocmd.BufRead({
 	end,
 })
 
-Autocmd.Filetype({ pattern = "yaml", callback = function() vim.bo.foldmethod = "indent" end })
-Autocmd.Filetype({ pattern = "elixir", callback = function() vim.bo.foldmethod = "indent" end })
+Autocmd.Filetype({ pattern = "yaml", callback = function() vim.wo.foldmethod = "indent" end })
+Autocmd.Filetype({ pattern = "elixir", callback = function() vim.wo.foldmethod = "indent" end })
 Autocmd.Filetype({ pattern = "markdown", callback = function() vim.bo.textwidth = 73 end })
-Autocmd.Filetype({ pattern = "vim", callback = function() vim.bo.foldmethod = "marker" end })
+Autocmd.Filetype({ pattern = "vim", callback = function() vim.wo.foldmethod = "marker" end })
 
 Autocmd.ConvertFiletype(".babelrc", "json5.json")
 Autocmd.ConvertFiletype("tsconfig.json", "json5.json")

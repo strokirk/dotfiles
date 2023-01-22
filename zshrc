@@ -14,9 +14,11 @@ BREW_PREFIX="/opt/homebrew"
 export ZPLUG_HOME="$BREW_PREFIX/opt/zplug"
 source_if_exists $ZPLUG_HOME/init.zsh
 
+export DOTFILES_DIR="$HOME/.dotfiles"
+
 if [ $(command -v zplug) ]; then
   # Add automatic colors to iterm tabs based on current directory
-  zplug "~/.dotfiles/zsh/iterm-fast-tabcolor/", from:local
+  zplug "$DOTFILES_DIR/zsh/iterm-fast-tabcolor/", from:local
   # Add Fish-like syntax highlighting
   zplug "zdharma-continuum/fast-syntax-highlighting", defer:2
   # Add Fish-like autosuggestions for zsh
@@ -30,7 +32,7 @@ if [ $(command -v zplug) ]; then
   zplug load
 fi
 
-source_if_exists "$HOME/.dotfiles/zsh/git.zsh"
+source_if_exists "$DOTFILES_DIR/zsh/git.zsh"
 
 fpath=($HOME/.zsh/completion $fpath)
 
@@ -51,6 +53,7 @@ setopt SHARE_HISTORY            # share command history data
 # Other options
 setopt INTERACTIVE_COMMENTS     # Enable interactive comments (# on the command line)
 setopt MARK_DIRS                # Add "/" if completes directory
+unsetopt BEEP                   # No beeps!
 
 #
 # Environment (some by oh-my-zsh)
@@ -62,13 +65,15 @@ export EDITOR='nvim'
 export CLOUD_DIR="$HOME/iCloud"
 export CLOUD_CODE_DIR="$CLOUD_DIR/Code"
 export CLOUD_NOTES_DIR="$HOME/Notes"
-export DOTFILES_DIR="$HOME/.dotfiles"
 
 export LOCAL_CODE_DIR="$HOME/dev"
 export GOPATH="$LOCAL_CODE_DIR/go"
 export GOBIN="$GOPATH/bin"
 export NPM_PACKAGES="$HOME/.npm-packages"
 export NODE_PATH="$NPM_PACKAGES/lib/node_modules${NODE_PATH:+:$NODE_PATH}"
+
+export RIPGREP_CONFIG_PATH="$DOTFILES_DIR/ripgreprc"
+export FZF_DEFAULT_OPTS="--bind ctrl-x:toggle-sort"
 export HOMEBREW_NO_AUTO_UPDATE=1
 
 export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
@@ -119,6 +124,7 @@ alias svim="sudo vim"
 alias ni="nvim"
 alias nit='nvim -t'
 alias rc='$EDITOR ~/.zshrc'
+alias nrc="nvim -c 'e \$MYVIMRC'"
 alias hist='$EDITOR $HISTFILE'
 alias reload='source ~/.zshrc'
 alias dot='cd $DOTFILES_DIR'
@@ -243,7 +249,6 @@ alias docker-this='docker run -it --rm -v $(realpath .):/app -w /app'
 
 #  }}} Custom Functions #
 
-export FZF_DEFAULT_OPTS="--bind ctrl-x:toggle-sort"
 
 
 # FZF by junegunn

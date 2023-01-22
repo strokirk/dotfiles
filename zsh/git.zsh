@@ -28,6 +28,7 @@ alias gla="git lil --first-parent HEAD~15..."
 alias glap="git lil --first-parent -p HEAD~15..."
 alias glm="git log --decorate origin/master...HEAD"
 alias glmp="glm -p"
+alias gam="git amend"
 
 alias gap="git add --patch"
 alias gcp="git checkout --patch"
