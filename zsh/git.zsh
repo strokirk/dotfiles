@@ -13,6 +13,7 @@ alias gk="git clean -i ; git checkout . -p"
 
 alias gec='$EDITOR $(git changed)'
 alias gep='gec -p'
+alias cep='code $(git changed)'
 alias gbf='$EDITOR $(git branch-files)'
 alias gbp='gbf -p'
 
