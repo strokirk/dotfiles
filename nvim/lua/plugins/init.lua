@@ -65,6 +65,6 @@ return {
 
 	-- Lazy loaded
 	{ "folke/twilight.nvim", cmd = "Twilight" }, -- Adds :Twilight, a code flashlight
-	{ "mattn/emmet-vim", cmd = "Emmet" }, -- HTML boilterplate generator
-	{ "junegunn/vim-easy-align", cmd = "EasyAlign" }, -- HTML boilterplate generator
+	{ "mattn/emmet-vim", cmd = "Emmet" }, -- Adds :Emmet, a HTML boilerplate generator
+	{ "junegunn/vim-easy-align", cmd = "EasyAlign" }, -- Adds :EasyAlign, that aligns columns of text
 }
