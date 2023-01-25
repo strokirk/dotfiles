@@ -247,6 +247,11 @@ alias dps=docker-ps
 alias drm='docker run --rm -it'
 alias docker-this='docker run -it --rm -v $(realpath .):/app -w /app'
 
+function append-gitignore()        { echo >> .gitignore        "$@" }
+function append-gitignore-global() { echo >> ~/.gitignore      "$@" }
+function append-gitignore-local()  { echo >> .git/info/exclude "$@" }
+function append-ignore()           { echo >> .ignore           "$@" }
+
 #  }}} Custom Functions #
 
 
