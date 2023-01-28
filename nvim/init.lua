@@ -3,6 +3,8 @@
 -- OPTIONS & SETTINGS
 require("config/settings")
 
+vim.env.MYVIMRCDIR = vim.fs.dirname(vim.env.MYVIMRC)
+
 -- MAPPINGS, COMMANDS & AUTOCOMMANDS
 require("config/keymaps")
 
@@ -11,10 +13,6 @@ require("lazy").setup({ { import = "plugins" } }, { change_detection = { notify 
 
 -- Colorscheme
 vim.cmd("silent! colorscheme molokai")
-
-vim.keymap.set("n", "<leader><leader>", ":WhichKey<cr>")
-vim.keymap.set("n", "<leader>cc", ":e init.lua<cr>")
-vim.keymap.set("n", "<leader>cp", ":e lua/plugins/init.lua<cr>")
 
 --
 -- NOTES

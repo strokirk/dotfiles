@@ -259,3 +259,10 @@ autocmd! QuickfixCmdPost * call s:SortUniqQFList()
 vim.keymap.set("n", "<F3>", ":NeoTreeReveal<cr>")
 vim.keymap.set("n", "<C-T>", ":NeoTreeFocusToggle<cr>")
 vim.keymap.set("n", "<leader>x", "<cmd>TroubleToggle<cr>")
+
+-- Show all keymaps with <space><space>
+vim.keymap.set("n", "<leader><leader>", ":WhichKey<cr>")
+
+-- Easily edit Vim config
+vim.keymap.set("n", "<leader>cc", ":tab drop $MYVIMRC | tcd $MYVIMRCDIR<cr>")
+vim.keymap.set("n", "<leader>cp", ":e $MYVIMRCDIR/lua/plugins/init.lua | tcd $MYVIMRCDIR<cr>")
