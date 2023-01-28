@@ -18,19 +18,20 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 return {
-	"mbbill/undotree",
-	"isobit/vim-caddyfile",
-	"monaqa/dial.nvim",
 	"folke/trouble.nvim",
-	"tomasr/molokai", -- Colorful colorscheme
-	"tpope/vim-fugitive", -- Adds git integration with :Gblame and :Gwrite
 	"folke/which-key.nvim",
+	"github/copilot.vim",
+	"mbbill/undotree",
+	"monaqa/dial.nvim",
 	"FooSoft/vim-argwrap", -- Adds :ArgWrap, which 'unfolds' lists and arguments
-	"tpope/vim-eunuch", -- Adds :Remove, :Move and other useful file management commands
-	"tpope/vim-commentary", -- Adds gc, which toggles line comments on and off
-	"michaeljsmith/vim-indent-object", -- Adds ii ai aI indent-based text objects
-	"tpope/vim-surround", -- Adds mappings for changing 'surrounding' characters, like ds( ...
+	"isobit/vim-caddyfile", -- Syntax highlighting for Caddyfile
 	"mg979/vim-visual-multi", -- Multicursor with <c-n>
+	"michaeljsmith/vim-indent-object", -- Adds ii ai aI indent-based text objects
+	"tomasr/molokai", -- Colorful colorscheme
+	"tpope/vim-commentary", -- Adds gc, which toggles line comments on and off
+	"tpope/vim-eunuch", -- Adds :Remove, :Move and other useful file management commands
+	"tpope/vim-fugitive", -- Adds git integration with :Git blame and :Git write
+	"tpope/vim-surround", -- Adds mappings for changing 'surrounding' characters, like ds( ...
 	{ "nvim-lualine/lualine.nvim", opts = { options = { theme = "onedark" } } },
 	{
 		"goolord/alpha-nvim", -- Welcome Screen
