@@ -1,3 +1,16 @@
+-- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#diagnosticTag
+local DiagnosticTagUnnecessary = 1
+
+local filterPyrightUnusedDiagnostics = function(a, params, client_id, c, config)
+	params.diagnostics = vim.tbl_filter(function(diagnostic)
+		-- Only filter out Pyright
+		if diagnostic.source ~= "Pyright" then return true end
+		if diagnostic.tags and diagnostic.tags[1] == DiagnosticTagUnnecessary then return false end
+		return true
+	end, params.diagnostics)
+	vim.lsp.diagnostic.on_publish_diagnostics(a, params, client_id, c, config)
+end
+
 return {
 	{
 		"folke/neodev.nvim", -- LSP configuration for Neovim config code
@@ -28,6 +41,7 @@ return {
 			local lsp = require("lsp-zero")
 			lsp.preset("recommended")
 			lsp.nvim_workspace()
+			vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(filterPyrightUnusedDiagnostics, {})
 			lsp.setup()
 			vim.keymap.set("n", "<F9>", vim.lsp.buf.format, {})
 		end,
