@@ -120,6 +120,9 @@ vim.keymap.set("x", "<leader>P", '"+P')
 vim.keymap.set("n", "<leader>p", '"+p')
 vim.keymap.set("n", "<leader>P", '"+P')
 
+-- Quickly copy filename
+vim.keymap.set("n", "<leader>yf", ":CopyFilename<cr>")
+
 -- QuickPaste: Nice default-paste shortcut: þ (AltGr-p)
 -- noremap  þ "0p
 -- noremap! þ <c-r>0
@@ -269,3 +272,6 @@ vim.keymap.set("n", "<leader>cp", ":e $MYVIMRCDIR/lua/plugins/init.lua | tcd $MY
 
 -- Open quoted text in Github as a repo
 vim.keymap.set("n", "<leader>gh", 'yi":silent !open https://github.com/<c-r>"<cr>')
+
+-- EasyAlign:
+vim.keymap.set("x", "<leader>=", "<Plug>(EasyAlign)")
