@@ -30,5 +30,6 @@
         "/opt/homebrew/Cellar/neovim/HEAD-39ea662/share/nvim/runtime/lua",
         "/Users/dan/.config/nvim/lua",
         "${3rd}/luassert/library"
-    ]
+    ],
+    "workspace.checkThirdParty": false
 }
