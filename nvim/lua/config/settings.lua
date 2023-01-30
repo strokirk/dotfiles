@@ -50,24 +50,24 @@ vim.o.listchars = "tab:▸\\ ,trail:·,extends:❯,precedes:❮,nbsp:×,eol:¬"
 vim.o.statusline = "[%F]%h%r%m\\ Buf-%n%=%c,%l/%L\\ [%p%%]"
 
 local Autocmd = {
-	BufRead = function(opts) vim.api.nvim_create_autocmd("BufRead", opts) end,
-	Filetype = function(opts) vim.api.nvim_create_autocmd("Filetype", opts) end,
-	ConvertFiletype = function(pattern, filetype)
-		vim.api.nvim_create_autocmd("BufRead", {
-			pattern = pattern,
-			callback = function() vim.api.nvim_cmd({ cmd = "setfiletype", args = { filetype } }) end,
-		})
-	end,
+  BufRead = function(opts) vim.api.nvim_create_autocmd("BufRead", opts) end,
+  Filetype = function(opts) vim.api.nvim_create_autocmd("Filetype", opts) end,
+  ConvertFiletype = function(pattern, filetype)
+    vim.api.nvim_create_autocmd("BufRead", {
+      pattern = pattern,
+      callback = function() vim.api.nvim_cmd({ cmd = "setfiletype", args = { filetype } }) end,
+    })
+  end,
 }
 Autocmd.Filetype({ pattern = "qf", callback = function() vim.cmd("setlocal nowrap") end })
 
 -- Spelling: in git commit messages
 Autocmd.BufRead({
-	pattern = { "COMMIT_EDITMSG", "gitcommit" },
-	callback = function()
-		vim.bo.textwidth = 72
-		vim.wo.spell = true
-	end,
+  pattern = { "COMMIT_EDITMSG", "gitcommit" },
+  callback = function()
+    vim.bo.textwidth = 72
+    vim.wo.spell = true
+  end,
 })
 
 Autocmd.Filetype({ pattern = "yaml", callback = function() vim.wo.foldmethod = "indent" end })
