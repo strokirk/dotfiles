@@ -21,9 +21,6 @@ vim.keymap.set("n", "<F4>", ":Git blame<cr>")
 
 vim.keymap.set("n", "<leader><leader>", ":WhichKey<cr>")
 
-vim.keymap.set("n", "<leader>cc", ":drop $MYVIMRC<cr>")
-vim.keymap.set("n", "<leader>cp", ":e lua/plugins/init.lua<cr>")
-
 vim.keymap.set("n", "<leader>kp", ":CopyFilename<cr>")
 
 vim.keymap.set("n", "<leader>s", ":Telescope grep_string<cr>")
