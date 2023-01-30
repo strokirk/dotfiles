@@ -124,6 +124,7 @@ alias svim="sudo vim"
 alias ni="nvim"
 alias nit='nvim -t'
 alias rc='$EDITOR ~/.zshrc'
+alias rcl='$EDITOR ~/zshrc.local'
 alias nrc="nvim -c 'e \$MYVIMRC'"
 alias hist='$EDITOR $HISTFILE'
 alias reload='source ~/.zshrc'
