@@ -271,6 +271,8 @@ if [ -n "$(command -v pyenv)" ]; then
     eval "$(pyenv virtualenv-init -)"
 fi;
 
+export DIRENV_LOG_FORMAT=
+
 # Local settings that should not be committed
 source_if_exists ~/zshrc.local
 
