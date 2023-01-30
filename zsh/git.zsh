@@ -113,12 +113,6 @@ function git-pr() {
   git fetch origin pull/$1/head:pr-$1 && git checkout pr-$1
 }
 
-function git-ignore-locally() {
-    if [ -f .git/info/exclude ]; then
-        echo $1 >> .git/info/exclude
-    fi;
-}
-
 # fbr - checkout git branch with fzf
 function fbr() {
   local branches branch
