@@ -34,6 +34,11 @@ return {
   "tpope/vim-eunuch", -- Adds :Remove, :Move and other useful file management commands
   "tpope/vim-fugitive", -- Adds git integration with :Git blame and :Git write
   "tpope/vim-surround", -- Adds mappings for changing 'surrounding' characters, like ds( ...
+  {
+    "ruifm/gitlinker.nvim", -- gitlinker.txt: Copy Github link to file line with <leader>gy
+    requires = { "nvim-lua/plenary.nvim" },
+    config = true,
+  },
   { "nvim-lualine/lualine.nvim", opts = { options = { theme = "onedark" } } },
   {
     "goolord/alpha-nvim", -- Welcome Screen
