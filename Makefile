@@ -26,7 +26,7 @@ yarn:
 
 brew:
 	brew install -q mosh youtube-dl task buku k9s tmux lazydocker tig tokei tree hivemind
-	brew install -q zsh ncdu pipx pstree xsv httpie gnu-sed ripgrep sd jq yq 
+	brew install -q zsh ncdu pipx pstree xsv httpie gnu-sed ripgrep sd jq yq
 	brew install -q neovim emojify fzf fd exa universal-ctags zplug bat glow
 	brew install -q romkatv/powerlevel10k/powerlevel10k
 	brew install --cask docker dash insomnia

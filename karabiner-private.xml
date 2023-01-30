@@ -12,7 +12,7 @@
       <name>ScrollLock Key to Music Play</name>
       <identifier>remap.pc_scrolllock_mplay</identifier>
       <autogen>__KeyToKey__ KeyCode::PC_SCROLLLOCK, ConsumerKeyCode::MUSIC_PLAY</autogen>
-    </item> 
+    </item>
     <item>
       <name>Pause/Break Key to Music Next</name>
       <identifier>remap.pc_pause_mnext</identifier>
