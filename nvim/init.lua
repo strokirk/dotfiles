@@ -8,6 +8,8 @@ vim.env.MYVIMRCDIR = vim.fs.dirname(vim.env.MYVIMRC)
 -- MAPPINGS, COMMANDS & AUTOCOMMANDS
 require("config/keymaps")
 
+-- PLUGINS
+-- Load plugins from plugins/init and sibling files
 require("bootstrap")
 require("lazy").setup({ { import = "plugins" } }, { change_detection = { notify = false } })
 
@@ -22,11 +24,11 @@ vim.cmd("silent! colorscheme molokai")
 -- TODO: Bättre text-obj för [{("'indent
 -- TODO: Bättre shortcut for bokmärken
 -- TODO: Bättre listning av saker som :reg och :ls
--- TODO: Multicursor
 -- TODO: Better quickfix management
-
+-- TODO: cd into config for the vimrc window
 -- TODO: map for opening the plugin in github
--- TODO: Structure
 -- TODO: Autoupdate settings files
 -- TODO: require-if-exists('local')
 -- TODO: require-if-exists('local-plugins')
+
+-- STUDY: Multicursor
