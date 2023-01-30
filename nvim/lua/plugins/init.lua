@@ -13,8 +13,8 @@ vim.g.EditorConfig_exclude_patterns = { "fugitive://.*", ".git/.*" }
 vim.keymap.set("n", "<leader>a", ":ArgWrap<cr>")
 
 vim.api.nvim_create_autocmd("TextYankPost", {
-	pattern = "*",
-	callback = function() vim.highlight.on_yank({ timeout = 350 }) end,
+  pattern = "*",
+  callback = function() vim.highlight.on_yank({ timeout = 350 }) end,
 })
 
 return {
@@ -25,8 +25,10 @@ return {
   "monaqa/dial.nvim",
   "FooSoft/vim-argwrap", -- Adds :ArgWrap, which 'unfolds' lists and arguments
   "isobit/vim-caddyfile", -- Syntax highlighting for Caddyfile
+  "johmsalas/text-case.nvim", -- Convert text to different cases
   "mg979/vim-visual-multi", -- Multicursor with <c-n>
   "michaeljsmith/vim-indent-object", -- Adds ii ai aI indent-based text objects
+  "sQVe/sort.nvim", -- Sort inside lines with :Sort
   "tomasr/molokai", -- Colorful colorscheme
   "tpope/vim-commentary", -- Adds gc, which toggles line comments on and off
   "tpope/vim-eunuch", -- Adds :Remove, :Move and other useful file management commands
@@ -36,10 +38,18 @@ return {
   {
     "goolord/alpha-nvim", -- Welcome Screen
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function() require("alpha").setup(require("alpha.themes.startify").config) end,
+    config = function()
+      local alpha = require("alpha")
+      local theme = require("alpha.themes.startify")
+      theme.section.bottom_buttons.val = {
+        theme.button("c", "  Configuration", ":e $MYVIMRC <CR>"),
+        theme.button("q", "  Quit Neovim", ":qa<CR>"),
+      }
+      alpha.setup(theme.config)
+    end,
   },
   {
-    "nvim-telescope/telescope.nvim",
+    "nvim-telescope/telescope.nvim", -- ThePrimaeagen screamed, so I installed it
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       local builtin = require("telescope.builtin")
