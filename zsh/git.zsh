@@ -39,6 +39,7 @@ alias gup="git reset --patch HEAD"
 
 alias gb='git-list-branches'
 alias gcb='git-change-branch'
+alias grm='gpm; git-rebase-all'
 
 alias gas="git rebase --autosquash --interactive master"
 alias gpm="git-prune-merged"
