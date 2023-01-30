@@ -88,6 +88,9 @@ typeset -aU path  # Deduplicate PATH
 export TIME_STYLE="long-iso"
 export BLOCK_SIZE="'1"
 
+source_if_exists "$DOTFILES_DIR/zsh/git.zsh"
+source_if_exists "$DOTFILES_DIR/zsh/aliases.zsh"
+
 #  Aliases {{{ #
 if [ "$(uname)" = "Darwin" ]; then
     unalias ls l la ll 2>/dev/null
