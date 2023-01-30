@@ -39,7 +39,6 @@ vim.keymap.set("n", "gR", ":TroubleToggle lsp_references<cr>")
 -- TODO: Bättre shortcut for bokmärken
 -- TODO: Bättre listning av saker som :reg och :ls
 -- TODO: Better quickfix management
--- TODO: cd into config for the vimrc window
 -- TODO: map for opening the plugin in github
 -- TODO: Autoupdate settings files
 -- TODO: require-if-exists('local')
