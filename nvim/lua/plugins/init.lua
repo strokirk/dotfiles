@@ -18,54 +18,54 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 return {
-	"folke/trouble.nvim",
-	"folke/which-key.nvim",
-	"github/copilot.vim",
-	"mbbill/undotree",
-	"monaqa/dial.nvim",
-	"FooSoft/vim-argwrap", -- Adds :ArgWrap, which 'unfolds' lists and arguments
-	"isobit/vim-caddyfile", -- Syntax highlighting for Caddyfile
-	"mg979/vim-visual-multi", -- Multicursor with <c-n>
-	"michaeljsmith/vim-indent-object", -- Adds ii ai aI indent-based text objects
-	"tomasr/molokai", -- Colorful colorscheme
-	"tpope/vim-commentary", -- Adds gc, which toggles line comments on and off
-	"tpope/vim-eunuch", -- Adds :Remove, :Move and other useful file management commands
-	"tpope/vim-fugitive", -- Adds git integration with :Git blame and :Git write
-	"tpope/vim-surround", -- Adds mappings for changing 'surrounding' characters, like ds( ...
-	{ "nvim-lualine/lualine.nvim", opts = { options = { theme = "onedark" } } },
-	{
-		"goolord/alpha-nvim", -- Welcome Screen
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		config = function() require("alpha").setup(require("alpha.themes.startify").config) end,
-	},
-	{
-		"nvim-telescope/telescope.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		config = function()
-			local builtin = require("telescope.builtin")
-			vim.keymap.set("n", "<C-p>", builtin.git_files, {})
-		end,
-	},
-	{
-		"nvim-neo-tree/neo-tree.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons",
-			"MunifTanjim/nui.nvim",
-		},
-	},
-	{
-		"haya14busa/vim-asterisk", -- Adds z* anv x_* mappings. 🔍️
-		config = function()
-			vim.keymap.set("n", "*", "<Plug>(asterisk-z*)", { remap = true })
-			vim.keymap.set("n", "#", "<Plug>(asterisk-z#)", { remap = true })
-			vim.keymap.set("n", "g*", "<Plug>(asterisk-gz*)", { remap = true })
-			vim.keymap.set("n", "g#", "<Plug>(asterisk-gz#)", { remap = true })
-		end,
-	},
+  "folke/trouble.nvim",
+  "folke/which-key.nvim",
+  "github/copilot.vim",
+  "mbbill/undotree",
+  "monaqa/dial.nvim",
+  "FooSoft/vim-argwrap", -- Adds :ArgWrap, which 'unfolds' lists and arguments
+  "isobit/vim-caddyfile", -- Syntax highlighting for Caddyfile
+  "mg979/vim-visual-multi", -- Multicursor with <c-n>
+  "michaeljsmith/vim-indent-object", -- Adds ii ai aI indent-based text objects
+  "tomasr/molokai", -- Colorful colorscheme
+  "tpope/vim-commentary", -- Adds gc, which toggles line comments on and off
+  "tpope/vim-eunuch", -- Adds :Remove, :Move and other useful file management commands
+  "tpope/vim-fugitive", -- Adds git integration with :Git blame and :Git write
+  "tpope/vim-surround", -- Adds mappings for changing 'surrounding' characters, like ds( ...
+  { "nvim-lualine/lualine.nvim", opts = { options = { theme = "onedark" } } },
+  {
+    "goolord/alpha-nvim", -- Welcome Screen
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function() require("alpha").setup(require("alpha.themes.startify").config) end,
+  },
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      local builtin = require("telescope.builtin")
+      vim.keymap.set("n", "<C-p>", builtin.git_files, {})
+    end,
+  },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+    },
+  },
+  {
+    "haya14busa/vim-asterisk", -- Adds z* anv x_* mappings. 🔍️
+    config = function()
+      vim.keymap.set("n", "*", "<Plug>(asterisk-z*)", { remap = true })
+      vim.keymap.set("n", "#", "<Plug>(asterisk-z#)", { remap = true })
+      vim.keymap.set("n", "g*", "<Plug>(asterisk-gz*)", { remap = true })
+      vim.keymap.set("n", "g#", "<Plug>(asterisk-gz#)", { remap = true })
+    end,
+  },
 
-	-- Lazy loaded
-	{ "folke/twilight.nvim", cmd = "Twilight" }, -- Adds :Twilight, a code flashlight
-	{ "mattn/emmet-vim", cmd = "Emmet" }, -- Adds :Emmet, a HTML boilerplate generator
-	{ "junegunn/vim-easy-align", cmd = "EasyAlign" }, -- Adds :EasyAlign, that aligns columns of text
+  -- Lazy loaded
+  { "folke/twilight.nvim", cmd = "Twilight" }, -- Adds :Twilight, a code flashlight
+  { "mattn/emmet-vim", cmd = "Emmet" }, -- Adds :Emmet, a HTML boilerplate generator
+  { "junegunn/vim-easy-align", cmd = "EasyAlign" }, -- Adds :EasyAlign, that aligns columns of text
 }
