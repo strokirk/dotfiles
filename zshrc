@@ -227,6 +227,8 @@ function nrg() { $EDITOR -q <(rg --vimgrep "$@") }
 function tar-sizes() { tar -ztvf $1 2>&1 | awk '{print $5 "\t" $9}' | sort -k2 }
 function tar-diff() { diff -y --suppress-common-lines <(tar-sizes $1) <(tar-sizes $2) }
 
+function npmg() { npm install -g "$@" }
+
 function x-piprot() { piprot $1 -o | sort -k 4 -n | tee piprot.txt }
 function pip-to-be-square() { pip freeze | sd "(.*)==.*" '$1' | grep -v '^#' | grep -v '^-' | xargs -n5 pip install -U --pre }
 function github-browse() { hub browse $(git remote get-url origin | sd '.*:(.*).git' '$1')/tree/master/$1 }
