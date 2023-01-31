@@ -55,7 +55,7 @@ local Autocmd = {
   ConvertFiletype = function(pattern, filetype)
     vim.api.nvim_create_autocmd("BufRead", {
       pattern = pattern,
-      callback = function() vim.api.nvim_cmd({ cmd = "setfiletype", args = { filetype } }) end,
+      callback = function() vim.api.nvim_cmd({ cmd = "setfiletype", args = { filetype } }, {}) end,
     })
   end,
 }
