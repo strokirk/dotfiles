@@ -1,4 +1,3 @@
-#  Aliases {{{ #
 if [ "$(uname)" = "Darwin" ]; then
     unalias ls l la ll 2>/dev/null
     if [ -f "$(which gls)" ]; then
@@ -19,20 +18,23 @@ alias ps='ps -jh' # -j Show more columns, -h show header multiple times for long
 alias pgrep='pgrep -lf' # long list and match against argument name
 alias whence="whence -avs"  # show exact origin of command
 
+# Note taking
 alias t=task
 alias b="buku -p"
-alias j=just
+alias log="(cd $CLOUD_NOTES_DIR/ && $EDITOR log-notes.md)"
 
+# Programming tools
+alias j=just
 alias h=hivemind
 alias w="watchexec -r"
 alias wp="watchexec -r -e py"
+
+alias bp=bpython
 alias p=python
 alias pt=pytest
-alias bp=bpython
 
 alias :wq=exit
 alias help="run-help" # help is called run-help in zsh
-alias svim="sudo vim"
 alias ni="nvim"
 alias nit='nvim -t'
 alias rc='$EDITOR ~/.zshrc'
@@ -40,11 +42,11 @@ alias rcl='$EDITOR ~/zshrc.local'
 alias nrc="nvim -c 'e \$MYVIMRC'"
 alias hist='$EDITOR $HISTFILE'
 alias reload='source ~/.zshrc'
+
+# Quick dirs
 alias dot='cd $DOTFILES_DIR'
 alias cod='cd $CLOUD_CODE_DIR'
 alias docs='cd $CLOUD_NOTES_DIR'
-alias log='(cd $CLOUD_NOTES_DIR/ && $EDITOR log-notes.md)'
-
 alias notes='(cd $CLOUD_NOTES_DIR && $EDITOR .)'
 
 # zf - switch to directory with fzf
@@ -126,26 +128,23 @@ function rgp() { rg "$*" }
 alias rgu="rg -u --hidden -M200 -g '!.git/'"
 alias fdu="fd -u --hidden"
 
-function npmg() { npm install -g "$@" }
-function x-piprot() { piprot $1 -o | sort -k 4 -n | tee piprot.txt }
-function pip-to-be-square() { pip freeze | sd "(.*)==.*" '$1' | grep -v '^#' | grep -v '^-' | xargs -n5 pip install -U --pre }
-
 function github-browse() { hub browse $(git remote get-url origin | sd '.*:(.*).git' '$1')/tree/master/$1 }
-function pytest-changed-files() { pytest $(echo $(git branch-files) $(git changed) | sd '^([^/]*)/.*' '$1' | sort | uniq) }
+function npmg() { npm install -g "$@" }
 
-alias x-git-rebase-on=git-rebase-on
-alias x-github-browse=github-browse
-alias x-pip-to-be-square=pip-to-be-square
-alias x-pytest-changed-files=pytest-changed-files
+function pip-install-devtools() { pip install icecream ruff pytest pytest-network pytest-xdist pytest-sugar pytest-django pytest-cov }
+function pip-to-be-square() { pip freeze | sd "(.*)==.*" '$1' | grep -v '^#' | grep -v '^-' | xargs -n5 pip install -U --pre }
+function py-sitepackages() { python -c 'import site; print(site.getsitepackages()[0])' }
+function pytest-changed-files() { pytest $(git-changed-folders) "$@" }
+function x-piprot() { piprot $1 -o | sort -k 4 -n | tee piprot.txt }
 
 alias pc='pre-commit run --files $(git branch-files) $(git changed)'
 alias pca='pc && pre-commit run --files $(git branch-files) $(git changed) --config ~/.pre-commit-config.yaml'
 
 # Smaller, more readable docker ps output
-function docker-ps() { docker ps $@ --format "table {{.ID}}\t{{.Image}}\t{{.Names}}\t{{.CreatedAt}}\t{{.Status}}"; }
+alias docker-this='docker run -it --rm -v $(realpath .):/app -w /app'
 alias dps=docker-ps
 alias drm='docker run --rm -it'
-alias docker-this='docker run -it --rm -v $(realpath .):/app -w /app'
+function docker-ps() { docker ps $@ --format 'table {{.ID}}\t{{.Image}}\t{{.Names}}\t{{.State}} : {{.RunningFor}}\t{{.Ports}}'; }
 
 function append-gitignore()        { echo >> .gitignore        "$@" }
 function append-gitignore-global() { echo >> ~/.gitignore      "$@" }

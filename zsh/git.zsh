@@ -71,19 +71,18 @@ function git-delete-merged() {
   git branch --merged | sed -E '/^\*|master/d' | xargs git branch -d 2>/dev/null
 }
 
-function git-commits-per-branch() {
-  [ -z "$1" ] && return 1
-  echo "# author:$1"
-  for b in $(git branch | sed 's/[* ]*//; /^master$/d');
-    do echo $(git log --author=$1 --oneline master..$b | wc -l) "\t" "$b";
-  done
-}
-
 function git-update-projects() {
     [ "$#" -ne 1 ] && echo "Usage: $0 <dir>" && return 1
     (find $1 -type d -execdir [ -d '{}/.git' ] \; -print -prune | xargs -P9 -I% sh -c 'cd %; git fetch --all -q' &)
 }
 
+function git-branch-changed-dirs() {
+    echo $(git branch-files) $(git changed) | xargs dirname | sort | uniq
+}
+
+#
+# Branch management
+#
 function git-stack() {
     echo $0 $@
     first=$1
@@ -120,4 +119,3 @@ function fbr() {
   branch=$(echo "$branches" | fzf +m) &&
   git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
 }
-#  }}} Git Functions #
