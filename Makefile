@@ -24,11 +24,15 @@ pipx:
 yarn:
 	yarn global add prettier npm-check
 
+
+pip-env:
+	pip install flake8-cognitive-complexity pytest pytest-network icecream pytest-xdist pytest-django pytest-cov ruff
+
 brew:
-	brew install -q mosh youtube-dl task buku k9s tmux lazydocker tig tokei tree hivemind
-	brew install -q zsh ncdu pipx pstree xsv httpie gnu-sed ripgrep sd jq yq
+	brew install -q mosh youtube-dl task buku k9s tmux lazydocker tig tokei tree hivemind hyperfine
+	brew install -q zsh ncdu pipx pstree xsv httpie gnu-sed ripgrep sd jq yq just
 	brew install -q neovim emojify fzf fd exa universal-ctags zplug bat glow
-	brew install -q romkatv/powerlevel10k/powerlevel10k
+	brew install -q romkatv/powerlevel10k/powerlevel10k ruff
 	brew install --cask docker dash insomnia
 	brew install --cask spotify
 	brew install --cask rectangle
@@ -36,7 +40,7 @@ brew:
 	brew install --cask obsidian
 	brew install --cask visual-studio-code
 	brew install --cask iterm2
-	brew install --cask slack
+	brew install --cask slack raycast shottr numi
 
 pyenv:
 	# Setup python versions
