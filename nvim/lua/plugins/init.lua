@@ -21,7 +21,6 @@ return {
   "folke/trouble.nvim",
   "github/copilot.vim",
   "mbbill/undotree",
-  "monaqa/dial.nvim",
   "FooSoft/vim-argwrap", -- Adds :ArgWrap, which 'unfolds' lists and arguments
   "isobit/vim-caddyfile", -- Syntax highlighting for Caddyfile
   "johmsalas/text-case.nvim", -- Convert text to different cases
