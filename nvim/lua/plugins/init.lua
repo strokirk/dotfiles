@@ -77,5 +77,13 @@ return {
   {
     "folke/which-key.nvim", -- Adds :WhichKey, showing keybindings
     cmd = "WhichKey",
+    config = function()
+      local wk = require("which-key")
+      wk.setup()
+      local group = function(name, keys) wk.register(keys, { prefix = name }) end
+      group("<leader>", {
+        [","] = { name = "Neovim config" },
+      })
+    end,
   },
 }
