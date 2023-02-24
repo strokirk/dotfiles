@@ -49,17 +49,24 @@ vim.o.wrap = true
 vim.o.listchars = "tab:▸\\ ,trail:·,extends:❯,precedes:❮,nbsp:×,eol:¬"
 vim.o.statusline = "[%F]%h%r%m\\ Buf-%n%=%c,%l/%L\\ [%p%%]"
 
+-- Disable netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+local create_au = vim.api.nvim_create_autocmd
 local Autocmd = {
-  BufRead = function(opts) vim.api.nvim_create_autocmd("BufRead", opts) end,
-  Filetype = function(opts) vim.api.nvim_create_autocmd("Filetype", opts) end,
+  BufRead = function(opts) create_au("BufRead", opts) end,
+  Filetype = function(opts) create_au("Filetype", opts) end,
+  TextYankPost = function(opts) create_au("TextYankPost", opts) end,
   ConvertFiletype = function(pattern, filetype)
-    vim.api.nvim_create_autocmd("BufRead", {
+    create_au("BufRead", {
       pattern = pattern,
       callback = function() vim.api.nvim_cmd({ cmd = "setfiletype", args = { filetype } }, {}) end,
     })
   end,
 }
-Autocmd.Filetype({ pattern = "qf", callback = function() vim.cmd("setlocal nowrap") end })
+
+Autocmd.TextYankPost({ pattern = "*", callback = function() vim.highlight.on_yank({ timeout = 350 }) end })
 
 -- Spelling: in git commit messages
 Autocmd.BufRead({
@@ -69,6 +76,8 @@ Autocmd.BufRead({
     vim.wo.spell = true
   end,
 })
+
+Autocmd.Filetype({ pattern = "qf", callback = function() vim.cmd("setlocal nowrap") end })
 
 Autocmd.Filetype({ pattern = "yaml", callback = function() vim.wo.foldmethod = "indent" end })
 Autocmd.Filetype({ pattern = "elixir", callback = function() vim.wo.foldmethod = "indent" end })

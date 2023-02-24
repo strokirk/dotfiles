@@ -283,3 +283,13 @@ vim.keymap.set("n", "<leader>gh", "silent !open https://github.com/<cfile><cr>")
 
 -- EasyAlign:
 vim.keymap.set("x", "<leader>=", "<Plug>(EasyAlign)")
+
+-- Fugitive:
+vim.keymap.set("n", "<leader>gb", ":Git blame<cr>")
+vim.keymap.set("n", "<leader>gw", ":Gw<cr>")
+vim.keymap.set("n", "<leader>ga", ":Gdiff<cr>")
+vim.keymap.set("n", "<leader>gg", ":Gcommit -v<cr>")
+vim.g.EditorConfig_exclude_patterns = { "fugitive://.*", ".git/.*" }
+
+-- ArgWrap: FooSoft/vim-argwrap
+vim.keymap.set("n", "<leader>a", ":ArgWrap<cr>")

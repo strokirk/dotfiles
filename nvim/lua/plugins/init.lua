@@ -2,26 +2,10 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- Fugitive:
-vim.keymap.set("n", "<F4>", ":Git blame<cr>")
-vim.keymap.set("n", "<leader>gw", ":Gw<cr>")
-vim.keymap.set("n", "<leader>ga", ":Gdiff<cr>")
-vim.keymap.set("n", "<leader>gg", ":Gcommit -v<cr>")
-vim.g.EditorConfig_exclude_patterns = { "fugitive://.*", ".git/.*" }
-
--- ArgWrap: FooSoft/vim-argwrap
-vim.keymap.set("n", "<leader>a", ":ArgWrap<cr>")
-
-vim.api.nvim_create_autocmd("TextYankPost", {
-  pattern = "*",
-  callback = function() vim.highlight.on_yank({ timeout = 350 }) end,
-})
-
 return {
-  "folke/trouble.nvim",
-  "github/copilot.vim",
   "mbbill/undotree",
   "FooSoft/vim-argwrap", -- Adds :ArgWrap, which 'unfolds' lists and arguments
+  "folke/trouble.nvim", -- Adds :Trouble, another take on the quickfix list
   "isobit/vim-caddyfile", -- Syntax highlighting for Caddyfile
   "johmsalas/text-case.nvim", -- Convert text to different cases
   "mg979/vim-visual-multi", -- Multicursor with <c-n>
@@ -32,6 +16,7 @@ return {
   "tpope/vim-eunuch", -- Adds :Remove, :Move and other useful file management commands
   "tpope/vim-fugitive", -- Adds git integration with :Git blame and :Git write
   "tpope/vim-surround", -- Adds mappings for changing 'surrounding' characters, like ds( ...
+  "wellle/targets.vim", -- Adds more text objects, like aa (arguments), aq (general quotes), ab (general brackets), etc.
   {
     "github/copilot.vim", -- Github :Copilot
     config = function()
