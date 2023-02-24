@@ -72,10 +72,10 @@ return {
   {
     "haya14busa/vim-asterisk", -- Adds z* anv x_* mappings. 🔍️
     config = function()
-      vim.keymap.set("n", "*", "<Plug>(asterisk-z*)", { remap = true })
-      vim.keymap.set("n", "#", "<Plug>(asterisk-z#)", { remap = true })
-      vim.keymap.set("n", "g*", "<Plug>(asterisk-gz*)", { remap = true })
-      vim.keymap.set("n", "g#", "<Plug>(asterisk-gz#)", { remap = true })
+      vim.keymap.set("", "*", "<Plug>(asterisk-z*)", { remap = true })
+      vim.keymap.set("", "#", "<Plug>(asterisk-z#)", { remap = true })
+      vim.keymap.set("", "g*", "<Plug>(asterisk-gz*)", { remap = true })
+      vim.keymap.set("", "g#", "<Plug>(asterisk-gz#)", { remap = true })
     end,
   },
 
