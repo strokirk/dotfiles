@@ -1,5 +1,9 @@
 -- Mappings: {{{
 
+-- (utils for this file)
+local command = function(name, command, opts) vim.api.nvim_create_user_command(name, command, opts or {}) end
+local abbrev = function(lhs, rhs) vim.cmd.cabbrev({ args = { lhs, rhs } }) end
+
 -- Use <space> as <leader>
 vim.g.mapleader = " "
 
@@ -154,8 +158,6 @@ vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 vim.keymap.set("x", "<leader>s", ":sort<cr>")
 
 -- Abbreviations:
-local abbrev = function(lhs, rhs) vim.api.nvim_cmd({ cmd = "cabbrev", args = { lhs, rhs } }, {}) end
-
 -- Quick :copen. Abbreviation avoids mistyping it as :copy
 -- Techically :cw might be faster, but I often tend to use copen when I shouldn't
 abbrev("cop", "copen")
@@ -172,14 +174,14 @@ abbrev("Wall", "wall")
 abbrev("Wqall", "wqall")
 
 -- Copy current filename
-vim.cmd('command! CopyFilename let @"=@% | let @+=@% | let @*=@%')
+command("CopyFilename", 'let @"=@% | let @+=@% | let @*=@%')
 vim.keymap.set("n", "Ç", ":CopyFilename<cr>")
 
 -- Clear open help panes like quickfix and similar
-vim.cmd("command! Clear silent tabdo NERDTreeClose | lcl | ccl")
+command("Clear", "silent tabdo NERDTreeClose | lcl | ccl")
 
 -- EmptyRegisters: Taken from https://stackoverflow.com/a/39348498
-vim.cmd("command! EmptyRegisters call EmptyRegisters()")
+command("EmptyRegisters", "call EmptyRegisters()")
 vim.cmd([[function! EmptyRegisters()
     let regs=split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
     for r in regs
@@ -263,15 +265,21 @@ vim.keymap.set("n", "<F3>", ":NeoTreeReveal<cr>")
 vim.keymap.set("n", "<C-T>", ":NeoTreeFocusToggle<cr>")
 vim.keymap.set("n", "<leader>x", "<cmd>TroubleToggle<cr>")
 
--- Show all keymaps with <space><space>
+-- WhichKey: Show all keymaps with <space><space>
 vim.keymap.set("n", "<leader><leader>", ":WhichKey<cr>")
 
 -- Easily edit Vim config
-vim.keymap.set("n", "<leader>cc", ":tab drop $MYVIMRC | tcd $MYVIMRCDIR<cr>")
-vim.keymap.set("n", "<leader>cp", ":e $MYVIMRCDIR/lua/plugins/init.lua | tcd $MYVIMRCDIR<cr>")
+local tabdropcfg = function(filename)
+  return function()
+    vim.cmd("tab drop " .. vim.fn.stdpath("config") .. "/" .. filename)
+    vim.cmd.tcd(vim.fn.stdpath("config"))
+  end
+end
+vim.keymap.set("n", "<leader>cc", tabdropcfg("init.lua"), { desc = "Edit init.vim" })
+vim.keymap.set("n", "<leader>cp", tabdropcfg("lua/plugins/init.lua"), { desc = "Edit plugins" })
 
 -- Open quoted text in Github as a repo
-vim.keymap.set("n", "<leader>gh", 'yi":silent !open https://github.com/<c-r>"<cr>')
+vim.keymap.set("n", "<leader>gh", "silent !open https://github.com/<cfile><cr>")
 
 -- EasyAlign:
 vim.keymap.set("x", "<leader>=", "<Plug>(EasyAlign)")
