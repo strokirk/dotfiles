@@ -34,6 +34,14 @@ return {
   "tpope/vim-fugitive", -- Adds git integration with :Git blame and :Git write
   "tpope/vim-surround", -- Adds mappings for changing 'surrounding' characters, like ds( ...
   {
+    "github/copilot.vim", -- Github :Copilot
+    config = function()
+      -- Replace the default <Tab> mapping, since that conflicts with nvim-cmp
+      vim.g.copilot_no_tab_map = true
+      vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+    end,
+  },
+  {
     "ruifm/gitlinker.nvim", -- gitlinker.txt: Copy Github link to file line with <leader>gy
     dependencies = { "nvim-lua/plenary.nvim" },
     config = true,

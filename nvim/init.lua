@@ -24,9 +24,6 @@ vim.keymap.set("n", "<leader>xq", ":TroubleToggle quickfix<cr>")
 vim.keymap.set("n", "<leader>xx", ":TroubleToggle<cr>")
 vim.keymap.set("n", "gR", ":TroubleToggle lsp_references<cr>")
 
-vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
-vim.g.copilot_no_tab_map = true
-
 --
 -- NOTES
 --
