@@ -11,7 +11,7 @@ require("config/keymaps")
 -- PLUGINS
 -- Load plugins from plugins/init and sibling files
 require("bootstrap")
-require("lazy").setup({ import = "plugins" }, { change_detection = { notify = false } })
+require("lazy").setup({ import = "plugins" }, require("lazy_options"))
 
 -- Colorscheme
 vim.cmd("colorscheme molokai")
