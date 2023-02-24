@@ -55,6 +55,10 @@ return {
       require("nvim-treesitter.configs").setup({
         highlight = { enable = true, additional_vim_regex_highlighting = false },
       })
+
+      vim.o.foldmethod = "expr"
+      vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+      vim.o.foldenable = false -- Disable folds on vim startup
     end,
   },
 }
