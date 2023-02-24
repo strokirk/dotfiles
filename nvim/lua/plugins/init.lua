@@ -19,7 +19,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 return {
   "folke/trouble.nvim",
-  "folke/which-key.nvim",
   "github/copilot.vim",
   "mbbill/undotree",
   "monaqa/dial.nvim",
@@ -81,6 +80,10 @@ return {
 
   -- Lazy loaded
   { "folke/twilight.nvim", cmd = "Twilight" }, -- Adds :Twilight, a code flashlight
-  { "mattn/emmet-vim", cmd = "Emmet" }, -- Adds :Emmet, a HTML boilerplate generator
   { "junegunn/vim-easy-align", cmd = "EasyAlign" }, -- Adds :EasyAlign, that aligns columns of text
+  { "mattn/emmet-vim", cmd = "Emmet" }, -- Adds :Emmet, a HTML boilerplate generator
+  {
+    "folke/which-key.nvim", -- Adds :WhichKey, showing keybindings
+    cmd = "WhichKey",
+  },
 }
