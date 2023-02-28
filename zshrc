@@ -44,7 +44,8 @@ compinit
 # Note: Zsh ignores case and underscores in option names
 #
 # History options
-HISTSIZE=200000
+export HISTSIZE=200000
+export SAVEHIST=200000
 setopt APPEND_HISTORY
 setopt EXTENDED_HISTORY         # Save history timestampts
 setopt HIST_REDUCE_BLANKS       # Remove superfluous blanks from each command
