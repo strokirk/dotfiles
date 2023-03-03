@@ -6,8 +6,7 @@ alias gc="git checkout"
 alias gcm="git commit -ev -m"
 alias gcom="git-verbose-commit"
 alias gp="git push"
-alias gr="git rebase --interactive"
-alias grom="git rebase --interactive master"
+alias grom="git rebase --interactive --autosquash master"
 alias grc="git rebase --continue"
 alias gk="git clean -i ; git checkout . -p"
 
@@ -49,6 +48,8 @@ alias pub='git publish && hub pull-request'
 #  }}} Git aliases #
 
 #  Git Functions {{{ #
+function gh-clone() { git clone git@github.com:$1.git }
+
 function git-verbose-commit() {
   if [ $# -eq 0 ]; then
       git commit --verbose;

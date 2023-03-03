@@ -10,11 +10,10 @@ function source_if_exists() { [ -f "$1" ] && source "$1" }
 
 # From brew --prefix
 BREW_PREFIX="/opt/homebrew"
+export DOTFILES_DIR="$HOME/.dotfiles"
 
 export ZPLUG_HOME="$BREW_PREFIX/opt/zplug"
 source_if_exists $ZPLUG_HOME/init.zsh
-
-export DOTFILES_DIR="$HOME/.dotfiles"
 
 if [ $(command -v zplug) ]; then
   # Add automatic colors to iterm tabs based on current directory

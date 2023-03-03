@@ -32,6 +32,7 @@ alias wp="watchexec -r -e py"
 alias bp=bpython
 alias p=python
 alias pt=pytest
+alias ptn="pytest -nauto"
 
 alias :wq=exit
 alias help="run-help" # help is called run-help in zsh
