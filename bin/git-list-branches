@@ -35,20 +35,16 @@ class Branch:
     ref_fields = [
         "%(refname:short)",
         "%(upstream)",
-        "%(authordate:iso)",
-        "%(authordate:relative)",
         "%(committerdate:iso)",
         "%(committerdate:relative)",
         "%(upstream:remoteref)",
     ]
     ref_format = "\x1F".join(ref_fields)
 
-    def __init__(self, name, upstream, authordate, authordate_rel, committerdate, committerdate_rel, remoteref):
+    def __init__(self, name, upstream, committerdate, committerdate_rel, remoteref):
         self.name = name
         self.upstream = upstream
         self.tracking = bool(remoteref)
-        self.authordate = authordate[:-6]
-        self.authordate_rel = authordate_rel
         self.committerdate = committerdate[:-6]
         self.committerdate_rel = committerdate_rel
         self.date = committerdate
