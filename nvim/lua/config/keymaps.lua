@@ -279,7 +279,7 @@ vim.keymap.set("n", "<leader>,c", tabdropcfg("init.lua"), { desc = "Edit init.vi
 vim.keymap.set("n", "<leader>,p", tabdropcfg("lua/plugins/init.lua"), { desc = "Edit plugins" })
 
 -- Open quoted text in Github as a repo
-vim.keymap.set("n", "<leader>gh", "silent !open https://github.com/<cfile><cr>")
+vim.keymap.set("n", "<leader>gh", ":silent !open https://github.com/<cfile><cr>")
 
 -- EasyAlign:
 vim.keymap.set("x", "<leader>=", "<Plug>(EasyAlign)")
