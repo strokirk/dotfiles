@@ -20,6 +20,7 @@ return {
   "tpope/vim-fugitive", -- Adds git integration with :Git blame and :Git write
   "tpope/vim-surround", -- Adds mappings for changing 'surrounding' characters, like ds( ...
   "wellle/targets.vim", -- Adds more text objects, like aa (arguments), aq (general quotes), ab (general brackets), etc.
+  { "lewis6991/gitsigns.nvim", config = true }, -- Adds Git status in sign column
   {
     "github/copilot.vim", -- Github :Copilot
     config = function()
