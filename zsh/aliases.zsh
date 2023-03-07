@@ -123,7 +123,8 @@ function nvim-fzf-tags() {
     nvim -t ${line}
 }
 alias nift=nvim-fzf-tags
-function nrg() { $EDITOR -q <(rg --vimgrep "$@") }
+function nrg() { $EDITOR -q =(rg --vimgrep "$@") }
+function nsg() { $EDITOR -q =(sg "$@") }
 
 function rgp() { rg "$*" }
 alias rgu="rg -u --hidden -M200 -g '!.git/'"
