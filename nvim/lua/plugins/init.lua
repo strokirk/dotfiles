@@ -6,20 +6,21 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.argwrap_tail_comma = 1
 
 return {
-  "mbbill/undotree",
   "FooSoft/vim-argwrap", -- Adds :ArgWrap, which 'unfolds' lists and arguments
+  "djoshea/vim-autoread", -- Automatically reload files when they change on disk, on more than just BufEnter
   "isobit/vim-caddyfile", -- Syntax highlighting for Caddyfile
   "johmsalas/text-case.nvim", -- Convert text to different cases
+  "mbbill/undotree",
   "mg979/vim-visual-multi", -- Multicursor with <c-n>
   "michaeljsmith/vim-indent-object", -- Adds ii ai aI indent-based text objects
   "sQVe/sort.nvim", -- Sort inside lines with :Sort
+  "sjl/clam.vim", -- Easily run Shell commands with :Clam
   "tomasr/molokai", -- Colorful colorscheme
   "tpope/vim-commentary", -- Adds gc, which toggles line comments on and off
   "tpope/vim-eunuch", -- Adds :Remove, :Move and other useful file management commands
   "tpope/vim-fugitive", -- Adds git integration with :Git blame and :Git write
   "tpope/vim-surround", -- Adds mappings for changing 'surrounding' characters, like ds( ...
   "wellle/targets.vim", -- Adds more text objects, like aa (arguments), aq (general quotes), ab (general brackets), etc.
-  "djoshea/vim-autoread", -- Automatically reload files when they change on disk, on more than just BufEnter
   {
     "github/copilot.vim", -- Github :Copilot
     config = function()
