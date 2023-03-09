@@ -8,7 +8,6 @@ vim.g.argwrap_tail_comma = 1
 return {
   "mbbill/undotree",
   "FooSoft/vim-argwrap", -- Adds :ArgWrap, which 'unfolds' lists and arguments
-  "folke/trouble.nvim", -- Adds :Trouble, another take on the quickfix list
   "isobit/vim-caddyfile", -- Syntax highlighting for Caddyfile
   "johmsalas/text-case.nvim", -- Convert text to different cases
   "mg979/vim-visual-multi", -- Multicursor with <c-n>
@@ -20,7 +19,14 @@ return {
   "tpope/vim-fugitive", -- Adds git integration with :Git blame and :Git write
   "tpope/vim-surround", -- Adds mappings for changing 'surrounding' characters, like ds( ...
   "wellle/targets.vim", -- Adds more text objects, like aa (arguments), aq (general quotes), ab (general brackets), etc.
-  { "lewis6991/gitsigns.nvim", config = true }, -- Adds Git status in sign column
+  "djoshea/vim-autoread", -- Automatically reload files when they change on disk, on more than just BufEnter
+  { "folke/trouble.nvim", config = { auto_preview = false } }, -- Adds :Trouble, another take on the quickfix list
+  {
+    "lewis6991/gitsigns.nvim", -- Adds Git status in sign column
+    config = true,
+    lazy = true,
+    event = { "BufReadPre", "BufNewFile" },
+  },
   {
     "github/copilot.vim", -- Github :Copilot
     config = function()
