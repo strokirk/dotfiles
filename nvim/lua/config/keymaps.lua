@@ -125,9 +125,6 @@ vim.keymap.set("x", "<leader>P", '"+P')
 vim.keymap.set("n", "<leader>p", '"+p')
 vim.keymap.set("n", "<leader>P", '"+P')
 
--- Quickly copy filename
-vim.keymap.set("n", "<leader>yf", ":CopyFilename<cr>")
-
 -- QuickPaste: Nice default-paste shortcut: þ (AltGr-p)
 -- noremap  þ "0p
 -- noremap! þ <c-r>0
@@ -176,6 +173,7 @@ abbrev("Wqall", "wqall")
 
 -- Copy current filename
 command("CopyFilename", 'let @"=@% | let @+=@% | let @*=@%')
+vim.keymap.set("n", "<leader>yf", ":CopyFilename<cr>")
 vim.keymap.set("n", "Ç", ":CopyFilename<cr>")
 
 -- Clear open help panes like quickfix and similar
