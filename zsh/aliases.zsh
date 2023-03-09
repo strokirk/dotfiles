@@ -140,7 +140,7 @@ function pytest-changed-files() { pytest $(git-changed-folders) "$@" }
 function x-piprot() { piprot $1 -o | sort -k 4 -n | tee piprot.txt }
 
 alias pc='pre-commit run --files $(git branch-files) $(git changed)'
-alias pca='pc && pre-commit run --files $(git branch-files) $(git changed) --config ~/.pre-commit-config.yaml'
+alias pca='pre-commit run --all-files'
 
 # Smaller, more readable docker ps output
 alias docker-this='docker run -it --rm -v $(realpath .):/app -w /app'
