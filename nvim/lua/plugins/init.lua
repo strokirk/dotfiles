@@ -20,13 +20,6 @@ return {
   "tpope/vim-surround", -- Adds mappings for changing 'surrounding' characters, like ds( ...
   "wellle/targets.vim", -- Adds more text objects, like aa (arguments), aq (general quotes), ab (general brackets), etc.
   "djoshea/vim-autoread", -- Automatically reload files when they change on disk, on more than just BufEnter
-  { "folke/trouble.nvim", config = { auto_preview = false } }, -- Adds :Trouble, another take on the quickfix list
-  {
-    "lewis6991/gitsigns.nvim", -- Adds Git status in sign column
-    config = true,
-    lazy = true,
-    event = { "BufReadPre", "BufNewFile" },
-  },
   {
     "github/copilot.vim", -- Github :Copilot
     config = function()
@@ -80,7 +73,19 @@ return {
     end,
   },
 
+  -- Quickfix related
+  "kevinhwang91/nvim-bqf", -- Adds a preview window for the selected quickfix iitem
+  "romainl/vim-qf", -- Adds mappings to toggle quickfix list, and more
+  "fcpg/vim-kickfix", -- Allows you do edit quickfix items with regular old `dd`
+  { "folke/trouble.nvim", config = { auto_preview = false } }, -- Adds :Trouble, another take on the quickfix list
+
   -- Lazy loaded
+  {
+    "lewis6991/gitsigns.nvim", -- Adds Git status in sign column
+    config = true,
+    lazy = true,
+    event = { "BufReadPre", "BufNewFile" },
+  },
   { "folke/twilight.nvim", cmd = "Twilight" }, -- Adds :Twilight, a code flashlight
   { "junegunn/vim-easy-align", cmd = "EasyAlign" }, -- Adds :EasyAlign, that aligns columns of text
   { "mattn/emmet-vim", cmd = "Emmet" }, -- Adds :Emmet, a HTML boilerplate generator

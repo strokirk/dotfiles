@@ -295,3 +295,7 @@ vim.g.EditorConfig_exclude_patterns = { "fugitive://.*", ".git/.*" }
 
 -- ArgWrap: FooSoft/vim-argwrap
 vim.keymap.set("n", "<leader>a", ":ArgWrap<cr>")
+
+-- QF:
+vim.keymap.set("n", "<leader>q", "<Plug>(qf_qf_toggle_stay)", { remap = true, desc = "Toggle quickfix window" })
+vim.keymap.set("n", "<leader>l", "<Plug>(qf_loc_toggle_stay)", { remap = true, desc = "Toggle location list window" })
