@@ -6,6 +6,7 @@ local abbrev = function(lhs, rhs) vim.cmd.cabbrev({ args = { lhs, rhs } }) end
 
 -- Use <space> as <leader>
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -- Repeat 'default' mapping (Essential, instead of Enter Ex mode)
 vim.keymap.set("n", "Q", "@q")
