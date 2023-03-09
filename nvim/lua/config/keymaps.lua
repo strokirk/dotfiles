@@ -276,8 +276,11 @@ local tabdropcfg = function(filename)
     vim.cmd.tcd(vim.fn.stdpath("config"))
   end
 end
+vim.keymap.set("n", "<leader>,,", tabdropcfg("init.lua"), { desc = "Edit init.vim" })
 vim.keymap.set("n", "<leader>,c", tabdropcfg("init.lua"), { desc = "Edit init.vim" })
 vim.keymap.set("n", "<leader>,p", tabdropcfg("lua/plugins/init.lua"), { desc = "Edit plugins" })
+vim.keymap.set("n", "<leader>,m", tabdropcfg("lua/config/keymaps.lua"), { desc = "Edit mappings" })
+vim.keymap.set("n", "<leader>,s", tabdropcfg("lua/config/settings.lua"), { desc = "Edit settings" })
 
 -- Open quoted text in Github as a repo
 vim.keymap.set("n", "<leader>gh", ":silent !open https://github.com/<cfile><cr>")
