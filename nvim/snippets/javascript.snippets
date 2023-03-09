@@ -1,0 +1,31 @@
+snippet print "console.log"
+	console.log($TM_SELECTED_TEXT)
+
+snippet log "console.log"
+	console.log($TM_SELECTED_TEXT)
+
+snippet fun "function (fun)"
+	function ${1:function_name}(${2:argument}) {
+		$TM_SELECTED_TEXT
+	}
+
+snippet fn "function (fun)"
+	function ${1:function_name}(${2:argument}) {
+		$TM_SELECTED_TEXT
+	}
+
+snippet af "Arrow function" i
+	($1) => {$TM_SELECTED_TEXT}
+
+snippet cb "Curly brackets"
+	{
+	$0
+	}
+
+snippet h "Hypertext element"
+	h("$0", {}$1)
+
+snippet for "for loop for (let i = 0..."
+	for (let i = 0, len = ${0:things}.length; i < len; i++) {
+		let obj = $0[i]
+	}

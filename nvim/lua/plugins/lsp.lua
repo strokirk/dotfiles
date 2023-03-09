@@ -11,6 +11,41 @@ local filterPyrightUnusedDiagnostics = function(a, params, client_id, c, config)
   vim.lsp.diagnostic.on_publish_diagnostics(a, params, client_id, c, config)
 end
 
+local luasnipConfig = function()
+  -- Load my local snippets as well
+  local ls = require("luasnip")
+  require("luasnip.loaders.from_snipmate").lazy_load()
+  require("telescope").load_extension("luasnip")
+  -- Press <Tab> on selected text to replace it with the snippet, potentially reusing the content
+  ls.config.set_config({ enable_autosnippets = true, store_selection_keys = "<Tab>" })
+  vim.keymap.set(
+    "i",
+    "<Tab>",
+    function() return ls.expand_or_locally_jumpable() and "<Plug>luasnip-expand-or-jump" or "<Tab>" end,
+    { silent = true, expr = true, remap = true }
+  )
+  vim.keymap.set("i", "<S-Tab>", function() ls.jump(-1) end, { silent = true })
+  vim.keymap.set("s", "<Tab>", function() ls.jump(1) end, { silent = true })
+  vim.keymap.set("s", "<S-Tab>", function() ls.jump(-1) end, { silent = true })
+end
+
+local lzpZeroConfig = function()
+  local lsp = require("lsp-zero")
+  lsp.preset("recommended")
+  lsp.nvim_workspace()
+
+  luasnipConfig()
+
+  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(filterPyrightUnusedDiagnostics, {})
+
+  -- The schemaStore contains all kinds of outdated schemas, so disable it
+  lsp.configure("yamlls", { settings = { yaml = { schemaStore = { enable = false } } } })
+
+  lsp.setup()
+
+  vim.keymap.set("n", "<F9>", vim.lsp.buf.format, {})
+end
+
 return {
   {
     "folke/neodev.nvim", -- LSP configuration for Neovim config code
@@ -34,17 +69,10 @@ return {
 
       -- Snippets
       "L3MON4D3/LuaSnip",
-      -- Snippet Collection (Optional)
       "rafamadriz/friendly-snippets",
+      "benfowler/telescope-luasnip.nvim",
     },
-    config = function()
-      local lsp = require("lsp-zero")
-      lsp.preset("recommended")
-      lsp.nvim_workspace()
-      vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(filterPyrightUnusedDiagnostics, {})
-      lsp.setup()
-      vim.keymap.set("n", "<F9>", vim.lsp.buf.format, {})
-    end,
+    config = lzpZeroConfig,
   },
   {
     "nvim-treesitter/nvim-treesitter",
