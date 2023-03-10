@@ -13,7 +13,6 @@ return {
   "mbbill/undotree",
   "mg979/vim-visual-multi", -- Multicursor with <c-n>
   "michaeljsmith/vim-indent-object", -- Adds ii ai aI indent-based text objects
-  "sQVe/sort.nvim", -- Sort inside lines with :Sort
   "sjl/clam.vim", -- Easily run Shell commands with :Clam
   "tomasr/molokai", -- Colorful colorscheme
   "tpope/vim-commentary", -- Adds gc, which toggles line comments on and off
@@ -90,6 +89,7 @@ return {
   { "folke/twilight.nvim", cmd = "Twilight" }, -- Adds :Twilight, a code flashlight
   { "junegunn/vim-easy-align", cmd = "EasyAlign" }, -- Adds :EasyAlign, that aligns columns of text
   { "mattn/emmet-vim", cmd = "Emmet" }, -- Adds :Emmet, a HTML boilerplate generator
+  { "sQVe/sort.nvim", cmd = "Sort" }, -- Sort inside lines with :Sort
   {
     "folke/which-key.nvim", -- Adds :WhichKey, showing keybindings
     cmd = "WhichKey",
