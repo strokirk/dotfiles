@@ -293,6 +293,11 @@ vim.keymap.set("n", "<leader>ga", ":Gdiff<cr>")
 vim.keymap.set("n", "<leader>gg", ":Gcommit -v<cr>")
 vim.g.EditorConfig_exclude_patterns = { "fugitive://.*", ".git/.*" }
 
+vim.keymap.set("n", "[g", "<cmd>Gitsigns prev_hunk<cr>")
+vim.keymap.set("n", "]g", "<cmd>Gitsigns next_hunk<cr>")
+vim.keymap.set("n", "ög", "<cmd>Gitsigns prev_hunk<cr>")
+vim.keymap.set("n", "äg", "<cmd>Gitsigns next_hunk<cr>")
+
 -- ArgWrap: FooSoft/vim-argwrap
 vim.keymap.set("n", "<leader>a", ":ArgWrap<cr>")
 
