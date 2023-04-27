@@ -67,6 +67,7 @@ Autocmd.Filetype({ pattern = "yaml", callback = function() vim.wo.foldmethod = "
 Autocmd.Filetype({ pattern = "elixir", callback = function() vim.wo.foldmethod = "indent" end })
 Autocmd.Filetype({ pattern = "markdown", callback = function() vim.bo.textwidth = 73 end })
 Autocmd.Filetype({ pattern = "vim", callback = function() vim.wo.foldmethod = "marker" end })
+Autocmd.Filetype({ pattern = "json", callback = function() vim.bo.formatprg = "prettier --parser json" end })
 
 Autocmd.ConvertFiletype(".babelrc", "json5.json")
 Autocmd.ConvertFiletype("tsconfig.json", "json5.json")
