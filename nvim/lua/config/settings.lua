@@ -68,14 +68,8 @@ local Autocmd = {
 
 Autocmd.TextYankPost({ pattern = "*", callback = function() vim.highlight.on_yank({ timeout = 350 }) end })
 
--- Spelling: in git commit messages
-Autocmd.BufRead({
-  pattern = { "COMMIT_EDITMSG", "gitcommit" },
-  callback = function()
-    vim.bo.textwidth = 72
-    vim.wo.spell = true
-  end,
-})
+require("utils").editorconfig_override({ filetype = "gitcommit", prop = "max_line_length", value = "72" })
+Autocmd.Filetype({ pattern = "gitcommit", callback = function() vim.wo.spell = true end })
 
 Autocmd.Filetype({ pattern = "qf", callback = function() vim.cmd("setlocal nowrap") end })
 
