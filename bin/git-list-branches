@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+from __future__ import annotations
+
 import os
 import subprocess
 
@@ -21,6 +23,10 @@ def col(c) -> staticmethod:
     return staticmethod(lambda s: c + s + RESET)
 
 
+def maxwidth(iterable, attr) -> int:
+    return max(len(str(getattr(i, attr))) for i in iterable)
+
+
 class Colors:
     red = col(RED)
     green = col(GREEN)
@@ -29,6 +35,23 @@ class Colors:
 
 sort_keys = ["date", "tracking", "name"]
 sort_default = sort_keys[0]
+
+
+class git:
+    @classmethod
+    def branches(cls) -> list[Branch]:
+        raw_branches = cls._run(
+            "for-each-ref", "refs/heads/**", "--format=" + Branch.ref_format
+        )
+        return [Branch.from_string(line) for line in raw_branches.splitlines()]
+
+    @classmethod
+    def num_commits(cls, branch: str) -> int:
+        return int(cls._run("rev-list", "--count", branch, "^master", "--"))
+
+    @classmethod
+    def _run(cls, *cmd: str) -> str:
+        return call(["git"] + list(cmd))
 
 
 class Branch:
@@ -48,37 +71,60 @@ class Branch:
         self.committerdate = committerdate[:-6]
         self.committerdate_rel = committerdate_rel
         self.date = committerdate
+        self.num_commits = 0
 
     @classmethod
     def from_string(cls, string) -> "Branch":
         return cls(*string.split("\x1F"))
 
 
-def list_branches(sort=sort_default, only_pushed=False) -> None:
+def list_branches(
+    sort: str = sort_default,
+    only_pushed: bool = False,
+    show_commits: bool = False,
+) -> None:
     if not os.path.exists(".git"):
         raise SystemExit("Not in a git directory. Exiting.")
 
-    raw_branches = call(["git", "for-each-ref", "refs/heads/**", "--format=" + Branch.ref_format])
-    branches = [Branch.from_string(line) for line in raw_branches.splitlines()]
+    branches = git.branches()
+    for branch in branches:
+        if branch.name in ("master", "main"):
+            continue
+        if branch.name.startswith("pr/"):
+            continue
+        if show_commits:
+            branch.num_commits = git.num_commits(branch.name)
 
     if only_pushed:
         branches = [b for b in branches if b.tracking]
 
-    rel_width = max(len(b.committerdate_rel) for b in branches) + len(Colors.gray(""))
-    fmt = "[{date}] {rel:{rel_width}}  {star} {name}"
+    rel_width = maxwidth(branches, "committerdate_rel") + len(Colors.gray(""))
+
+    commits_width = 0
+    if show_commits:
+        commits_width = maxwidth(branches, "num_commits") + 2
+
+    fmt = "[{date}] {rel:{rel_width}}"
+    if show_commits:
+        fmt += "{commits:{commits_width}}"
+    fmt += " {star} {name}"
     for branch in sorted(branches, key=lambda b: getattr(b, sort)):
         name = branch.name
         if name in ("master", "main"):
             name = Colors.green(name)
         elif "wip" in name:
             name = Colors.gray(name)
-        print(fmt.format(
-            date=branch.committerdate,
-            rel=Colors.gray(branch.committerdate_rel),
-            star=Colors.red(STAR) if branch.tracking else " ",
-            name=name,
-            rel_width=rel_width,
-        ))
+        print(
+            fmt.format(
+                date=branch.committerdate,
+                rel=Colors.gray(branch.committerdate_rel),
+                star=Colors.red(STAR) if branch.tracking else " ",
+                name=name,
+                commits=branch.num_commits or "",
+                commits_width=commits_width,
+                rel_width=rel_width,
+            )
+        )
 
 
 if __name__ == "__main__":
@@ -87,5 +133,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--sort", choices=sort_keys, default=sort_default)
     parser.add_argument("--pushed", action="store_true")
+    parser.add_argument("--commits", action="store_true", help="Show number of commits")
     args = parser.parse_args()
-    list_branches(args.sort, only_pushed=args.pushed)
+    list_branches(
+        sort=args.sort,
+        only_pushed=args.pushed,
+        show_commits=args.commits,
+    )
