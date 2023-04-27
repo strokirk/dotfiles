@@ -190,11 +190,10 @@ endfunction]])
 
 -- Autocommands: {{{
 vim.cmd("au FileType qf nnoremap <buffer> t <C-W><Enter><C-W>T")
-vim.cmd("au Filetype python xmap <buffer> ic <tab>ic<tab>")
-vim.cmd("au Filetype python command! -buffer -range=% Isort :<line1>,<line2>! isort -")
-vim.cmd("au Filetype python nnoremap <buffer> <leader>s :Isort<cr>")
 vim.cmd("au Filetype sql,mysql nmap <buffer> <F5> vip<F5>")
 vim.cmd("au Filetype sql,mysql xnoremap <buffer> <F5> :'<,'>Clam mysql --table<cr>gg<c-w>h")
+vim.cmd("au Filetype prql nnoremap <buffer> ! vip:Clam prqlc compile<cr>:setf sql<cr><c-w>h")
+
 -- }}} Autocommands
 
 -- Pipe Vim Command Output To Tab: {{{
