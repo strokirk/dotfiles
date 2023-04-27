@@ -48,6 +48,18 @@ end
 
 return {
   {
+    "jose-elias-alvarez/null-ls.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      local lsp = require("null-ls")
+      lsp.setup({
+        sources = {
+          lsp.builtins.formatting.black,
+        },
+      })
+    end,
+  },
+  {
     "folke/neodev.nvim", -- LSP configuration for Neovim config code
     config = function() require("neodev").setup() end,
   },
