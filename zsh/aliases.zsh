@@ -146,7 +146,7 @@ alias pca='pre-commit run --all-files'
 alias docker-this='docker run -it --rm -v $(realpath .):/app -w /app'
 alias dps=docker-ps
 alias drm='docker run --rm -it'
-function docker-ps() { docker ps $@ --format 'table {{.ID}}\t{{.Image}}\t{{.Names}}\t{{.State}} : {{.RunningFor}}\t{{.Ports}}'; }
+function docker-ps() { docker ps $@ --format 'table {{.ID}}\t{{.Image}}\t{{.Names}}\t{{.State}} : {{.RunningFor}}'; }
 
 function append-gitignore()        { echo >> .gitignore        "$@" }
 function append-gitignore-global() { echo >> ~/.gitignore      "$@" }
