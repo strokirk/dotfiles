@@ -1,3 +1,6 @@
+local utils = require("utils")
+local Autocmd = utils.Autocmd
+
 vim.o.updatetime = "100"
 
 -- Whitespace options is mainly based on Python/Django
@@ -53,22 +56,9 @@ vim.o.statusline = "[%F]%h%r%m\\ Buf-%n%=%c,%l/%L\\ [%p%%]"
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-local create_au = vim.api.nvim_create_autocmd
-local Autocmd = {
-  BufRead = function(opts) create_au("BufRead", opts) end,
-  Filetype = function(opts) create_au("Filetype", opts) end,
-  TextYankPost = function(opts) create_au("TextYankPost", opts) end,
-  ConvertFiletype = function(pattern, filetype)
-    create_au("BufRead", {
-      pattern = pattern,
-      callback = function() vim.api.nvim_cmd({ cmd = "setfiletype", args = { filetype } }, {}) end,
-    })
-  end,
-}
-
 Autocmd.TextYankPost({ pattern = "*", callback = function() vim.highlight.on_yank({ timeout = 350 }) end })
 
-require("utils").editorconfig_override({ filetype = "gitcommit", prop = "max_line_length", value = "72" })
+utils.editorconfig_override({ filetype = "gitcommit", prop = "max_line_length", value = "72" })
 Autocmd.Filetype({ pattern = "gitcommit", callback = function() vim.wo.spell = true end })
 
 Autocmd.Filetype({ pattern = "qf", callback = function() vim.cmd("setlocal nowrap") end })
