@@ -4,13 +4,9 @@ function git-delete-merged() {
   git branch --merged | sed -E '/^\*|master/d' | xargs git branch -d 2>/dev/null
 }
 
-function default-branch() {
-  git symbolic-ref --short refs/remotes/origin/HEAD | cut -d/ -f2
-}
-
 set -e  # Exit on error, uses subshell to only quit "this function"
 
-git checkout -q "$(default-branch)"
+git checkout -q "$(git-default-branch)"
 git pull --prune -q
 
 # shellcheck disable=SC2046
