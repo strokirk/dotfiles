@@ -36,6 +36,13 @@ local lzpZeroConfig = function()
 
   luasnipConfig()
 
+  lsp.configure("pyright", {
+      before_init = function(_, config)
+        if vim.env.VIRTUAL_ENV then
+          config.settings.python.pythonPath = vim.env.VIRTUAL_ENV .. "/bin/python"
+        end
+      end,
+  })
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(filterPyrightUnusedDiagnostics, {})
 
   -- The schemaStore contains all kinds of outdated schemas, so disable it
