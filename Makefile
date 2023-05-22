@@ -22,7 +22,9 @@ pipx:
 	pipx install sqlformat
 
 yarn:
-	yarn global add prettier npm-check
+	yarn global add npm-check
+	yarn global add prettier
+	yarn global add sortier
 
 
 pip-env:
