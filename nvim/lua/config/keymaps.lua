@@ -1,4 +1,6 @@
 -- Mappings: {{{
+local utils = require("utils")
+local Autocmd = utils.Autocmd
 
 -- (utils for this file)
 local command = function(name, command, opts) vim.api.nvim_create_user_command(name, command, opts or {}) end
@@ -279,8 +281,21 @@ vim.keymap.set("n", "<leader>,p", tabdropcfg("lua/plugins/init.lua"), { desc = "
 vim.keymap.set("n", "<leader>,m", tabdropcfg("lua/config/keymaps.lua"), { desc = "Edit mappings" })
 vim.keymap.set("n", "<leader>,s", tabdropcfg("lua/config/settings.lua"), { desc = "Edit settings" })
 
--- Open quoted text in Github as a repo
-vim.keymap.set("n", "<leader>gh", ":silent !open https://github.com/<cfile><cr>")
+Autocmd.Filetype({
+  pattern = "lua",
+  callback = function()
+    -- Open quoted text in Github as a repo
+    vim.keymap.set("n", "<leader>K", ":silent !open https://github.com/<cfile><cr>")
+  end,
+})
+
+Autocmd.Filetype({
+  pattern = "requirements",
+  callback = function()
+    -- Open quoted text in PyPI
+    vim.keymap.set("n", "<leader>K", ":silent !open https://pypi.org/project/<cword>/<cr>")
+  end,
+})
 
 -- EasyAlign:
 vim.keymap.set("x", "<leader>=", "<Plug>(EasyAlign)")
