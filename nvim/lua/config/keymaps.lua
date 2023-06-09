@@ -151,9 +151,6 @@ vim.keymap.set("v", "<C-r>", '"ly:%s/<C-r>l//gc<left><left><left>')
 -- command! CloseBuffer bp <bar> bd #
 vim.keymap.set("n", "<leader>d", ":CloseBuffer<cr>")
 
--- Neovim Term
-vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
-
 -- Quick :sort
 vim.keymap.set("x", "<leader>s", ":sort<cr>")
 
