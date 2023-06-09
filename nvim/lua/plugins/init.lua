@@ -1,12 +1,10 @@
--- Disable netrw
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+-- See also:
+-- lua/plugins/testing.lua
+-- lua/plugins/lsp.lua
 
--- ArgWrap:
-vim.g.argwrap_tail_comma = 1
+local plugins = {}
 
-return {
-  "FooSoft/vim-argwrap", -- Adds :ArgWrap, which 'unfolds' lists and arguments
+vim.list_extend(plugins, {
   "PeterRincker/vim-argumentative", -- Adds arguments manipulations with <, [, a,
   "ThePrimeagen/refactoring.nvim", -- Adds lua functions and telescope extensions to extract functions & variables, etc.
   "djoshea/vim-autoread", -- Automatically reload files when they change on disk, on more than just BufEnter
@@ -21,6 +19,10 @@ return {
   "tpope/vim-repeat", -- Adds . to repeat other tpope plugin mappings
   "tpope/vim-surround", -- Adds mappings for changing 'surrounding' characters, like ds( ...
   "wellle/targets.vim", -- Adds more text objects, like aa (arguments), aq (general quotes), ab (general brackets), etc.
+  {
+    "FooSoft/vim-argwrap", -- Adds :ArgWrap, which 'unfolds' lists and arguments
+    init = function() vim.g.argwrap_tail_comma = 1 end,
+  },
   {
     "github/copilot.vim", -- Github :Copilot
     config = function()
@@ -50,10 +52,20 @@ return {
   },
   {
     "nvim-telescope/telescope.nvim", -- ThePrimaeagen screamed, so I installed it
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
     config = function()
+      local ts = require("telescope")
+      pcall(function() ts.load_extension("refactoring") end)
+      pcall(function()
+        ts.load_extension("textcase") -- Convert text to different cases with :TextCaseOpenTelescope
+        ts.extensions.textcase.textcase = ts.extensions.textcase.normal_mode -- https://github.com/johmsalas/text-case.nvim/issues/42
+      end)
       local builtin = require("telescope.builtin")
       vim.keymap.set("n", "<C-p>", builtin.git_files, {})
+      vim.keymap.set("n", "<leader>s", ":Telescope grep_string<cr>", {})
+      vim.keymap.set("n", "<leader>t", function() builtin.builtin({ include_extensions = true }) end)
     end,
   },
   {
@@ -73,14 +85,18 @@ return {
       vim.keymap.set("", "g#", "<Plug>(asterisk-gz#)", { remap = true })
     end,
   },
+})
 
-  -- Quickfix related
+-- Quickfix related
+vim.list_extend(plugins, {
   "kevinhwang91/nvim-bqf", -- Adds a preview window for the selected quickfix iitem
   "romainl/vim-qf", -- Adds mappings to toggle quickfix list, and more
   "fcpg/vim-kickfix", -- Allows you do edit quickfix items with regular old `dd`
-  { "folke/trouble.nvim", config = { auto_preview = false } }, -- Adds :Trouble, another take on the quickfix list
+  { "folke/trouble.nvim", opts = { auto_preview = false } }, -- Adds :Trouble, another take on the quickfix list
+})
 
-  -- Lazy loaded
+-- Lazy loaded
+vim.list_extend(plugins, {
   {
     "lewis6991/gitsigns.nvim", -- Adds Git status in sign column
     config = true,
@@ -91,16 +107,6 @@ return {
   { "junegunn/vim-easy-align", cmd = "EasyAlign" }, -- Adds :EasyAlign, that aligns columns of text
   { "mattn/emmet-vim", cmd = "Emmet" }, -- Adds :Emmet, a HTML boilerplate generator
   { "sQVe/sort.nvim", cmd = "Sort" }, -- Sort inside lines with :Sort
-  {
-    "folke/which-key.nvim", -- Adds :WhichKey, showing keybindings
-    cmd = "WhichKey",
-    config = function()
-      local wk = require("which-key")
-      wk.setup()
-      local group = function(name, keys) wk.register(keys, { prefix = name }) end
-      group("<leader>", {
-        [","] = { name = "Neovim config" },
-      })
-    end,
-  },
-}
+})
+
+return plugins

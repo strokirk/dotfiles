@@ -61,7 +61,7 @@ Autocmd.TextYankPost({ pattern = "*", callback = function() vim.highlight.on_yan
 utils.editorconfig_override({ filetype = "gitcommit", prop = "max_line_length", value = "72" })
 Autocmd.Filetype({ pattern = "gitcommit", callback = function() vim.wo.spell = true end })
 
-Autocmd.Filetype({ pattern = "qf", callback = function() vim.cmd("setlocal nowrap") end })
+Autocmd.Filetype({ pattern = "qf", callback = function() vim.wo.wrap = false end })
 
 Autocmd.Filetype({ pattern = "yaml", callback = function() vim.wo.foldmethod = "indent" end })
 Autocmd.Filetype({ pattern = "elixir", callback = function() vim.wo.foldmethod = "indent" end })

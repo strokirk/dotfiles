@@ -12,10 +12,6 @@ require("lazy").setup({ import = "plugins" }, require("lazy_options"))
 -- Colorscheme
 vim.cmd("colorscheme molokai")
 
--- Temporary mappings during experimentation with these plugins
-vim.keymap.set("n", "<leader>s", ":Telescope grep_string<cr>")
-vim.keymap.set("n", "<leader>t", ":Telescope<cr>")
-
 vim.keymap.set("n", "<leader>xd", ":TroubleToggle document_diagnostics<cr>")
 vim.keymap.set("n", "<leader>xq", ":TroubleToggle quickfix<cr>")
 vim.keymap.set("n", "<leader>xx", ":TroubleToggle<cr>")
