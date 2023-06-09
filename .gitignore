@@ -8,3 +8,4 @@ nvim/autoload/plug.vim
 nvim/autoload/plug.vim.old
 nvim/lua/plugins/local.lua
 zshrc.local
+nvim/lazy-lock.json
