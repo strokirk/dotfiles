@@ -43,6 +43,7 @@ alias rcl='$EDITOR ~/zshrc.local'
 alias nrc="nvim -c 'e \$MYVIMRC'"
 alias hist='$EDITOR $HISTFILE'
 alias reload='source ~/.zshrc'
+alias count='sort | uniq -c | sort -n'
 
 # Quick dirs
 alias dot='cd $DOTFILES_DIR'
