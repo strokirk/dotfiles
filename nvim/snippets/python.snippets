@@ -1,6 +1,11 @@
 snippet fut "future annotations"
 	from __future__ import annotations
 
+snippet typ "future annotations"
+	from typing import TYPE_CHECKING
+	if TYPE_CHECKING:
+	    ${0:pass}
+
 snippet bp "breakpoint"
 	breakpoint()
 
@@ -28,6 +33,28 @@ snippet clsdata ""
 	def setUpTestData(cls):
 		$TM_SELECTED_TEXT
 
+snippet main "__main__"
+	def main():
+		${0:pass}
+
+
+	if __name__ == "__main__":
+		main()
+
+snippet args "description"
+	import argparse
+	parser = argparse.ArgumentParser()
+	parser.add_argument('${0:name}')
+	args = parser.parse_args()
+	${0:name} = args.${0:name}
+
+snippet init "__init__"
+	def __init__(self, ${1:*args, **kwargs}):
+		super().__init__($1)
+
+snippet bp "breakpoint"
+	breakpoint()
+
 snippet prop "property"
 	@property
 	def ${0:name}(self):
@@ -40,21 +67,6 @@ snippet cprop "cached property"
 			pass
 		return self._${0:name}
 
-snippet main "__main__"
-	if __name__ == "__main__":
-		pass
-
-snippet init "__init__"
-	def __init__(self, ${1:*args, **kwargs}):
-		super(${2:cls, self}).__init__($1)
-
-snippet arg "description"
-	import argparse
-	parser = argparse.ArgumentParser()
-	parser.add_argument('${0:name}')
-	args = parser.parse_args()
-	${0:name} = args.${0:name}
-
 snippet open "read file"
 	with open("${0:filename.txt}") as f:
 		content = f.read()
@@ -64,3 +76,7 @@ snippet op "Optional"
 
 snippet lc "List comprehension"
 	[${2:value} for $2 in $TM_SELECTED_TEXT]
+
+snippet logger "Create logger"
+	import logging
+	logger = logging.getLogger(__name__)
