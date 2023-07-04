@@ -1,11 +1,11 @@
 local utils = require("utils")
 local Autocmd = utils.Autocmd
 
-vim.o.updatetime = "100"
+vim.o.updatetime = 100
 
 -- Whitespace options is mainly based on Python/Django
 vim.o.expandtab = true -- Make spaces not tabs! Tabs runs you out!
-vim.o.textwidth = "120"
+vim.o.textwidth = 120
 -- Python development teaches you that 4 = good for indention
 vim.o.shiftwidth = 4
 vim.o.tabstop = 4
@@ -22,7 +22,7 @@ vim.o.wb = false
 vim.o.swapfile = false
 
 vim.o.inccommand = "nosplit" -- Shows the effects of a command incrementally, as you type
-vim.o.nosmartindent = true -- Python comments (#) can't handle smartindent
+vim.o.smartindent = false -- Python comments (#) can't handle smartindent
 vim.o.tags = "./tags;,tags,./.git/tags,.git/tags"
 vim.opt.formatoptions:append("l") -- Formatoptions: Don't break already long lines
 
@@ -37,7 +37,7 @@ vim.o.ruler = true -- Shows line & column number
 vim.o.scrolloff = 5 -- Always keep 7 lines above and below cursor
 vim.o.showcmd = true -- Shows the half-finished command when typed
 vim.o.showmatch = true -- Show matching brackets when cursor is over one of them
-vim.o.foldlevel = "999"
+vim.o.foldlevel = 999
 
 vim.o.smartcase = true
 vim.o.ignorecase = true
