@@ -15,7 +15,7 @@ local luasnipConfig = function()
   -- Load my local snippets as well
   local ls = require("luasnip")
   require("luasnip.loaders.from_snipmate").lazy_load()
-  require("telescope").load_extension("luasnip")
+  pcall(function() require("telescope").load_extension("luasnip") end)
   -- Press <Tab> on selected text to replace it with the snippet, potentially reusing the content
   ls.config.set_config({ enable_autosnippets = true, store_selection_keys = "<Tab>" })
   vim.keymap.set(
