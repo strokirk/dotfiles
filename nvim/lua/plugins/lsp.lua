@@ -51,7 +51,7 @@ local lzpZeroConfig = function()
   vim.keymap.set("n", "<F9>", vim.lsp.buf.format, {})
 end
 
-return {
+local plugins = {
   {
     "jose-elias-alvarez/null-ls.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -66,7 +66,7 @@ return {
   },
   {
     "folke/neodev.nvim", -- LSP configuration for Neovim config code
-    config = function() require("neodev").setup() end,
+    config = true
   },
   {
     "VonHeikemen/lsp-zero.nvim",
@@ -102,8 +102,10 @@ return {
       })
 
       vim.o.foldmethod = "expr"
-      vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+      vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
       vim.o.foldenable = false -- Disable folds on vim startup
     end,
   },
 }
+
+return plugins

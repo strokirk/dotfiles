@@ -4,7 +4,10 @@
 
 local plugins = {}
 
-vim.list_extend(plugins, {
+local skip = function(list) end
+local add = function(list) vim.list_extend(plugins, list) end
+
+add({
   "PeterRincker/vim-argumentative", -- Adds arguments manipulations with <, [, a,
   "ThePrimeagen/refactoring.nvim", -- Adds lua functions and telescope extensions to extract functions & variables, etc.
   "djoshea/vim-autoread", -- Automatically reload files when they change on disk, on more than just BufEnter
@@ -19,6 +22,9 @@ vim.list_extend(plugins, {
   "tpope/vim-repeat", -- Adds . to repeat other tpope plugin mappings
   "tpope/vim-surround", -- Adds mappings for changing 'surrounding' characters, like ds( ...
   "wellle/targets.vim", -- Adds more text objects, like aa (arguments), aq (general quotes), ab (general brackets), etc.
+})
+
+add({
   {
     "FooSoft/vim-argwrap", -- Adds :ArgWrap, which 'unfolds' lists and arguments
     init = function() vim.g.argwrap_tail_comma = 1 end,
@@ -88,15 +94,14 @@ vim.list_extend(plugins, {
 })
 
 -- Quickfix related
-vim.list_extend(plugins, {
+add({
   "kevinhwang91/nvim-bqf", -- Adds a preview window for the selected quickfix iitem
   "romainl/vim-qf", -- Adds mappings to toggle quickfix list, and more
-  "fcpg/vim-kickfix", -- Allows you do edit quickfix items with regular old `dd`
   { "folke/trouble.nvim", opts = { auto_preview = false } }, -- Adds :Trouble, another take on the quickfix list
 })
 
 -- Lazy loaded
-vim.list_extend(plugins, {
+add({
   {
     "lewis6991/gitsigns.nvim", -- Adds Git status in sign column
     config = true,
