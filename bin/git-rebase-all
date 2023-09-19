@@ -13,6 +13,8 @@ RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
 RESET=$(tput sgr0)
 
+failed=()
+
 for branch in "${branches[@]}"; do
     git checkout "$branch" --quiet;
 	base=$(git config branch.$(git symbolic-ref --short HEAD).rebased-on)
@@ -21,7 +23,17 @@ for branch in "${branches[@]}"; do
     else
         git rebase --abort
         echo "${RED}✗${RESET} $branch"
+        failed+=("$branch")
     fi
 done;
+
+if [ ${#failed[@]} -gt 0 ]; then
+    echo
+    echo "Failed to rebase:"
+    for branch in "${failed[@]}"; do
+        echo "  $branch"
+    done
+    exit 1
+fi
 
 git checkout master
