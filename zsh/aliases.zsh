@@ -111,6 +111,38 @@ function datet() { date +"%Y-%m-%d+%H%M" }
 function tar-diff() { diff -y --suppress-common-lines <(tar-sizes $1) <(tar-sizes $2) }
 function tar-sizes() { tar -ztvf $1 2>&1 | awk '{print $5 "\t" $9}' | sort -k2 }
 
+function github-browse() { hub browse $(git remote get-url origin | sd '.*:(.*).git' '$1')/tree/master/$1 }
+function npmg() { npm install -g "$@" }
+
+alias pc='pre-commit run --files $(git branch-files) $(git changed)'
+alias pca='pre-commit run --all-files'
+
+# Smaller, more readable docker ps output
+alias docker-this='docker run -it --rm -v $(realpath .):/app -w /app'
+alias dps=docker-ps
+alias drm='docker run --rm -it'
+function docker-ps() { docker ps $@ --format 'table {{.ID}}\t{{.Image}}\t{{.Names}}\t{{.State}} : {{.RunningFor}}'; }
+
+function append-gitignore()        { echo >> .gitignore        "$@" }
+function append-gitignore-global() { echo >> ~/.gitignore      "$@" }
+function append-gitignore-local()  { echo >> .git/info/exclude "$@" }
+function append-ignore()           { echo >> .ignore           "$@" }
+
+#
+# PYTHON DEVELOPMENT
+#
+
+function pip-install-devtools() { pip install icecream ruff pytest pytest-network pytest-xdist pytest-sugar pytest-django pytest-cov }
+function pip-to-be-square() { pip freeze | sd "(.*)==.*" '$1' | grep -v '^#' | grep -v '^-' | xargs -n5 pip install -U --pre }
+function py-sitepackages() { python -c 'import site; print(site.getsitepackages()[0])' }
+function pytest-changed-files() { pytest $(git-changed-folders) "$@" }
+function x-piprot() { piprot $1 -o | sort -k 4 -n | tee piprot.txt }
+
+
+#
+# SEARCHING
+#
+
 function nvim-fzf-files() {
     local line
     line=$(fd | fzf --multi --exit-0 --select-1 --query="$@") &&
@@ -130,26 +162,3 @@ function nsg() { $EDITOR -q =(sg "$@") }
 function rgp() { rg "$*" }
 alias rgu="rg -u --hidden -M200 -g '!.git/'"
 alias fdu="fd -u --hidden"
-
-function github-browse() { hub browse $(git remote get-url origin | sd '.*:(.*).git' '$1')/tree/master/$1 }
-function npmg() { npm install -g "$@" }
-
-function pip-install-devtools() { pip install icecream ruff pytest pytest-network pytest-xdist pytest-sugar pytest-django pytest-cov }
-function pip-to-be-square() { pip freeze | sd "(.*)==.*" '$1' | grep -v '^#' | grep -v '^-' | xargs -n5 pip install -U --pre }
-function py-sitepackages() { python -c 'import site; print(site.getsitepackages()[0])' }
-function pytest-changed-files() { pytest $(git-changed-folders) "$@" }
-function x-piprot() { piprot $1 -o | sort -k 4 -n | tee piprot.txt }
-
-alias pc='pre-commit run --files $(git branch-files) $(git changed)'
-alias pca='pre-commit run --all-files'
-
-# Smaller, more readable docker ps output
-alias docker-this='docker run -it --rm -v $(realpath .):/app -w /app'
-alias dps=docker-ps
-alias drm='docker run --rm -it'
-function docker-ps() { docker ps $@ --format 'table {{.ID}}\t{{.Image}}\t{{.Names}}\t{{.State}} : {{.RunningFor}}'; }
-
-function append-gitignore()        { echo >> .gitignore        "$@" }
-function append-gitignore-global() { echo >> ~/.gitignore      "$@" }
-function append-gitignore-local()  { echo >> .git/info/exclude "$@" }
-function append-ignore()           { echo >> .ignore           "$@" }
