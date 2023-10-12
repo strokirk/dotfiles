@@ -12,6 +12,7 @@ link:
 	ln -s -f "$(realpath tmux.conf)" ~/.tmux.conf
 	ln -s -f "$(realpath taskrc)" ~/.taskrc
 	ln -s -f "$(realpath ripgreprc)" ~/.ripgreprc
+	touch ~/.hushlogin  # Makes login shells quick and "quiet"
 
 pipx:
 	pipx install black
