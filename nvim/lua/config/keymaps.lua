@@ -75,7 +75,18 @@ vim.keymap.set("x", "s", "/")
 vim.keymap.set("c", "<c-a>", "<home>")
 
 -- This is a great shortcut for fast redrawing and resetting highlight.
-vim.keymap.set("n", "<silent>", "<C-l> :<C-u>nohlsearch<bar>diffupdate<cr><C-l>")
+vim.keymap.set("n", "<C-l>", function()
+  vim.cmd("nohlsearch")
+  vim.cmd("diffupdate")
+  vim.cmd("mode")
+  -- Close floating windows
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    local config = vim.api.nvim_win_get_config(win)
+    if config.relative ~= "" then -- is_floating_window?
+      vim.api.nvim_win_close(win, false) -- do not force
+    end
+  end
+end, { silent = true })
 
 -- Utilize Swedish Characters:
 
