@@ -33,7 +33,7 @@ pip-env:
 brew:
 	brew install -q mosh youtube-dl task buku k9s tmux lazydocker tig tokei tree hivemind hyperfine
 	brew install -q zsh ncdu pipx pstree xsv httpie gnu-sed ripgrep sd jq yq just
-	brew install -q neovim emojify fzf fd exa universal-ctags zplug bat glow
+	brew install -q neovim emojify fzf fd eza universal-ctags zplug bat glow
 	brew install -q romkatv/powerlevel10k/powerlevel10k ruff
 	brew install --cask docker dash insomnia
 	brew install --cask spotify
