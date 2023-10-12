@@ -30,7 +30,8 @@
     axe = log -p -G
     branch-files = diff origin/master...HEAD --diff-filter=AMR --name-only
     branch-name = rev-parse --abbrev-ref HEAD
-    changed = "!(git diff --name-only --staged --diff-filter=AMR ; git diff --name-only --diff-filter=AMR;) | sort -u"
+    conflict-files = diff --diff-filter=U --name-only
+    changed = diff HEAD --name-only --diff-filter=AMR
     done = "!git fetch && git rebase origin/master"
     edit-changed = "!$EDITOR $(git changed)"
     publish = "!git push --set-upstream origin $(git branch-name)"
