@@ -316,3 +316,11 @@ vim.keymap.set("n", "<leader>a", ":ArgWrap<cr>")
 -- QF:
 vim.keymap.set("n", "<leader>q", "<Plug>(qf_qf_toggle_stay)", { remap = true, desc = "Toggle quickfix window" })
 vim.keymap.set("n", "<leader>l", "<Plug>(qf_loc_toggle_stay)", { remap = true, desc = "Toggle location list window" })
+
+vim.keymap.set("n", "<leader>xd", ":TroubleToggle document_diagnostics<cr>")
+vim.keymap.set("n", "<leader>xq", ":TroubleToggle quickfix<cr>")
+vim.keymap.set("n", "<leader>xx", ":TroubleToggle<cr>")
+vim.keymap.set("n", "gR", ":TroubleToggle lsp_references<cr>")
+
+vim.keymap.set("n", "<leader>w", "viw")
+vim.keymap.set("n", "<leader>W", "viW")

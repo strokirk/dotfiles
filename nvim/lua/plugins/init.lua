@@ -2,12 +2,9 @@
 -- lua/plugins/testing.lua
 -- lua/plugins/lsp.lua
 
-local plugins = {}
+local plugins = utils.List()
 
-local skip = function(list) end
-local add = function(list) vim.list_extend(plugins, list) end
-
-add({
+plugins.add({
   "PeterRincker/vim-argumentative", -- Adds arguments manipulations with <, [, a,
   "ThePrimeagen/refactoring.nvim", -- Adds lua functions and telescope extensions to extract functions & variables, etc.
   "djoshea/vim-autoread", -- Automatically reload files when they change on disk, on more than just BufEnter
@@ -24,7 +21,7 @@ add({
   "wellle/targets.vim", -- Adds more text objects, like aa (arguments), aq (general quotes), ab (general brackets), etc.
 })
 
-add({
+plugins.add({
   {
     "FooSoft/vim-argwrap", -- Adds :ArgWrap, which 'unfolds' lists and arguments
     init = function() vim.g.argwrap_tail_comma = 1 end,
@@ -94,14 +91,14 @@ add({
 })
 
 -- Quickfix related
-add({
+plugins.add({
   "kevinhwang91/nvim-bqf", -- Adds a preview window for the selected quickfix iitem
   "romainl/vim-qf", -- Adds mappings to toggle quickfix list, and more
   { "folke/trouble.nvim", opts = { auto_preview = false } }, -- Adds :Trouble, another take on the quickfix list
 })
 
 -- Lazy loaded
-add({
+plugins.add({
   {
     "lewis6991/gitsigns.nvim", -- Adds Git status in sign column
     config = true,
@@ -114,4 +111,4 @@ add({
   { "sQVe/sort.nvim", cmd = "Sort" }, -- Sort inside lines with :Sort
 })
 
-return plugins
+return plugins.values

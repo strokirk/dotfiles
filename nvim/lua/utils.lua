@@ -25,4 +25,11 @@ M.Autocmd = {
   end,
 }
 
+M.List = function()
+  local values = {}
+  local skip = function(list) end
+  local add = function(list) vim.list_extend(values, list) end
+  return { skip = skip, add = add, values = values }
+end
+
 return M

@@ -10,12 +10,4 @@ require("bootstrap")
 require("lazy").setup({ import = "plugins" }, require("lazy_options"))
 
 -- Colorscheme
-vim.cmd("colorscheme molokai")
-
-vim.keymap.set("n", "<leader>xd", ":TroubleToggle document_diagnostics<cr>")
-vim.keymap.set("n", "<leader>xq", ":TroubleToggle quickfix<cr>")
-vim.keymap.set("n", "<leader>xx", ":TroubleToggle<cr>")
-vim.keymap.set("n", "gR", ":TroubleToggle lsp_references<cr>")
-
-vim.keymap.set("n", "<leader>w", "viw")
-vim.keymap.set("n", "<leader>W", "viW")
+vim.cmd("silent! colorscheme molokai")
