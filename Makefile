@@ -1,3 +1,6 @@
+format:
+	pre-commit run -a
+
 link:
 	mkdir -p ~/.config
 	[ -d ~/.config/nvim ] || ln -s -f "$(realpath nvim)" ~/.config/nvim
