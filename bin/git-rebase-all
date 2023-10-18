@@ -16,8 +16,8 @@ failed=()
 
 for branch in "${branches[@]}"; do
     git checkout "$branch" --quiet;
-	base=$(git config branch.$(git symbolic-ref --short HEAD).rebased-on)
-    if git rebase "${base:=master}" --quiet; then
+	base=$(git-default-branch);
+    if git rebase "$base" --quiet; then
         echo "${GREEN}✔${RESET} $branch"
     else
         git rebase --abort
