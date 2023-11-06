@@ -12,6 +12,8 @@
 	default = upstream
 [pull]
 	ff = only
+[rebase]
+	updateRefs = true
 [commit]
     # Show diff in commit message editor
 	verbose = 1
