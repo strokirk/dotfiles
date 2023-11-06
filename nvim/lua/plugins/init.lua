@@ -2,7 +2,9 @@
 -- lua/plugins/testing.lua
 -- lua/plugins/lsp.lua
 
-local plugins = utils.List()
+local utils = require("utils")
+
+local plugins = utils.PluginList()
 
 plugins.add({
   "PeterRincker/vim-argumentative", -- Adds arguments manipulations with <, [, a,

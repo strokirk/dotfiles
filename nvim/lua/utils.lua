@@ -17,19 +17,42 @@ M.Autocmd = {
   BufRead = function(opts) create_au("BufRead", opts) end,
   Filetype = function(opts) create_au("Filetype", opts) end,
   TextYankPost = function(opts) create_au("TextYankPost", opts) end,
-  ConvertFiletype = function(pattern, filetype)
+}
+
+function M.FiletypeConversion(mapping)
+  for pattern, filetype in pairs(mapping) do
     create_au("BufRead", {
       pattern = pattern,
       callback = function() vim.api.nvim_cmd({ cmd = "setfiletype", args = { filetype } }, {}) end,
     })
-  end,
-}
+  end
+end
 
-M.List = function()
+function M.FiletypeSettings(mapping)
+  for pattern, callback in pairs(mapping) do
+    create_au("Filetype", { pattern = pattern, callback = callback, desc = "Filetype Settings for " .. pattern })
+  end
+end
+
+function M.PluginList()
   local values = {}
-  local skip = function(list) end
+  local skip = function() end
   local add = function(list) vim.list_extend(values, list) end
-  return { skip = skip, add = add, values = values }
+  local configure = function(plugin_name, config)
+    -- find plugin and merge the config table with the plugin
+    for i, plugin in ipairs(values) do
+      if plugin == plugin_name or plugin[1] == plugin_name then
+        values[i] = vim.tbl_extend("force", plugin, config)
+        return
+      end
+    end
+  end
+  return {
+    add = add,
+    skip = skip,
+    values = values,
+    configure = configure,
+  }
 end
 
 return M

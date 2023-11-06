@@ -1,3 +1,5 @@
+local utils = require("utils")
+
 -- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#diagnosticTag
 local DiagnosticTagUnnecessary = 1
 
@@ -51,7 +53,9 @@ local lzpZeroConfig = function()
   vim.keymap.set("n", "<F9>", vim.lsp.buf.format, {})
 end
 
-local plugins = {
+local plugins = utils.PluginList()
+
+plugins.add({
   {
     "jose-elias-alvarez/null-ls.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -106,6 +110,6 @@ local plugins = {
       vim.o.foldenable = false -- Disable folds on vim startup
     end,
   },
-}
+})
 
-return plugins
+return plugins.values

@@ -38,6 +38,7 @@ vim.o.scrolloff = 5 -- Always keep 7 lines above and below cursor
 vim.o.showcmd = true -- Shows the half-finished command when typed
 vim.o.showmatch = true -- Show matching brackets when cursor is over one of them
 vim.o.foldlevel = 999
+vim.wo.foldtext = "v:lua.vim.treesitter.foldtext()" -- Use syntax highlighting in fold summaries
 
 vim.o.smartcase = true
 vim.o.ignorecase = true
@@ -62,22 +63,20 @@ vim.g.loaded_python3_provider = 0
 Autocmd.TextYankPost({ pattern = "*", callback = function() vim.highlight.on_yank({ timeout = 350 }) end })
 
 utils.editorconfig_override({ filetype = "gitcommit", prop = "max_line_length", value = "72" })
-Autocmd.Filetype({ pattern = "gitcommit", callback = function() vim.wo.spell = true end })
-
-Autocmd.Filetype({ pattern = "qf", callback = function() vim.wo.wrap = false end })
-
-Autocmd.Filetype({ pattern = "yaml", callback = function() vim.wo.foldmethod = "indent" end })
-Autocmd.Filetype({ pattern = "elixir", callback = function() vim.wo.foldmethod = "indent" end })
-Autocmd.Filetype({ pattern = "markdown", callback = function() vim.bo.textwidth = 73 end })
-Autocmd.Filetype({ pattern = "vim", callback = function() vim.wo.foldmethod = "marker" end })
-Autocmd.Filetype({ pattern = "vue", callback = function() vim.bo.equalprg = "prettier --parser vue" end })
-Autocmd.Filetype({ pattern = "vue", callback = function() vim.bo.formatprg = "prettier --parser vue" end })
-Autocmd.Filetype({ pattern = "json", callback = function() vim.bo.equalprg = "prettier --parser json" end })
-Autocmd.Filetype({ pattern = "json", callback = function() vim.bo.formatprg = "prettier --parser json" end })
-Autocmd.Filetype({ pattern = "json5", callback = function() vim.bo.equalprg = "prettier --parser json5" end })
-Autocmd.Filetype({ pattern = "json5", callback = function() vim.bo.formatprg = "prettier --parser json5" end })
-
-Autocmd.ConvertFiletype(".babelrc", "json5.json")
-Autocmd.ConvertFiletype("tsconfig.json", "json5.json")
-Autocmd.ConvertFiletype("Dockerfile.*", "dockerfile")
-Autocmd.ConvertFiletype("poetry.lock", "toml")
+utils.FiletypeConversion({
+  [".babelrc"] = "json5.json",
+  ["tsconfig.json"] = "json5.json",
+  ["Dockerfile.*"] = "dockerfile",
+  ["poetry.lock"] = "toml",
+})
+utils.FiletypeSettings({
+  ["gitcommit"] = function() vim.wo.spell = true end,
+  ["markdown"] = function() vim.bo.textwidth = 73 end,
+  ["lua"] = function() vim.wo.wrap = false end,
+  ["vue"] = function()
+    vim.bo.formatprg = "prettier --parser vue"
+    vim.bo.commentstring = "// %s"
+  end,
+  ["json"] = function() vim.bo.formatprg = "prettier --parser json" end,
+  ["json5"] = function() vim.bo.formatprg = "prettier --parser json5" end,
+})
