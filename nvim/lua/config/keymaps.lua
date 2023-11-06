@@ -289,6 +289,8 @@ vim.keymap.set("n", "<leader>,p", tabdropcfg("lua/plugins/init.lua"), { desc = "
 vim.keymap.set("n", "<leader>,m", tabdropcfg("lua/config/keymaps.lua"), { desc = "Edit mappings" })
 vim.keymap.set("n", "<leader>,k", tabdropcfg("lua/config/keymaps.lua"), { desc = "Edit mappings" })
 vim.keymap.set("n", "<leader>,s", tabdropcfg("lua/config/settings.lua"), { desc = "Edit settings" })
+vim.keymap.set("n", "<leader>,l", tabdropcfg("lua/plugins/testing.lua"), { desc = "Edit temporary settings" })
+vim.keymap.set("n", "<leader>,w", function() vim.cmd("tab drop .nvim.lua") end, { desc = "Edit workspace settings" })
 
 Autocmd.Filetype({
   pattern = "lua",
@@ -305,6 +307,9 @@ Autocmd.Filetype({
     vim.keymap.set("n", "<leader>K", ":silent !open https://pypi.org/project/<cword>/<cr>")
   end,
 })
+
+-- Lazy:
+vim.keymap.set("n", "<leader>L", "<cmd>Lazy<cr>")
 
 -- EasyAlign:
 vim.keymap.set("x", "<leader>=", "<Plug>(EasyAlign)")
