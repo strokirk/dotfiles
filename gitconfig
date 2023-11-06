@@ -35,7 +35,7 @@
     done = "!git fetch && git rebase origin/master"
     edit-changed = "!$EDITOR $(git changed)"
     publish = "!git push --set-upstream origin $(git branch-name)"
-    reset-upstream = "!git reset --hard $(git upstream)"
+    reset-upstream = reset --hard "@{upstream}"
     sync = fetch origin master:master
     back = "!git undo && git unstage"
     undo = reset --soft HEAD^
@@ -44,7 +44,7 @@
     finish = "!git-finish"
 
     # List aliases
-    aliases = "!git config --list | grep '^alias' | sort | sed 's/^alias.//'"
+    aliases = config --get-regexp '^alias'
     branches = branch -v
     tags = tag -l
 
