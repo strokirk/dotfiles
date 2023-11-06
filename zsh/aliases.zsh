@@ -9,7 +9,7 @@ else
     alias la='ls -A'
     alias ll='ls -alF --time-style=long-iso'
 fi
-alias el="exa -l --git --group-directories-first"
+alias el="eza -l --no-user --git --group-directories-first"
 alias ela="el -a"
 alias l="el"
 
@@ -29,16 +29,22 @@ alias h=hivemind
 alias w="watchexec -r"
 alias wp="watchexec -r -e py"
 
+alias pq="pueue"
+alias pa="pq add --"
+alias pqc="pq clean"
+
 alias bp=bpython
 alias p=python
-alias pt=pytest
-alias ptn="pytest -nauto"
+alias pt="pytest --no-header"
+alias ptn="pytest --no-header -nauto"
+alias wpn="wp -- pytest --no-header -nauto"
 
 alias :wq=exit
 alias help="run-help" # help is called run-help in zsh
 alias ni="nvim"
 alias nit='nvim -t'
 alias rc='$EDITOR ~/.zshrc'
+alias rca='$EDITOR $DOTFILES_DIR/zsh/aliases.zsh'
 alias rcl='$EDITOR ~/zshrc.local'
 alias nrc="nvim -c 'e \$MYVIMRC'"
 alias hist='$EDITOR $HISTFILE'
@@ -137,7 +143,7 @@ function pip-to-be-square() { pip freeze | sd "(.*)==.*" '$1' | grep -v '^#' | g
 function py-sitepackages() { python -c 'import site; print(site.getsitepackages()[0])' }
 function pytest-changed-files() { pytest $(git-changed-folders) "$@" }
 function x-piprot() { piprot $1 -o | sort -k 4 -n | tee piprot.txt }
-
+function ptc() { pytest --cov-report html --cov "$1" "$1" }
 
 #
 # SEARCHING
@@ -156,7 +162,7 @@ function nvim-fzf-tags() {
     nvim -t ${line}
 }
 alias nift=nvim-fzf-tags
-function nrg() { $EDITOR -q =(rg --vimgrep "$@") }
+function nrg() { $EDITOR -q =(rg --no-heading --with-filename --line-number --column --color=never "$@") }
 function nsg() { $EDITOR -q =(sg "$@") }
 
 function rgp() { rg "$*" }
