@@ -306,9 +306,6 @@ Autocmd.Filetype({
 -- Lazy:
 vim.keymap.set("n", "<leader>L", "<cmd>Lazy<cr>")
 
--- EasyAlign:
-vim.keymap.set("x", "<leader>=", "<Plug>(EasyAlign)")
-
 -- Fugitive:
 vim.keymap.set("n", "<leader>gb", ":Git blame<cr>")
 vim.keymap.set("n", "<leader>gw", ":Gw<cr>")

@@ -64,7 +64,7 @@ plugins.add({
   { "ThePrimeagen/refactoring.nvim", lazy = true }, -- Adds lua functions and telescope extensions to extract functions & variables, etc.
   { "andythigpen/nvim-coverage", cmd = "Coverage", config = true }, -- Adds :Coverage, displays code coverage
   { "stevearc/overseer.nvim" }, -- Adds :OverseerRun, a code runner
-  { "junegunn/vim-easy-align", cmd = "EasyAlign" }, -- Adds :EasyAlign, that aligns columns of text
+  { "junegunn/vim-easy-align" }, -- Adds :EasyAlign, that aligns columns of text
   { "folke/twilight.nvim", cmd = "Twilight" }, -- Adds :Twilight, a code flashlight
   { "mattn/emmet-vim", cmd = "Emmet" }, -- Adds :Emmet, a HTML boilerplate generator
   { "sQVe/sort.nvim", cmd = "Sort", opts = {} }, -- Adds :Sort, for sorting inside lines
@@ -78,6 +78,14 @@ plugins.add({
 
 vim.g.kickfix_zebra = 0
 vim.g.argwrap_tail_comma = 1
+
+-- EasyAlign:
+plugins.configure("junegunn/vim-easy-align", {
+  cmd = "EasyAlign",
+  keys = {
+    { "<leader>=", "<Plug>(EasyAlign)", mode = { "x", "n" }, desc = "EasyAlign <motion>" },
+  },
+})
 
 plugins.configure("stevearc/overseer.nvim", {
   cmd = { "OverseerRun", "OverseerToggle" },
