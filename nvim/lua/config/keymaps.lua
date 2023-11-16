@@ -152,11 +152,6 @@ vim.keymap.set("i", "<C-U>", "<C-G>u<C-U>")
 vim.keymap.set("n", "&", ":&&<CR>")
 vim.keymap.set("x", "&", ":&&<CR>")
 
--- Text Replacement with <Ctrl-r>
--- By pressing <ctrl-r> in visual mode you will be prompted to enter text to replace with.
--- Press enter and then confirm each change you agree with 'y' or decline with 'n'.
-vim.keymap.set("v", "<C-r>", '"ly:%s/<C-r>l//gc<left><left><left>')
-
 -- Unload current buffer and go to previous. (Thanks Mud)
 -- Useful for keeping the window open, which :bd<cr> doesn't.
 -- command! CloseBuffer bp <bar> bd #
