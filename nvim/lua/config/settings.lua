@@ -45,7 +45,11 @@ vim.o.ignorecase = true
 vim.o.inccommand = "nosplit"
 
 -- Line Wrapping:
-vim.o.cpoptions = "n" -- The 'number' column used for wrapped text
+vim.opt.cpoptions = table.concat({
+  "n", -- n: Use 'number' column for wrapped text
+  "B", -- B: Include blackslashes verbatim in mappings
+  "F", -- F: Set buffer filename when writing a file
+})
 vim.o.linebreak = true -- Makes vim try to wrap lines at non-word characters
 vim.o.showbreak = "+++" -- Text to put before wrapped text
 vim.o.wrap = true
