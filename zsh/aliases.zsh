@@ -164,6 +164,7 @@ function nvim-fzf-tags() {
 alias nift=nvim-fzf-tags
 function nrg() { $EDITOR -q =(rg --no-heading --with-filename --line-number --column --color=never "$@") }
 function nsg() { $EDITOR -q =(sg "$@") }
+function nic() { $EDITOR $(git conflict-files) }
 
 function rgp() { rg "$*" }
 alias rgu="rg -u --hidden -M200 -g '!.git/'"
