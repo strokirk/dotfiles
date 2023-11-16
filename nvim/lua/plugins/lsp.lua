@@ -49,28 +49,14 @@ local lzpZeroConfig = function()
   lsp.configure("yamlls", { settings = { yaml = { schemaStore = { enable = false } } } })
 
   lsp.setup()
-
-  vim.keymap.set("n", "<F9>", vim.lsp.buf.format, {})
 end
 
 local plugins = utils.PluginList()
 
 plugins.add({
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      local lsp = require("null-ls")
-      lsp.setup({
-        sources = {
-          lsp.builtins.formatting.black,
-        },
-      })
-    end,
-  },
-  {
     "folke/neodev.nvim", -- LSP configuration for Neovim config code
-    config = true
+    config = true,
   },
   {
     "VonHeikemen/lsp-zero.nvim",
@@ -103,11 +89,30 @@ plugins.add({
     config = function()
       require("nvim-treesitter.configs").setup({
         highlight = { enable = true, additional_vim_regex_highlighting = false },
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = "<CR>",
+            scope_incremental = "<CR>",
+            node_incremental = "<TAB>",
+            node_decremental = "<S-TAB>",
+          },
+        },
       })
-
-      vim.o.foldmethod = "expr"
-      vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-      vim.o.foldenable = false -- Disable folds on vim startup
+      utils.Autocmd.BufRead({
+        pattern = "*",
+        callback = function(ev)
+          local buf_name = vim.api.nvim_buf_get_name(ev.buf)
+          local file_size = vim.api.nvim_call_function("getfsize", { buf_name })
+          -- Only enable folding for files smaller than 256 KB
+          if file_size < 256 * 1024 then
+            vim.o.foldmethod = "expr"
+            vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+            vim.o.foldenable = false
+          end
+        end,
+        desc = "Enable folding via Treesitter",
+      })
     end,
   },
 })
