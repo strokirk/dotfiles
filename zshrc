@@ -32,6 +32,7 @@ if [ $(command -v zplug) ]; then
 fi
 
 # Completion
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 fpath=($BREW_PREFIX/share/zsh/site-functions $fpath)
 fpath=($HOME/.zsh/completion $fpath)
 autoload -Uz compinit
