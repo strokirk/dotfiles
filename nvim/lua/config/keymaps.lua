@@ -291,7 +291,7 @@ Autocmd.Filetype({
   pattern = "lua",
   callback = function()
     -- Open quoted text in Github as a repo
-    vim.keymap.set("n", "<leader>K", ":silent !open https://github.com/<cfile><cr>")
+    vim.keymap.set("n", "<leader>K", ":silent !open https://github.com/<cfile><cr>", { desc = "Open Github" })
   end,
 })
 
@@ -299,7 +299,7 @@ Autocmd.Filetype({
   pattern = "requirements",
   callback = function()
     -- Open quoted text in PyPI
-    vim.keymap.set("n", "<leader>K", ":silent !open https://pypi.org/project/<cword>/<cr>")
+    vim.keymap.set("n", "<leader>K", ":silent !open https://pypi.org/project/<cword>/<cr>", { desc = "Open PyPI" })
   end,
 })
 
