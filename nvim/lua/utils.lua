@@ -41,7 +41,13 @@ function M.PluginList()
   local configure = function(plugin_name, config)
     -- find plugin and merge the config table with the plugin
     for i, plugin in ipairs(values) do
-      if plugin == plugin_name or plugin[1] == plugin_name then
+      -- if plugin is a string, then it's the name of the plugin
+      if plugin == plugin_name then
+        values[i] = vim.tbl_extend("force", { plugin }, config)
+        return
+      end
+      -- if plugin is a table, then the first element is the name of the plugin
+      if plugin[1] == plugin_name then
         values[i] = vim.tbl_extend("force", plugin, config)
         return
       end

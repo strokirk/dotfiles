@@ -22,18 +22,14 @@ plugins.add({
 })
 
 plugins.add({
-  { "nvim-neo-tree/neo-tree.nvim" },
-  { "nvim-telescope/telescope.nvim" }, -- ThePrimaeagen screamed, so I installed it
+  "nvim-neo-tree/neo-tree.nvim",
+  "nvim-telescope/telescope.nvim", -- ThePrimaeagen screamed, so I installed it
   { "nvim-lualine/lualine.nvim", opts = { options = { theme = "onedark" } } },
 })
 
 plugins.add({
-  { "github/copilot.vim" }, -- Github :Copilot
-  {
-    "ruifm/gitlinker.nvim", -- gitlinker.txt: Copy Github link to file line with <leader>gy
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = true,
-  },
+  "github/copilot.vim", -- Github :Copilot
+  "ruifm/gitlinker.nvim", -- gitlinker.txt: Copy Github link to file line with <leader>gy
   {
     "haya14busa/vim-asterisk", -- Adds z* anv x_* mappings. 🔍️
     config = function()
@@ -55,21 +51,16 @@ plugins.add({
 
 -- Lazy loaded
 plugins.add({
-  {
-    "lewis6991/gitsigns.nvim", -- Adds Git status in sign column
-    config = true,
-    lazy = true,
-    event = { "BufReadPre", "BufNewFile" },
-  },
+  "junegunn/vim-easy-align", -- Adds :EasyAlign, that aligns columns of text
+  "lewis6991/gitsigns.nvim", -- Adds Git status in sign column
+  "stevearc/conform.nvim", -- 🏎️ Blazingly Fast Formatter that Just Works™️
+  "stevearc/overseer.nvim", -- Adds :OverseerRun, a code runner
+  { "FooSoft/vim-argwrap", cmd = "ArgWrap" }, -- Adds :ArgWrap, which 'unfolds' lists and arguments
   { "ThePrimeagen/refactoring.nvim", lazy = true }, -- Adds lua functions and telescope extensions to extract functions & variables, etc.
   { "andythigpen/nvim-coverage", cmd = "Coverage", config = true }, -- Adds :Coverage, displays code coverage
-  { "stevearc/overseer.nvim" }, -- Adds :OverseerRun, a code runner
-  { "junegunn/vim-easy-align" }, -- Adds :EasyAlign, that aligns columns of text
   { "folke/twilight.nvim", cmd = "Twilight" }, -- Adds :Twilight, a code flashlight
   { "mattn/emmet-vim", cmd = "Emmet" }, -- Adds :Emmet, a HTML boilerplate generator
   { "sQVe/sort.nvim", cmd = "Sort", opts = {} }, -- Adds :Sort, for sorting inside lines
-  { "FooSoft/vim-argwrap", cmd = "ArgWrap" }, -- Adds :ArgWrap, which 'unfolds' lists and arguments
-  { "stevearc/conform.nvim" }, -- ⚡ Formatter
 })
 
 --
@@ -87,6 +78,15 @@ plugins.configure("junegunn/vim-easy-align", {
   },
 })
 
+plugins.configure("lewis6991/gitsigns.nvim", {
+  config = true,
+  lazy = true,
+  event = { "BufReadPre", "BufNewFile" },
+})
+plugins.configure("ruifm/gitlinker.nvim", {
+  dependencies = { "nvim-lua/plenary.nvim" },
+  config = true,
+})
 plugins.configure("stevearc/overseer.nvim", {
   cmd = { "OverseerRun", "OverseerToggle" },
   config = true,
