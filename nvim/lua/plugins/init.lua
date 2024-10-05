@@ -179,6 +179,12 @@ plugins.configure("nvim-telescope/telescope.nvim", {
     vim.keymap.set("n", "<C-p>", builtin.git_files, {})
     vim.keymap.set("n", "<leader>s", ":Telescope grep_string<cr>", {})
     vim.keymap.set("n", "<leader>t", function() builtin.builtin({ include_extensions = true }) end)
+    vim.keymap.set(
+      "n",
+      "<leader>.",
+      function() builtin.find_files({ cwd = vim.fn.expand("%:p:h") }) end,
+      { desc = "Telescope sibling files" }
+    )
   end,
 })
 
