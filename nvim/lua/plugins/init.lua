@@ -131,6 +131,11 @@ plugins.configure("github/copilot.vim", {
     -- Replace the default <Tab> mapping, since that conflicts with nvim-cmp
     vim.g.copilot_no_tab_map = true
     vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+
+    -- Add aliases for mappings require alt key
+    vim.keymap.set("i", "ø", "<M-[>", { remap = true }) -- next suggestion
+    vim.keymap.set("i", "æ", "<M-]>", { remap = true }) -- prev suggestion
+    vim.keymap.set("i", "é", "<M-Right>", { remap = true }) -- accept word from suggestion
   end,
 })
 plugins.configure("nvim-neo-tree/neo-tree.nvim", {
