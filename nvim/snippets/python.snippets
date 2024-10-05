@@ -16,8 +16,7 @@ snippet pp "pprint"
 	from pprint import pprint as pp
 
 snippet ic "icecream"
-	from icecream import ic
-	ic($TM_SELECTED_TEXT)
+	__import__("icecream").ic($TM_SELECTED_TEXT)
 
 snippet dc "dataclass"
 	@dataclasses.datacass
