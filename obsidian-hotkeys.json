@@ -1,0 +1,157 @@
+{
+    "app:delete-file": [],
+    "app:open-vault": [
+        {
+            "modifiers": [
+                "Mod",
+                "Shift"
+            ],
+            "key": "O"
+        }
+    ],
+    "app:toggle-left-sidebar": [
+        {
+            "modifiers": [
+                "Alt",
+                "Mod"
+            ],
+            "key": "N"
+        }
+    ],
+    "app:toggle-right-sidebar": [
+        {
+            "modifiers": [
+                "Alt",
+                "Mod"
+            ],
+            "key": "M"
+        }
+    ],
+    "command-palette:open": [
+        {
+            "modifiers": [
+                "Mod",
+                "Shift"
+            ],
+            "key": "P"
+        }
+    ],
+    "editor:delete-paragraph": [],
+    "editor:swap-line-down": [
+        {
+            "modifiers": [
+                "Alt"
+            ],
+            "key": "ArrowDown"
+        }
+    ],
+    "editor:swap-line-up": [
+        {
+            "modifiers": [
+                "Alt"
+            ],
+            "key": "ArrowUp"
+        }
+    ],
+    "editor:toggle-bullet-list": [
+        {
+            "modifiers": [
+                "Alt"
+            ],
+            "key": "."
+        }
+    ],
+    "editor:toggle-fold": [
+        {
+            "modifiers": [
+                "Ctrl"
+            ],
+            "key": " "
+        }
+    ],
+    "file-explorer:open": [
+        {
+            "modifiers": [
+                "Mod",
+                "Shift"
+            ],
+            "key": "E"
+        }
+    ],
+    "file-explorer:reveal-active-file": [
+        {
+            "modifiers": [],
+            "key": "F3"
+        }
+    ],
+    "graph:open": [],
+    "insert-current-date": [
+        {
+            "modifiers": [
+                "Mod"
+            ],
+            "key": "D"
+        }
+    ],
+    "insert-template": [
+        {
+            "modifiers": [
+                "Mod",
+                "Shift"
+            ],
+            "key": "D"
+        }
+    ],
+    "obsidian-outliner:indent-list": [
+        {
+            "modifiers": [
+                "Alt",
+                "Shift"
+            ],
+            "key": "ArrowRight"
+        }
+    ],
+    "obsidian-outliner:move-list-item-down": [
+        {
+            "modifiers": [
+                "Alt",
+                "Shift"
+            ],
+            "key": "ArrowDown"
+        }
+    ],
+    "obsidian-outliner:move-list-item-up": [
+        {
+            "modifiers": [
+                "Alt",
+                "Shift"
+            ],
+            "key": "ArrowUp"
+        }
+    ],
+    "obsidian-outliner:outdent-list": [
+        {
+            "modifiers": [
+                "Alt",
+                "Shift"
+            ],
+            "key": "ArrowLeft"
+        }
+    ],
+    "periodic-notes:open-monthly-note": [
+        {
+            "modifiers": [
+                "Mod"
+            ],
+            "key": "2"
+        }
+    ],
+    "switcher:open": [
+        {
+            "modifiers": [
+                "Mod"
+            ],
+            "key": "P"
+        }
+    ]
+}
