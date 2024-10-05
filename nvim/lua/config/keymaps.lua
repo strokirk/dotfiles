@@ -67,10 +67,6 @@ vim.keymap.set("n", "<leader>gf", "<c-w>gf")
 -- Yank entire line / to end of line, without EOL, like D
 vim.keymap.set("n", "Y", 'yg_:echo "Yanked: ".@"<cr>')
 
--- Easier access to search
-vim.keymap.set("n", "s", "/")
-vim.keymap.set("x", "s", "/")
-
 -- Make vim command mode more like readine
 vim.keymap.set("c", "<c-a>", "<home>")
 
@@ -266,10 +262,6 @@ autocmd! QuickfixCmdPost * call s:SortUniqQFList()
 
 vim.keymap.set("n", "<F3>", ":NeoTreeReveal<cr>")
 vim.keymap.set("n", "<C-T>", ":NeoTreeFocusToggle<cr>")
-vim.keymap.set("n", "<leader>x", "<cmd>TroubleToggle<cr>")
-
--- WhichKey: Show all keymaps with <space><space>
-vim.keymap.set("n", "<leader><leader>", ":WhichKey<cr>")
 
 -- Easily edit Vim config
 local tabdropcfg = function(filename)
@@ -325,10 +317,11 @@ vim.keymap.set("n", "<leader>a", ":ArgWrap<cr>")
 vim.keymap.set("n", "<leader>q", "<Plug>(qf_qf_toggle_stay)", { remap = true, desc = "Toggle quickfix window" })
 vim.keymap.set("n", "<leader>l", "<Plug>(qf_loc_toggle_stay)", { remap = true, desc = "Toggle location list window" })
 
-vim.keymap.set("n", "<leader>xd", ":TroubleToggle document_diagnostics<cr>")
-vim.keymap.set("n", "<leader>xq", ":TroubleToggle quickfix<cr>")
-vim.keymap.set("n", "<leader>xx", ":TroubleToggle<cr>")
-vim.keymap.set("n", "gR", ":TroubleToggle lsp_references<cr>")
+vim.keymap.set("n", "<leader>x", "<cmd>TroubleToggle<cr>")
+vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>")
+vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>")
+vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>")
+vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>")
 
 vim.keymap.set("n", "<leader>w", "viw")
 vim.keymap.set("n", "<leader>W", "viW")
