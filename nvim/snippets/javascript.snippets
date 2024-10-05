@@ -29,3 +29,26 @@ snippet for "for loop for (let i = 0..."
 	for (let i = 0, len = ${0:things}.length; i < len; i++) {
 		let obj = $0[i]
 	}
+
+snippet vuec "Vue Component"
+    <script setup lang="ts">
+      const props = defineProps<{
+        $0
+      }>()
+    </script>
+
+	<template>
+      <div>TODO</div>
+    </template>
+
+    <style scoped>
+    </style>
+
+snippet logBox "console.log with box"
+    const log = (msg) => {
+	console.log()
+	console.log('––––––––––––––––––––')
+	console.log(msg)
+	console.log('––––––––––––––––––––')
+	console.log()
+	}
