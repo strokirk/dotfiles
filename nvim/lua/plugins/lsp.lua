@@ -33,10 +33,31 @@ end
 
 local lzpZeroConfig = function()
   local lsp = require("lsp-zero")
-  lsp.preset("recommended")
-  lsp.nvim_workspace()
+
+  require("mason").setup()
+  require("mason-lspconfig").setup({
+    ensure_installed = { "pyright", "ruff" },
+  })
 
   luasnipConfig()
+
+  vim.api.nvim_create_autocmd("LspAttach", {
+    desc = "LSP actions",
+    callback = function(event)
+      -- these will be buffer-local keybindings
+      -- because they only work if you have an active language server
+      local opts = { buffer = event.buf }
+      vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+      vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+      vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+      vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+      vim.keymap.set("n", "go", vim.lsp.buf.type_definition, opts)
+      vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+      vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, opts)
+      vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts)
+      vim.keymap.set("n", "<F4>", vim.lsp.buf.code_action, opts)
+    end,
+  })
 
   lsp.configure("pyright", {
     before_init = function(_, config)
