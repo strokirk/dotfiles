@@ -5,7 +5,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# vim: foldmethod=marker
 function source_if_exists() { [ -f "$1" ] && source "$1" }
 
 # From brew --prefix
@@ -42,24 +41,8 @@ source_if_exists "$DOTFILES_DIR/zsh/options.zsh"
 source_if_exists "$DOTFILES_DIR/zsh/git.zsh"
 source_if_exists "$DOTFILES_DIR/zsh/aliases.zsh"
 
-# FZF by junegunn
 source_if_exists $HOME/.fzf.zsh
-
-# Powerlevel10k / p10k
-# To customize prompt, run `p10k configure` or edit this manually
-source_if_exists $HOME/.p10k.zsh
-# Compiled p10k output
-source_if_exists /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
-
-if [ -n "$(command -v pyenv)" ]; then
-    # eval "$(pyenv init -)"
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PYENV_SHELL=zsh
-    export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-    export PATH="$PYENV_ROOT/shims:${PATH}"
-    eval "$(pyenv virtualenv-init -)"
-fi;
-
+source_if_exists $HOME/.p10k.zsh  # Powerlevel10k prompt: configure using `p10k configure`
 
 # Local settings that should not be committed
 source_if_exists ~/zshrc.local
