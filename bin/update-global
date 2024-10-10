@@ -1,8 +1,16 @@
 #!/usr/bin/env zsh
-set -ex
+set -e
 
-command -v brew && brew update && brew upgrade && brew cleanup
-command -v pipx && pipx upgrade-all
-command -v nvim && nvim +PlugUpgrade +PlugUpdate +qa!
-command -v pyenv && pyenv rehash
-command -v asdf && asdf reshim
+if [ -n $(command -v brew) ]; then
+  echo ""
+  echo "Updating Homebrew..."
+  echo ""
+  brew update && brew upgrade && brew cleanup
+fi
+
+if [ -n $(command -v uv) ]; then
+  echo ""
+  echo "Updating UV tools..."
+  echo ""
+  uv tool upgrade --all
+fi
