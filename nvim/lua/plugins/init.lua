@@ -154,15 +154,18 @@ plugins.configure("nvim-neo-tree/neo-tree.nvim", {
     },
   },
 })
+plugins.configure("johmsalas/text-case.nvim", {
+  dependencies = { "nvim-telescope/telescope.nvim" },
+  config = function()
+    require("textcase").setup({})
+    require("telescope").load_extension("textcase")
+  end,
+})
 plugins.configure("nvim-telescope/telescope.nvim", {
   dependencies = { "nvim-lua/plenary.nvim" },
   config = function()
     local ts = require("telescope")
     pcall(function() ts.load_extension("refactoring") end)
-    pcall(function()
-      ts.load_extension("textcase") -- Convert text to different cases with :TextCaseOpenTelescope
-      ts.extensions.textcase.textcase = ts.extensions.textcase.normal_mode -- https://github.com/johmsalas/text-case.nvim/issues/42
-    end)
     ts.setup({
       extensions = {
         ast_grep = {
