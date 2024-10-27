@@ -39,6 +39,8 @@ alias pt="pytest --no-header"
 alias ptn="pytest --no-header -nauto"
 alias wpn="wp -- pytest --no-header -nauto"
 
+alias jq-parse="jq -R '. | fromjson'"
+
 alias :wq=exit
 alias help="run-help" # help is called run-help in zsh
 alias ni="nvim"
@@ -50,6 +52,7 @@ alias nrc="nvim -c 'e \$MYVIMRC'"
 alias hist='$EDITOR $HISTFILE'
 alias reload='source ~/.zshrc'
 alias count='sort | uniq -c | sort -n'
+alias take='cut -s -w -f'
 
 # Quick dirs
 alias dot='cd $DOTFILES_DIR'
