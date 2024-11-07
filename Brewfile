@@ -129,3 +129,20 @@ cask "visual-studio-code"
 # Shottr
 # VS Code
 # iTerm2
+# ast-grep
+# biome
+# bun
+# caddy
+# direnv
+# dust
+# gron
+# hurl
+# hyperfine
+# jless
+# mise
+# oha
+# pdm
+# uv
+# volta
+# zig
+# zplug
