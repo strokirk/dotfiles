@@ -14,43 +14,73 @@ link:
 	ln -s -f "$(realpath ripgreprc)" ~/.ripgreprc
 	touch ~/.hushlogin  # Makes login shells quick and "quiet"
 
-pipx:
-	pipx install black
-	pipx install cookiecutter
-	pipx install flake8
-	pipx install isort
-	pipx install myougiden
-	pipx install mypy
-	pipx install piprot
-	pipx install pre-commit
-	pipx install sqlformat
+install: link brew tools-py tools-js 
 
-yarn:
+tools-py:
+	uv tool install cookiecutter
+	uv tool install mypy
+	uv tool install piprot
+	uv tool install pre-commit
+	# uv tool install sqlformat
+	# uv tool install myougiden
+
+tools-js:
+	# bun install --global
+	# pnpm install --global
 	yarn global add npm-check
 	yarn global add prettier
 	yarn global add sortier
 
-
-pip-env:
-	pip install flake8-cognitive-complexity pytest pytest-network icecream pytest-xdist pytest-django pytest-cov ruff
-
 brew:
-	brew install -q mosh youtube-dl task buku k9s tmux lazydocker tig tokei tree hivemind hyperfine
-	brew install -q zsh ncdu pipx pstree xsv httpie gnu-sed ripgrep sd jq yq just
-	brew install -q neovim emojify fzf fd eza universal-ctags zplug bat glow
-	brew install -q romkatv/powerlevel10k/powerlevel10k ruff
-	brew install --cask docker dash insomnia
-	brew install --cask spotify
-	brew install --cask rectangle
-	brew install --cask pop zoom
-	brew install --cask obsidian
-	brew install --cask visual-studio-code
+	brew install -q bat
+	brew install -q brew
+	brew install -q buku
+	brew install -q emojify
+	brew install -q eza
+	brew install -q fd
+	brew install -q fzf
+	brew install -q glow
+	brew install -q gnu-sed
+	brew install -q hivemind
+	brew install -q httpie
+	brew install -q hyperfine
+	brew install -q install
+	brew install -q jq
+	brew install -q just
+	brew install -q lazydocker
+	brew install -q mise
+	brew install -q ncdu
+	brew install -q neovim
+	brew install -q pipx
+	brew install -q pstree
+	brew install -q ripgrep
+	brew install -q romkatv/powerlevel10k/powerlevel10k
+	brew install -q ruff
+	brew install -q sd
+	brew install -q task
+	brew install -q tig
+	brew install -q tokei
+	brew install -q tree
+	brew install -q universal-ctags
+	brew install -q uv
+	brew install -q xsv
+	brew install -q yq
+	brew install -q zplug
+	brew install -q zsh
+	
+	# Casks
+	brew install --cask bitwarden
+	brew install --cask dash
+	brew install --cask docker
 	brew install --cask iterm2
-	brew install --cask slack raycast shottr numi
-
-pyenv:
-	# Setup python versions
-	pyenv install --skip-existing 3.10.1
-	pyenv uninstall -f neovim-3 && pyenv virtualenv 3.10.1 neovim-3
-	$$(pyenv prefix neovim-3)/bin/pip install -U pip
-	$$(pyenv prefix neovim-3)/bin/pip install -U pynvim
+	brew install --cask karabiner-elements
+	brew install --cask numi
+	brew install --cask obsidian
+	brew install --cask pop
+	brew install --cask raycast
+	brew install --cask shottr
+	brew install --cask slack
+	brew install --cask spotify
+	brew install --cask tableplus
+	brew install --cask visual-studio-code
+	brew install --cask zoom
