@@ -14,3 +14,10 @@ if [ -n $(command -v uv) ]; then
   echo ""
   uv tool upgrade --all
 fi
+
+if [ -n ${DOTFILES_DIR} ]; then
+  echo ""
+  echo "Updating dotfiles..."
+  echo ""
+  (cd ${DOTFILES_DIR} && git pull)
+fi
