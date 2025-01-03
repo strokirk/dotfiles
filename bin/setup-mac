@@ -1,0 +1,39 @@
+#!/usr/bin/env zsh
+set -e
+
+CMD="@"
+CTRL="^"
+OPT="~"
+SHIFT="$"
+SUPER="@~^$"
+
+function add_app_hotkey() {
+    local app_name=$1
+    local hotkey_name=$2
+    local hotkey=$3
+    defaults write $app_name NSUserKeyEquivalents -dict-add $hotkey_name $hotkey
+}
+
+echo "Setting up OSX settings..."
+echo "=========================="
+
+echo "- Close open System Preferences panes"
+# Close any open System Preferences panes, to prevent them from overriding settings we’re about to change
+# Credit: github.com/khaneliman/dotfiles
+osascript -e 'tell application "System Preferences" to quit'
+
+echo "- Apply Finder settings"
+echo "  - Keep folders on top when sorting by name"
+defaults write com.apple.finder _FXSortFoldersFirst -bool true
+echo "  - When performing a search, search the current folder by default"
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+
+echo "- Add hotkeys to apps"
+echo "  - Super+N: Move Tab to New Window"
+add_app_hotkey com.google.Chrome 'Move Tab to New Window' "${SUPER}n";
+add_app_hotkey com.google.Chrome.canary 'Move Tab to New Window' "${SUPER}n";
+add_app_hotkey com.googlecode.iterm2 'Move Session to Window' "${SUPER}n";
+
+echo "  - ⌘+Opt+N/M: Toggle Sidebars"
+add_app_hotkey com.tinyapp.TablePlus 'Toggle Left Sidebar' "${CMD}n"
+add_app_hotkey com.tinyapp.TablePlus 'Toggle Right Sidebar' "${CMD}${OPT}m"
