@@ -32,6 +32,7 @@
     axe = log -p -G
     branch-files = diff origin/master...HEAD --diff-filter=AMR --name-only
     branch-name = rev-parse --abbrev-ref HEAD
+    branch-list = for-each-ref --format='%(refname:short)' refs/heads/
     conflict-files = diff --diff-filter=U --name-only
     changed = diff HEAD --name-only --diff-filter=AMR
     done = "!git fetch && git rebase origin/master"
