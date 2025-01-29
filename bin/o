@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -e
+
+path=$1
+
+if [ -z "$path" ]; then
+    echo "$(basename "$0")" "<path>" ;
+    echo "o - Helper that either reads the directory with ls, or file with cat/zcat, or tail if it's very large." ;
+    exit 1;
+fi
+
+if [ -d "$path" ]; then
+    eza -lah "$path";
+elif [ -f "$path" ]; then
+    cat_prg="bat --paging=never --theme=Dracula --style=plain"
+    tail_prg=tail
+
+    # check if it's a compressed file by check for .gz extension
+    if [[ "$path" == *.gz ]]; then
+        cat_prg=zcat
+        tail_prg=zcat
+    fi
+    if [ $(stat -f %z "$path") -gt 1000000 ]; then
+        $tail_prg "$path";
+    else
+        $cat_prg "$path";
+    fi
+else
+    echo "Path not found: $path";
+fi
