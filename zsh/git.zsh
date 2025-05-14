@@ -44,7 +44,7 @@ alias gas="git rebase --autosquash --interactive master"
 alias gpm="git-prune-merged"
 alias grf="git-add-labels 'Ready for Review'"
 alias grup='git reset --hard $(git upstream)'
-alias pub='git publish && hub pull-request'
+alias pub='git publish && gh pr create --fill-first'
 #  }}} Git aliases #
 
 #  Git Functions {{{ #
@@ -111,6 +111,10 @@ function git-delete-current-branch() {
 
 function git-pr() {
   git fetch origin pull/$1/head:pr-$1 && git checkout pr-$1
+}
+
+function git-amend-append() {
+  git commit --amend -m "$(git log --format=%B -n1)" -m "$1"
 }
 
 # fbr - checkout git branch with fzf

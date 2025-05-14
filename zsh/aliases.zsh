@@ -170,5 +170,6 @@ function nsg() { $EDITOR -q =(sg "$@") }
 function nic() { $EDITOR $(git conflict-files) }
 
 function rgp() { rg "$*" }
+alias gv="grep -v"
 alias rgu="rg -u --hidden -M200 -g '!.git/'"
 alias fdu="fd -u --hidden"
