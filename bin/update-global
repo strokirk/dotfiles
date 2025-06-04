@@ -17,6 +17,13 @@ if [ -n $(command -v uv) ]; then
   uv tool upgrade --all
 fi
 
+if [ -n $(command -v bun) ]; then
+  echo ""
+  echo "Updating bun tools..."
+  echo ""
+  bun update -g --latest
+fi
+
 if [ -n ${DOTFILES_DIR} ]; then
   echo ""
   echo "Updating dotfiles..."
