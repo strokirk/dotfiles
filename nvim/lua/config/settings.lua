@@ -10,8 +10,10 @@ vim.o.textwidth = 120
 vim.o.shiftwidth = 4
 vim.o.tabstop = 4
 
+-- Commented out due to https://github.com/neovim/neovim/issues/29047
+-- vim.o.ttimeoutlen = -1 -- Fixes input issues when nvim is run in tmux
+
 vim.o.mouse = "a" -- Enable mouse in all modes
-vim.o.ttimeoutlen = -1 -- Fixes input issues when nvim is run in tmux
 vim.o.hidden = true -- Allow unsaved buffers to be backgrounded
 vim.o.path = "**" -- Makes :find work better. Thanks romainl!
 vim.opt.wildignore = { "*.pyc", "*~", "*.mo" }
