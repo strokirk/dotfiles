@@ -260,8 +260,8 @@ autocmd! QuickfixCmdPost * call s:SortUniqQFList()
 ]])
 -- }}}
 
-vim.keymap.set("n", "<F3>", ":NeoTreeReveal<cr>")
-vim.keymap.set("n", "<C-T>", ":NeoTreeFocusToggle<cr>")
+vim.keymap.set("n", "<F3>", "<cmd>Neotree reveal<cr>")
+vim.keymap.set("n", "<C-T>", "<cmd>Neotree toggle<cr>")
 
 -- Easily edit Vim config
 local tabdropcfg = function(filename)
