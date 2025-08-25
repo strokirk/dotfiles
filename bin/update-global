@@ -5,8 +5,8 @@ if [ -n $(command -v brew) ]; then
   echo ""
   echo "Updating Homebrew..."
   echo ""
-  brew update --quiet 
-  HOMEBREW_NO_INSTALL_CLEANUP=1 brew upgrade --quiet 
+  brew update --quiet
+  HOMEBREW_NO_INSTALL_CLEANUP=1 brew upgrade --quiet
   brew cleanup --quiet
 fi
 

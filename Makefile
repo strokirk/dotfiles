@@ -14,7 +14,7 @@ link:
 	ln -s -f "$(realpath ripgreprc)" ~/.ripgreprc
 	touch ~/.hushlogin  # Makes login shells quick and "quiet"
 
-install: link brew tools-py tools-js 
+install: link brew tools-py tools-js
 
 tools-py:
 	uv tool install cookiecutter
@@ -67,7 +67,7 @@ brew:
 	brew install -q yq
 	brew install -q zplug
 	brew install -q zsh
-	
+
 	# Casks
 	brew install --cask bitwarden
 	brew install --cask dash
