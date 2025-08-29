@@ -30,12 +30,11 @@
 [alias]
     amend = commit --amend --verbose
     axe = log -p -G
-    branch-files = diff origin/master...HEAD --diff-filter=AMR --name-only
+    branch-files = "!git diff origin/$(git-default-branch)...HEAD --diff-filter=AMR --name-only"
     branch-name = rev-parse --abbrev-ref HEAD
     branch-list = for-each-ref --format='%(refname:short)' refs/heads/
     conflict-files = diff --diff-filter=U --name-only
     changed = diff HEAD --name-only --diff-filter=AMR
-    done = "!git fetch && git rebase origin/master"
     edit-changed = "!$EDITOR $(git changed)"
     publish = "!git push --set-upstream origin $(git branch-name)"
     reset-upstream = reset --hard "@{upstream}"
@@ -65,13 +64,10 @@
     fix = commit --fixup
     rup = "!git reset-upstream"
     wip = "commit -a -m '[ci skip] WIP'"
-    rom = rebase -i --autosquash origin/master
-    prom = pull --rebase origin master
+    rom = "!git rebase --interactive --autosquash origin/$(git-default-branch)"
 
     pwd = status -sb
     sha = rev-parse --short
-    lgb = log master..HEAD
-    lgg = log --graph --pretty=oneline --abbrev-commit
     lol = log --oneline --graph --decorate --all
     lil = log --oneline --graph --decorate
     lp = log --patch-with-stat

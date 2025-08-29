@@ -6,7 +6,7 @@ alias gc="git checkout"
 alias gcm="git commit -ev -m"
 alias gcom="git-verbose-commit"
 alias gp="git push"
-alias grom="git rebase --interactive --autosquash master"
+alias grom='git rom'
 alias grc="git rebase --continue"
 alias gk="git clean -i ; git checkout . -p"
 
@@ -26,7 +26,7 @@ alias gl="git lil"
 alias glp="git lil -p"
 alias gla="git lil --first-parent HEAD~15..."
 alias glap="git lil --first-parent -p HEAD~15..."
-alias glm="git log --decorate origin/master...HEAD"
+alias glm='git log --decorate origin/$(git-default-branch)...HEAD'
 alias glmp="glm -p"
 alias gam="git amend"
 
@@ -40,7 +40,6 @@ alias gb='git-list-branches'
 alias gcb='git-change-branch'
 alias grm='gpm; git-rebase-all'
 
-alias gas="git rebase --autosquash --interactive master"
 alias gpm="git-prune-merged"
 alias grf="git-add-labels 'Ready for Review'"
 alias grup='git reset --hard $(git upstream)'
