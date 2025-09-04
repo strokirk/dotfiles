@@ -105,7 +105,7 @@ function git-rebase-auto() {
 
 function git-delete-current-branch() {
   b=$(git symbolic-ref --short HEAD);
-  gc master && git branch -D $b;
+  gc $(git-default-branch) && git branch -D $b;
 }
 
 function git-pr() {
