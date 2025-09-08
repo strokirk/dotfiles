@@ -102,8 +102,9 @@ plugins.configure("stevearc/conform.nvim", {
       formatters_by_ft = {
         javascript = { "prettier" },
         lua = { "stylua" },
-        python = { "ruff_fix", "black" },
+        python = { "ruff_fix", "ruff_format" },
         typescript = { "prettier" },
+        typescriptreact = { "prettier" },
         vue = { "prettier" },
         rust = { "rustfmt" },
       },
@@ -130,6 +131,9 @@ plugins.configure("github/copilot.vim", {
   config = function()
     -- Replace the default <Tab> mapping, since that conflicts with nvim-cmp
     vim.g.copilot_no_tab_map = true
+    vim.g.copilot_filetypes = {
+      gitcommit = true,
+    }
     vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
 
     -- Add aliases for mappings require alt key
