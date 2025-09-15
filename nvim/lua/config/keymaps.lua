@@ -61,6 +61,9 @@ vim.keymap.set("i", "ª", "<Esc>:m .-2<CR>==gi", { desc = "Move up" })
 vim.keymap.set("n", "go", "g<c-]>")
 vim.keymap.set("x", "go", "g<c-]>")
 
+-- Open diagnostics
+vim.keymap.set("n", "gl", function() vim.diagnostic.open_float() end)
+
 vim.keymap.set("n", "<leader>go", "<c-w>g<c-]><c-w>T")
 vim.keymap.set("n", "<leader>gf", "<c-w>gf")
 
@@ -311,17 +314,21 @@ vim.keymap.set("n", "ög", "<cmd>Gitsigns prev_hunk<cr>")
 vim.keymap.set("n", "äg", "<cmd>Gitsigns next_hunk<cr>")
 
 -- ArgWrap: FooSoft/vim-argwrap
-vim.keymap.set("n", "<leader>a", ":ArgWrap<cr>")
+vim.keymap.set("n", "<leader>a", "<cmd>ArgWrap<cr>")
 
 -- QF:
-vim.keymap.set("n", "<leader>q", "<Plug>(qf_qf_toggle_stay)", { remap = true, desc = "Toggle quickfix window" })
+vim.keymap.set(
+  "n",
+  "<leader>q",
+  "<Plug>(qf_qf_toggle_staydiagnostics )",
+  { remap = true, desc = "Toggle quickfix window" }
+)
 vim.keymap.set("n", "<leader>l", "<Plug>(qf_loc_toggle_stay)", { remap = true, desc = "Toggle location list window" })
 
-vim.keymap.set("n", "<leader>x", "<cmd>TroubleToggle<cr>")
-vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>")
-vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>")
-vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>")
-vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>")
+-- Trouble:
+vim.keymap.set("n", "<leader>x", "<cmd>Trouble diagnostics toggle<cr>")
+vim.keymap.set("n", "<leader>xs", "<cmd>Trouble symbols toggle<cr>")
+vim.keymap.set("n", "gR", "<cmd>Trouble lsp<cr>")
 
 vim.keymap.set("n", "<leader>w", "viw")
 vim.keymap.set("n", "<leader>W", "viW")

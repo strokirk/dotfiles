@@ -66,6 +66,9 @@ vim.g.loaded_netrwPlugin = 1
 -- Disable python provider - it adds ~800ms to startup time
 vim.g.loaded_python3_provider = 0
 
+-- Enable the https://docs.astral.sh/ty type checker LSP
+vim.lsp.enable("ty")
+
 Autocmd.TextYankPost({ pattern = "*", callback = function() vim.highlight.on_yank({ timeout = 350 }) end })
 
 utils.editorconfig_override({ filetype = "gitcommit", prop = "max_line_length", value = "72" })
