@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from __future__ import annotations
 
+from datetime import datetime, timedelta
 import os
 import subprocess
 
@@ -55,27 +56,38 @@ class git:
 
 
 class Branch:
+    marker = r"\x1F"
     ref_fields = [
         "%(refname:short)",
         "%(upstream)",
         "%(committerdate:iso)",
-        "%(committerdate:relative)",
         "%(upstream:remoteref)",
     ]
-    ref_format = "\x1F".join(ref_fields)
+    ref_format = marker.join(ref_fields)
 
-    def __init__(self, name, upstream, committerdate, committerdate_rel, remoteref):
+    def __init__(self, name: str, upstream: str, committerdate: str, remoteref: str):
         self.name = name
         self.upstream = upstream
         self.tracking = bool(remoteref)
-        self.committerdate = committerdate[:-6]
-        self.committerdate_rel = committerdate_rel
-        self.date = committerdate
         self.num_commits = 0
+        self.date = datetime.fromisoformat(committerdate[:-6])
+        self.committerdate_rel = ago(datetime.now() - self.date)
 
     @classmethod
-    def from_string(cls, string) -> "Branch":
-        return cls(*string.split("\x1F"))
+    def from_string(cls, string) -> Branch:
+        return cls(*string.split(cls.marker))
+
+
+def ago(delta: timedelta) -> str:
+    if delta.days > 365:
+        return f"{delta.days // 365}y ago"
+    if delta.days:
+        return f"{delta.days}d ago"
+    if hours := delta.seconds // 3600:
+        return f"{hours}h ago"
+    if minutes := delta.seconds // 60:
+        return f"{minutes}m ago"
+    return f"{delta.seconds}s ago"
 
 
 def list_branches(
@@ -104,7 +116,7 @@ def list_branches(
     if show_commits:
         commits_width = maxwidth(branches, "num_commits") + 2
 
-    fmt = "[{date}] {rel:{rel_width}}"
+    fmt = "[{date:%Y-%m-%d}] {rel:>{rel_width}}"
     if show_commits:
         fmt += "{commits:{commits_width}}"
     fmt += " {star} {name}"
@@ -116,7 +128,7 @@ def list_branches(
             name = Colors.gray(name)
         print(
             fmt.format(
-                date=branch.committerdate,
+                date=branch.date,
                 rel=Colors.gray(branch.committerdate_rel),
                 star=Colors.red(STAR) if branch.tracking else " ",
                 name=name,
