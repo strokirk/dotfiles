@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# git-auto-commit
+# Prefills a Conventional Commit header from the current branch and opens the editor.
+# Example: on branch f.MC-123.bla-bla-bla and args "Some text",
+# this opens editor with: feat(MC-123): Some text
+
+# Determine current branch (short name)
+branch_name=$(git rev-parse --abbrev-ref HEAD)
+branch_leaf=${branch_name##*/}
+
+# Extract the type token (segment before first dot) and map to Conventional Commit type
+type_token=${branch_leaf%%.*}
+commit_type="chore"
+case "$type_token" in
+    feat|fix|chore|refactor|docs|test|perf|build|ci|style|revert)
+        commit_type="$type_token"
+        ;;
+    f)
+        commit_type="feat"
+        ;;
+    b|bug)
+        commit_type="fix"
+        ;;
+    hotfix)
+        commit_type="fix!"
+        ;;
+    c|ch)
+        commit_type="chore"
+        ;;
+    r|ref)
+        commit_type="refactor"
+        ;;
+    deps)
+        commit_type="build"
+        ;;
+    zap)
+        commit_type="perf"
+        ;;
+esac
+
+# Try to find a ticket id like ABC-123 in the first dot-separated segment after the type marker
+ticket=""
+IFS='.' read -r _ first_segment _ <<< "$branch_leaf"
+if [[ "$first_segment" =~ ^[A-Z][A-Z0-9]+-[0-9]+$ ]]; then
+    ticket="$first_segment"
+fi
+
+# Build the Conventional Commit header
+message_rest="$*"
+if [ -n "$ticket" ]; then
+    header="$commit_type($ticket): $message_rest"
+else
+    header="$commit_type: $message_rest"
+fi
+
+# Open the commit editor with the header prefilled (even when -m is provided)
+git commit --verbose --edit -m "$header"
+
+
+# Emojis
+# feat	    ✨  :sparkles:
+# fix	    🐛	:bug: (also, 💥)
+# docs	    📚	:books:
+# refactor	🔨	:hammer:
+# style     🎨	:art:
+# perf	    ⚡  :rocket:
+# test	    🧪	:test_tube:
+# build	    📦	:package:
+# ci	    👷	:construction_worker:
+# chore	    🔧	:wrench:

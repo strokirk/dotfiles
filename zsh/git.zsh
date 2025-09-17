@@ -5,6 +5,7 @@ alias g="git"
 alias gc="git checkout"
 alias gcm="git commit -ev -m"
 alias gcom="git-verbose-commit"
+alias gom="git-auto-commit"
 alias gp="git push"
 alias grom='git rom'
 alias grc="git rebase --continue"
