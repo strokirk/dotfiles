@@ -75,10 +75,7 @@ end
 local plugins = utils.PluginList()
 
 plugins.add({
-  {
-    "folke/neodev.nvim", -- LSP configuration for Neovim config code
-    config = true,
-  },
+  { "folke/lazydev.nvim", ft = "lua", opts = {} }, -- LSP config for Neovim
   {
     "VonHeikemen/lsp-zero.nvim",
     dependencies = {
