@@ -43,7 +43,7 @@ alias grm='gpm; git-rebase-all'
 alias gpm="git-prune-merged"
 alias grf="git-add-labels 'Ready for Review'"
 alias grup='git reset --hard $(git upstream)'
-alias pub='git publish && gh pr create --fill-first'
+alias pub='git-publish-pr'
 #  }}} Git aliases #
 
 #  Git Functions {{{ #
