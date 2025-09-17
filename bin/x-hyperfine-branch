@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+function usage() {
+  # A script to benchmark a command on a specific git branch vs the default branch.
+  #
+  # Defaults to the current branch if none is specified.
+  # Anything after -- is treated as the command to benchmark.
+  # Example usage:
+  #  x-hyperfine-branch feature-branch -- make build
+  #  x-hyperfine-branch -- 'make build'  # benchmarks against the current branch vs default branch, quotes are fine as well
+  program=$(basename "$0")
+  echo "Usage: $program [<branch>] -- <command>"
+  exit 1
+}
+
+default=$(git-default-branch)
+branch=$(git branch-name)
+
+if [[ "$1" == "--help" || "$1" == "-h" ]]; then
+  usage
+fi
+if [[ "$1" == "--" ]]; then
+  shift
+elif [[ "$2" == "--" ]]; then
+  branch="$1"
+  shift 2
+else
+  usage
+fi
+cmd="$*"
+
+if [[ -z "$cmd" ]]; then
+  usage
+fi
+if [[ "$branch" == "$default" ]]; then
+  echo "Error: No reason to compare the same branch '$branch' against itself."
+  exit 1
+fi
+
+
+hyperfine \
+    --warmup 1 \
+    --max-runs 20 \
+    --ignore-failure \
+    --parameter-list branch $default,$branch \
+    --setup "git switch {branch}" \
+    "$cmd"
