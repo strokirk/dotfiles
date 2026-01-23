@@ -31,73 +31,54 @@ local luasnipConfig = function()
   vim.keymap.set("s", "<S-Tab>", function() ls.jump(-1) end, { silent = true })
 end
 
-local lzpZeroConfig = function()
-  local lsp = require("lsp-zero")
-
-  require("mason").setup()
-  require("mason-lspconfig").setup({
-    ensure_installed = { "pyright", "ruff" },
-  })
-
-  luasnipConfig()
-
-  vim.api.nvim_create_autocmd("LspAttach", {
-    desc = "LSP actions",
-    callback = function(event)
-      -- these will be buffer-local keybindings
-      -- because they only work if you have an active language server
-      local opts = { buffer = event.buf }
-      vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-      vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-      vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-      vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-      vim.keymap.set("n", "go", vim.lsp.buf.type_definition, opts)
-      vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-      vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, opts)
-      vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts)
-      vim.keymap.set("n", "<F4>", vim.lsp.buf.code_action, opts)
-    end,
-  })
-
-  lsp.configure("pyright", {
-    before_init = function(_, config)
-      if vim.env.VIRTUAL_ENV then config.settings.python.pythonPath = vim.env.VIRTUAL_ENV .. "/bin/python" end
-    end,
-  })
-  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(filterPyrightUnusedDiagnostics, {})
-
-  -- The schemaStore contains all kinds of outdated schemas, so disable it
-  lsp.configure("yamlls", { settings = { yaml = { schemaStore = { enable = false } } } })
-
-  lsp.setup()
-end
+vim.api.nvim_create_autocmd("LspAttach", {
+  desc = "LSP actions",
+  callback = function(event)
+    -- these will be buffer-local keybindings
+    -- because they only work if you have an active language server
+    local opts = { buffer = event.buf }
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+    vim.keymap.set("n", "go", vim.lsp.buf.type_definition, opts)
+    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+    vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, opts)
+    vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts)
+    vim.keymap.set("n", "<F4>", vim.lsp.buf.code_action, opts)
+  end,
+})
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(filterPyrightUnusedDiagnostics, {})
+vim.lsp.config("pyright", {
+  before_init = function(_, config)
+    if vim.env.VIRTUAL_ENV then config.settings.python.pythonPath = vim.env.VIRTUAL_ENV .. "/bin/python" end
+  end,
+})
+-- The schemaStore contains all kinds of outdated schemas, so disable it
+vim.lsp.config("yamlls", { settings = { yaml = { schemaStore = { enable = false } } } })
 
 local plugins = utils.PluginList()
 
 plugins.add({
   { "folke/lazydev.nvim", ft = "lua", opts = {} }, -- LSP config for Neovim
   {
-    "VonHeikemen/lsp-zero.nvim",
-    dependencies = {
-      -- LSP Support
-      "neovim/nvim-lspconfig",
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
-
-      -- Autocompletion
-      "hrsh7th/nvim-cmp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "saadparwaiz1/cmp_luasnip",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-nvim-lua",
-
-      -- Snippets
-      "L3MON4D3/LuaSnip",
-      "rafamadriz/friendly-snippets",
-      "benfowler/telescope-luasnip.nvim",
+    "mason-org/mason-lspconfig.nvim",
+    opts = {
+      ensure_installed = { "pyright", "ruff" },
     },
-    config = lzpZeroConfig,
+    dependencies = {
+      { "mason-org/mason.nvim", opts = {} },
+      "neovim/nvim-lspconfig",
+    },
+  },
+  {
+    -- Autocompletion
+    "saghen/blink.cmp",
+    version = "1.*",
+    dependencies = { "rafamadriz/friendly-snippets" },
+    opts = {
+      keymap = { preset = "enter" },
+    },
   },
   {
     "nvim-treesitter/nvim-treesitter",
