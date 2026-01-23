@@ -4,6 +4,8 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+function source_if_exists() { [ -f "$1" ] && source "$1"; };
+
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -67,4 +69,7 @@ NC='\[\e[0m\]'              # No Color
 TOP="\[\e]2;[\u] \W\a\]"
 export PS1="${TOP}${RED}\u@\h \w:$ ${NC}"
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+source_if_exists ~/.fzf.bash
+
+# Local settings that should not be committed
+source_if_exists ~/bashrc.local.bash
