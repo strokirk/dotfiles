@@ -10,13 +10,26 @@ while IFS='' read -r line; do branches+=("$line"); done < <(
         grep -v wip
     )
 
+# Get list of branches used by other worktrees
+worktree_branches=()
+while IFS='' read -r line; do worktree_branches+=("$line"); done < <(
+    git worktree list --porcelain | grep 'branch refs/heads/' | sed 's/branch refs\/heads\///'
+    )
+
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
+YELLOW=$(tput setaf 3)
 RESET=$(tput sgr0)
 
 failed=()
 
 for branch in "${branches[@]}"; do
+    # Check if branch is used by another worktree
+    if [[ " ${worktree_branches[*]} " =~ " ${branch} " ]]; then
+        echo "${YELLOW}⊘${RESET} $branch"
+        continue
+    fi
+
     git checkout "$branch" --quiet;
     if git rebase "$base" --quiet; then
         echo "${GREEN}✔${RESET} $branch"
