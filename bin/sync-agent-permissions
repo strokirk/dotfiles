@@ -1,0 +1,69 @@
+#!/usr/bin/env python
+from __future__ import annotations
+
+
+import argparse
+import json
+import tomllib
+from pathlib import Path
+
+DOTFILES = Path(__file__).resolve().parent.parent
+AGENTS_TOML = DOTFILES / "agents.toml"
+
+TARGETS = {
+    "claude": Path.home() / ".claude" / "settings.json",
+    "cursor": Path.home() / ".cursor" / "settings.json",
+}
+
+
+def load_settings(path: Path) -> dict:
+    if path.exists():
+        return json.loads(path.read_text())
+    return {}
+
+
+def merge_permissions(settings: dict, permissions: dict) -> dict:
+    if not permissions:
+        return settings
+    result = settings.copy()
+    target = result.setdefault("permissions", {})
+    for key in ("allow", "deny", "ask"):
+        if key in permissions:
+            target[key] = sorted(set(target.get(key, [])) | set(permissions[key]))
+    return result
+
+
+def sync_permissions(dry_run: bool = False) -> None:
+    config = tomllib.loads(Path(AGENTS_TOML).read_text())
+
+    for agent, target_path in TARGETS.items():
+        permissions = config.get(agent, {}).get("permissions", {})
+        if not permissions:
+            continue
+
+        settings = load_settings(target_path)
+        merged = merge_permissions(settings, permissions)
+
+        if settings == merged:
+            print(f"{agent}: no changes needed")
+            continue
+
+        output = json.dumps(merged, indent=2)
+        if dry_run:
+            print(f"{agent}: would write to {target_path}:")
+            print(output)
+        else:
+            target_path.parent.mkdir(parents=True, exist_ok=True)
+            target_path.write_text(output + "\n")
+            print(f"{agent}: updated {target_path}")
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Sync agent permissions from agents.toml to settings files"
+    )
+    parser.add_argument(
+        "-n", "--dry-run", action="store_true", help="Show what would be done"
+    )
+    args = parser.parse_args()
+    sync_permissions(dry_run=args.dry_run)

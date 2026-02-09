@@ -1,0 +1,33 @@
+[claude.permissions]
+allow = [
+    "Bash(actionlint *)",
+    "Bash(databricks jobs get *)",
+    "Bash(databricks jobs get-run *)",
+    "Bash(databricks jobs list *)",
+    "Bash(databricks tables get *)",
+    "Bash(databricks tables list *)",
+    "Bash(git branch-files *)",
+    "Bash(git fetch *)",
+    "Bash(git log *)",
+    "Bash(git rev-parse *)",
+    "Bash(git show *)",
+    "Bash(grep *)",
+    "Bash(jq *)",
+    "Bash(just --list *)",
+    "Bash(ls *)",
+    "Bash(mypy *)",
+    "Bash(ollama *)",
+    "Bash(pnpm run *)",
+    "Bash(pytest *)",
+    "Bash(ruff *)",
+    "Bash(tee *)",
+    "Bash(ty *)",
+    "Bash(uv run pytest *)",
+    "Bash(uv run ruff *)",
+    "Bash(uv sync *)",
+    "Bash(wc *)",
+    "WebFetch(domain:narwhals-dev.github.io)",
+    "WebFetch(domain:www.anthropic.com)",
+]
+
+[cursor.permissions]
