@@ -1,6 +1,8 @@
 local utils = require("utils")
 local Autocmd = utils.Autocmd
 
+vim.o.exrc = true -- Allow project-specific .nvim.lua files
+
 vim.o.updatetime = 100
 
 -- Whitespace options is mainly based on Python/Django
