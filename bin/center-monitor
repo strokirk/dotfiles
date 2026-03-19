@@ -1,0 +1,137 @@
+#!/usr/bin/env python
+import subprocess
+import re
+import sys
+
+
+def run_command(command):
+    """Executes a shell command and returns its output."""
+    try:
+        result = subprocess.run(
+            command, shell=True, check=True, capture_output=True, text=True
+        )
+        return result.stdout
+    except subprocess.CalledProcessError as e:
+        print(f"Error executing command: {e}")
+        print(e.stderr)
+        sys.exit(1)
+
+
+def parse_displayplacer_list(output):
+    """Parses the output of 'displayplacer list' into a list of screen dictionaries."""
+    screens = []
+    # Split the output into blocks for each screen
+    # Each block starts with 'Persistent screen id:'
+    blocks = re.split(r"\n(?=Persistent screen id:)", output.strip())
+
+    for block in blocks:
+        # Ignore blocks that don't contain screen information (like the summary at the end)
+        if "Persistent screen id:" not in block:
+            continue
+
+        screen = {}
+        # Extract relevant fields using regex
+        fields = {
+            "id": r"Persistent screen id: (.*)",
+            "type": r"Type: (.*)",
+            "res": r"Resolution: (\d+)x(\d+)",
+            "hz": r"Hertz: (\d+)",
+            "depth": r"Color Depth: (\d+)",
+            "scaling": r"Scaling: (on|off)",
+            "rotation": r"Rotation: (\d+)",
+            "enabled": r"Enabled: (true|false)",
+        }
+
+        for key, pattern in fields.items():
+            match = re.search(pattern, block)
+            if match:
+                if key == "res":
+                    screen["width"] = int(match.group(1))
+                    screen["height"] = int(match.group(2))
+                else:
+                    screen[key] = match.group(1).strip()
+
+        if "id" in screen:
+            screens.append(screen)
+    return screens
+
+
+def main():
+    print("Fetching current display configuration...")
+    # In a real environment, we'd run the command.
+    # For this task, I'll assume displayplacer is installed and working.
+    output = run_command("displayplacer list")
+    screens = parse_displayplacer_list(output)
+
+    builtin = None
+    external = None
+
+    for s in screens:
+        # Check if it's the built-in monitor
+        if "built in" in s.get("type", "").lower():
+            builtin = s
+        # Check if it's an external monitor (not built-in and enabled)
+        elif s.get("enabled") == "true":
+            # We take the first enabled external monitor we find
+            if not external:
+                external = s
+
+    if not builtin:
+        print("Error: Could not find built-in monitor.")
+        sys.exit(1)
+    if not external:
+        print("Error: Could not find a connected external monitor.")
+        sys.exit(1)
+
+    print(
+        f"Found built-in monitor: {builtin['id']} ({builtin['width']}x{builtin['height']})"
+    )
+    print(
+        f"Found external monitor: {external['id']} ({external['width']}x{external['height']})"
+    )
+
+    # Calculate the centered position for the external monitor above the built-in one.
+    # The built-in monitor will be our origin (0,0).
+    # To center the external monitor:
+    # x = (builtin_width - external_width) / 2
+    # y = -external_height (negative y is 'up' in macOS arrangement)
+
+    ext_x = (builtin["width"] - external["width"]) // 2
+    ext_y = -external["height"]
+
+    # Construct the displayplacer command arguments for both screens
+    builtin_args = (
+        f"id:{builtin['id']} "
+        f"res:{builtin['width']}x{builtin['height']} "
+        f"hz:{builtin['hz']} "
+        f"color_depth:{builtin['depth']} "
+        f"enabled:true "
+        f"scaling:{builtin['scaling']} "
+        f"origin:(0,0) "
+        f"degree:{builtin['rotation']}"
+    )
+
+    external_args = (
+        f"id:{external['id']} "
+        f"res:{external['width']}x{external['height']} "
+        f"hz:{external['hz']} "
+        f"color_depth:{external['depth']} "
+        f"enabled:true "
+        f"scaling:{external['scaling']} "
+        f"origin:({ext_x},{ext_y}) "
+        f"degree:{external['rotation']}"
+    )
+
+    final_command = f'displayplacer "{builtin_args}" "{external_args}"'
+
+    print("\nProposed configuration:")
+    print("  Built-in: origin (0,0)")
+    print(f"  External: origin ({ext_x},{ext_y})")
+    print(f"\nExecuting: {final_command}")
+
+    run_command(final_command)
+    print("\nDisplays rearranged successfully!")
+
+
+if __name__ == "__main__":
+    main()
