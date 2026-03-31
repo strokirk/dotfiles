@@ -33,6 +33,7 @@ allow = [
     "Bash(uv run ruff:*)",
     "Bash(uv sync:*)",
     "Bash(wc:*)",
+    "Bash(which:*)",
     "Bash(zig build:*)",
     "Bash(zig version:*)",
     "WebFetch(domain:docs.solidjs.com)",
