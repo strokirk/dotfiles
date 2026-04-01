@@ -29,6 +29,9 @@ if [ $(command -v zplug) ]; then
   zplug plugins/gitfast, from:oh-my-zsh
   zplug load
 fi
+if [ $(command -v mise) ]; then
+  eval "$(mise activate zsh)"
+fi
 
 # Completion
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
