@@ -48,8 +48,6 @@ alias pub='git-publish-pr'
 #  }}} Git aliases #
 
 #  Git Functions {{{ #
-function gh-clone() { git clone git@github.com:$1.git }
-
 function git-verbose-commit() {
   if [ $# -eq 0 ]; then
       git commit --verbose;

@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  echo "Usage: gh-clone <owner/repo | github-url> [git-clone-args...]" >&2
+  exit 1
+}
+
+[ $# -ge 1 ] || usage
+
+input="$1"
+shift
+
+# Strip a github.com URL (https://, http://, git@ ssh form, or bare
+# github.com/...) down to "owner/repo", stripping any trailing .git,
+# slash, or extra path segments (e.g. /tree/main).
+repo="$input"
+repo="${repo#git@github.com:}"
+repo="${repo#https://github.com/}"
+repo="${repo#http://github.com/}"
+repo="${repo#github.com/}"
+repo="${repo%.git}"
+repo="${repo%/}"
+repo="$(cut -d/ -f1,2 <<<"$repo")"
+
+if [[ "$repo" != */* ]]; then
+  echo "gh-clone: could not parse an owner/repo from '$input'" >&2
+  exit 1
+fi
+
+exec git clone "git@github.com:${repo}.git" "$@"

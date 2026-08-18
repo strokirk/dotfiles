@@ -110,8 +110,11 @@ function run() {
 
 disable r
 function r() {
-    # Print README file
-    glow README.md
+    if [ $# -eq 0 ]; then
+        glow README.md
+    else
+        glow "$@"
+    fi
 }
 
 
