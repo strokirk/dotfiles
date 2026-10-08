@@ -154,7 +154,7 @@ vim.keymap.set("x", "&", ":&&<CR>")
 -- Unload current buffer and go to previous. (Thanks Mud)
 -- Useful for keeping the window open, which :bd<cr> doesn't.
 -- command! CloseBuffer bp <bar> bd #
-vim.keymap.set("n", "<leader>d", ":CloseBuffer<cr>")
+-- vim.keymap.set("n", "<leader>d", ":CloseBuffer<cr>")
 
 -- Quick :sort
 vim.keymap.set("x", "<leader>s", ":sort<cr>")
@@ -166,7 +166,6 @@ abbrev("cop", "copen")
 
 -- Just let me quit, darnit!
 vim.keymap.set("n", "ZQ", ":qa!<cr>")
-abbrev("Q", "q")
 abbrev("Q", "q")
 abbrev("W", "w")
 abbrev("Qa", "qall")
@@ -305,8 +304,6 @@ vim.keymap.set("n", "<leader>L", "<cmd>Lazy<cr>")
 vim.keymap.set("n", "<leader>gb", ":Git blame<cr>")
 vim.keymap.set("n", "<leader>gw", ":Gw<cr>")
 vim.keymap.set("n", "<leader>ga", ":Gdiff<cr>")
-vim.keymap.set("n", "<leader>gg", ":Gcommit -v<cr>")
-vim.g.EditorConfig_exclude_patterns = { "fugitive://.*", ".git/.*" }
 
 vim.keymap.set("n", "[g", "<cmd>Gitsigns prev_hunk<cr>")
 vim.keymap.set("n", "]g", "<cmd>Gitsigns next_hunk<cr>")
@@ -317,13 +314,8 @@ vim.keymap.set("n", "äg", "<cmd>Gitsigns next_hunk<cr>")
 vim.keymap.set("n", "<leader>a", "<cmd>ArgWrap<cr>")
 
 -- QF:
-vim.keymap.set(
-  "n",
-  "<leader>q",
-  "<Plug>(qf_qf_toggle_staydiagnostics )",
-  { remap = true, desc = "Toggle quickfix window" }
-)
-vim.keymap.set("n", "<leader>l", "<Plug>(qf_loc_toggle_stay)", { remap = true, desc = "Toggle location list window" })
+vim.keymap.set("n", "<leader>q", "<Plug>(qf_qf_toggle_stay)", { remap = true, desc = "Toggle quickfix" })
+vim.keymap.set("n", "<leader>l", "<Plug>(qf_loc_toggle_stay)", { remap = true, desc = "Toggle location list" })
 
 -- Trouble:
 vim.keymap.set("n", "<leader>x", "<cmd>Trouble diagnostics toggle<cr>")

@@ -1,36 +1,5 @@
 local utils = require("utils")
 
--- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#diagnosticTag
-local DiagnosticTagUnnecessary = 1
-
-local filterPyrightUnusedDiagnostics = function(a, params, client_id, c, config)
-  params.diagnostics = vim.tbl_filter(function(diagnostic)
-    -- Only filter out Pyright
-    if diagnostic.source ~= "Pyright" then return true end
-    if diagnostic.tags and diagnostic.tags[1] == DiagnosticTagUnnecessary then return false end
-    return true
-  end, params.diagnostics)
-  vim.lsp.diagnostic.on_publish_diagnostics(a, params, client_id, c, config)
-end
-
-local luasnipConfig = function()
-  -- Load my local snippets as well
-  local ls = require("luasnip")
-  require("luasnip.loaders.from_snipmate").lazy_load()
-  pcall(function() require("telescope").load_extension("luasnip") end)
-  -- Press <Tab> on selected text to replace it with the snippet, potentially reusing the content
-  ls.config.set_config({ enable_autosnippets = true, store_selection_keys = "<Tab>" })
-  vim.keymap.set(
-    "i",
-    "<Tab>",
-    function() return ls.expand_or_locally_jumpable() and "<Plug>luasnip-expand-or-jump" or "<Tab>" end,
-    { silent = true, expr = true, remap = true }
-  )
-  vim.keymap.set("i", "<S-Tab>", function() ls.jump(-1) end, { silent = true })
-  vim.keymap.set("s", "<Tab>", function() ls.jump(1) end, { silent = true })
-  vim.keymap.set("s", "<S-Tab>", function() ls.jump(-1) end, { silent = true })
-end
-
 vim.api.nvim_create_autocmd("LspAttach", {
   desc = "LSP actions",
   callback = function(event)
@@ -48,12 +17,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "<F4>", vim.lsp.buf.code_action, opts)
   end,
 })
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(filterPyrightUnusedDiagnostics, {})
-vim.lsp.config("pyright", {
-  before_init = function(_, config)
-    if vim.env.VIRTUAL_ENV then config.settings.python.pythonPath = vim.env.VIRTUAL_ENV .. "/bin/python" end
-  end,
-})
 -- The schemaStore contains all kinds of outdated schemas, so disable it
 vim.lsp.config("yamlls", { settings = { yaml = { schemaStore = { enable = false } } } })
 
@@ -64,7 +27,7 @@ plugins.add({
   {
     "mason-org/mason-lspconfig.nvim",
     opts = {
-      ensure_installed = { "pyright", "ruff" },
+      ensure_installed = { "ruff" },
     },
     dependencies = {
       { "mason-org/mason.nvim", opts = {} },
@@ -82,21 +45,31 @@ plugins.add({
   },
   {
     "nvim-treesitter/nvim-treesitter",
-    dependencies = {
-      "nvim-treesitter/playground",
-    },
+    branch = "main",
+    lazy = false,
+    build = ":TSUpdate",
     config = function()
-      require("nvim-treesitter.configs").setup({
-        highlight = { enable = true, additional_vim_regex_highlighting = false },
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = "<CR>",
-            scope_incremental = "<CR>",
-            node_incremental = "<TAB>",
-            node_decremental = "<S-TAB>",
-          },
-        },
+      -- Needs the tree-sitter CLI; no-op once installed. Bundled-in-nvim languages (lua, c, vim, markdown, ...)
+      -- are listed too: this plugin's queries override nvim's, so the parser must match them.
+      require("nvim-treesitter").install({
+        "c",
+        "lua",
+        "vim",
+        "vimdoc",
+        "query",
+        "markdown",
+        "markdown_inline",
+        "javascript",
+        "python",
+        "rust",
+        "typescript",
+        "zig",
+        "rst",
+      })
+      utils.Autocmd.Filetype({
+        pattern = "*",
+        callback = function(ev) pcall(vim.treesitter.start, ev.buf) end,
+        desc = "Treesitter highlighting",
       })
       utils.Autocmd.BufRead({
         pattern = "*",
